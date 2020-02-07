@@ -56,8 +56,8 @@ class ViewController: UIViewController {
     @objc func hideKeyboard() {
         self.scrollView.endEditing(true)
     }
-
-    @IBAction func buttonSignIn(_ sender: Any) {
+    
+    func checkLogin() -> Bool {
         if let login = loginTextField.text,
             let password = passwordTextField.text {
             
@@ -65,10 +65,36 @@ class ViewController: UIViewController {
             
             if login == "user", password == "123" {
                 print("Sign in success")
+                return true
             } else {
                 print("Access denied")
+                showLoginError()
+                return false
             }
         }
+        return false
+    }
+    
+    func showLoginError() {
+        let alert = UIAlertController(title: "Ошибка", message: "Неверное сочетания логиина и пароля", preferredStyle: .alert)
+        let action = UIAlertAction(title: "OK", style: .default) { _ in
+            print("Ok clicked")
+        }
+        alert.addAction(action)
+        
+        present(alert, animated: true, completion: nil)
+        
+    }
+    
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        
+        if checkLogin() {
+            return true
+        } else {
+            showLoginError()
+            return false
+        }
+        
     }
     
 }
