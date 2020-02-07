@@ -13,6 +13,10 @@
 		C2119BD223E0081500EC528E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C2119BD023E0081500EC528E /* Main.storyboard */; };
 		C2119BD423E0081500EC528E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C2119BD323E0081500EC528E /* Assets.xcassets */; };
 		C2119BD723E0081500EC528E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C2119BD523E0081500EC528E /* LaunchScreen.storyboard */; };
+		C25A0F7523EC8CDE00CAD84B /* FriendsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C25A0F7423EC8CDE00CAD84B /* FriendsController.swift */; };
+		C25A0F7823EC8D3A00CAD84B /* FavoriteGroupsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C25A0F7723EC8D3A00CAD84B /* FavoriteGroupsController.swift */; };
+		C25A0F7A23EC8D8B00CAD84B /* FriendProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C25A0F7923EC8D8B00CAD84B /* FriendProfileController.swift */; };
+		C25A0F7C23EC8DB800CAD84B /* AllGroupsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C25A0F7B23EC8DB800CAD84B /* AllGroupsController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +28,10 @@
 		C2119BD323E0081500EC528E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C2119BD623E0081500EC528E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C2119BD823E0081500EC528E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C25A0F7423EC8CDE00CAD84B /* FriendsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsController.swift; sourceTree = "<group>"; };
+		C25A0F7723EC8D3A00CAD84B /* FavoriteGroupsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteGroupsController.swift; sourceTree = "<group>"; };
+		C25A0F7923EC8D8B00CAD84B /* FriendProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendProfileController.swift; sourceTree = "<group>"; };
+		C25A0F7B23EC8DB800CAD84B /* AllGroupsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllGroupsController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,13 +66,33 @@
 			children = (
 				C2119BCA23E0081500EC528E /* AppDelegate.swift */,
 				C2119BCC23E0081500EC528E /* SceneDelegate.swift */,
-				C2119BCE23E0081500EC528E /* ViewController.swift */,
-				C2119BD023E0081500EC528E /* Main.storyboard */,
+				C25A0F7323EC8C4000CAD84B /* Storyboards */,
+				C25A0F7223EC8C0E00CAD84B /* Controllers */,
 				C2119BD323E0081500EC528E /* Assets.xcassets */,
-				C2119BD523E0081500EC528E /* LaunchScreen.storyboard */,
 				C2119BD823E0081500EC528E /* Info.plist */,
 			);
 			path = VKclient;
+			sourceTree = "<group>";
+		};
+		C25A0F7223EC8C0E00CAD84B /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				C2119BCE23E0081500EC528E /* ViewController.swift */,
+				C25A0F7423EC8CDE00CAD84B /* FriendsController.swift */,
+				C25A0F7923EC8D8B00CAD84B /* FriendProfileController.swift */,
+				C25A0F7723EC8D3A00CAD84B /* FavoriteGroupsController.swift */,
+				C25A0F7B23EC8DB800CAD84B /* AllGroupsController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		C25A0F7323EC8C4000CAD84B /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				C2119BD023E0081500EC528E /* Main.storyboard */,
+				C2119BD523E0081500EC528E /* LaunchScreen.storyboard */,
+			);
+			path = Storyboards;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -138,9 +166,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C25A0F7C23EC8DB800CAD84B /* AllGroupsController.swift in Sources */,
 				C2119BCF23E0081500EC528E /* ViewController.swift in Sources */,
+				C25A0F7823EC8D3A00CAD84B /* FavoriteGroupsController.swift in Sources */,
+				C25A0F7523EC8CDE00CAD84B /* FriendsController.swift in Sources */,
 				C2119BCB23E0081500EC528E /* AppDelegate.swift in Sources */,
 				C2119BCD23E0081500EC528E /* SceneDelegate.swift in Sources */,
+				C25A0F7A23EC8D8B00CAD84B /* FriendProfileController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
