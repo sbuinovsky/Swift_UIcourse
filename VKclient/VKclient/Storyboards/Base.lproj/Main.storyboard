@@ -261,12 +261,22 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="kAn-Ji-Uio">
-                        <barButtonItem key="rightBarButtonItem" title="All groups" id="dTL-Rd-aOz">
-                            <connections>
-                                <segue destination="spX-1d-hAN" kind="show" id="LSp-XW-IrF"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem title="All groups" id="dTL-Rd-aOz">
+                                <connections>
+                                    <segue destination="spX-1d-hAN" kind="show" id="LSp-XW-IrF"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem systemItem="add" id="v6v-hw-2ru">
+                                <connections>
+                                    <action selector="addGroup:" destination="VP0-OM-GFE" id="DM6-B2-F2l"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
+                    <connections>
+                        <outlet property="addGroup" destination="v6v-hw-2ru" id="02j-Rg-JTz"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fZL-qW-fW4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

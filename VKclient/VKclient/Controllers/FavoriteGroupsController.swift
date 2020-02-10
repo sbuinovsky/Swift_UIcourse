@@ -9,16 +9,15 @@
 import UIKit
 
 class FavoriteGroupsController: UITableViewController {
+    @IBOutlet weak var addGroup: UIBarButtonItem!
     
-    let favoriteGroups = [
-        "First group",
-        "Second group",
-        "Third group",
-        "Fourth group",
-        "Fifth group",
-        "Sixth group",
+    var favoriteGroups = [
+        Group(name: "Group 1", avatar: UIImage(imageLiteralResourceName: "groupImage")),
+        Group(name: "Group 2", avatar: UIImage(imageLiteralResourceName: "groupImage")),
+        Group(name: "Group 3", avatar: UIImage(imageLiteralResourceName: "groupImage")),
+        Group(name: "Group 4", avatar: UIImage(imageLiteralResourceName: "groupImage")),
     ]
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -36,11 +35,27 @@ class FavoriteGroupsController: UITableViewController {
             preconditionFailure("Can't create GroupCell")
         }
         
-        let groupName = favoriteGroups[indexPath.row]
-        cell.FavoriteGroupName.text = groupName
+        let favoriteGroup = favoriteGroups[indexPath.row]
+        cell.FavoriteGroupName.text = favoriteGroup.name
+        cell.FavoriteGroupAvatarImage.image = favoriteGroup.avatar
 
         return cell
     }
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            favoriteGroups.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        } else if editingStyle == .insert {
+            tableView.insertRows(at: [indexPath], with: .automatic)
+        }
+    }
+    
+    @IBAction func addGroup(_ sender: Any) {
+        favoriteGroups.append(Group(name: "Added Group", avatar: .add))
+        tableView.reloadData()
+    }
+   
 
 
 }

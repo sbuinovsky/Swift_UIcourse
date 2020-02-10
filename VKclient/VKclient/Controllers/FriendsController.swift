@@ -10,12 +10,13 @@ import UIKit
 
 class FriendsController: UITableViewController {
     
-    let friends = [
-        "Petrov Petr",
-        "Ivanov Ivan",
-        "Dmitriev Dmytry",
-        "Vasilev Vasily"
+    var friends = [
+        User(name: "User 1", avatar: UIImage(imageLiteralResourceName: "friendImage")),
+        User(name: "User 2", avatar: UIImage(imageLiteralResourceName: "friendImage")),
+        User(name: "User 3", avatar: UIImage(imageLiteralResourceName: "friendImage")),
+        User(name: "User 4", avatar: UIImage(imageLiteralResourceName: "friendImage")),
     ]
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,10 +36,20 @@ class FriendsController: UITableViewController {
             preconditionFailure("Can't deque FriendCell")
         }
         
-        let friendName = friends[indexPath.row]
-        cell.FriendName.text = friendName
+        let friend = friends[indexPath.row]
+        
+        cell.FriendName.text = friend.name
+        cell.FriendAvatarImage.image = friend.avatar
         
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            // Delete the row from the data source
+            friends.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        }
     }
 
 

@@ -10,13 +10,11 @@ import UIKit
 
 class AllGroupsController: UITableViewController {
     
-    let allGroups = [
-        "Another First group",
-        "Another Second group",
-        "Another Third group",
-        "Another Fourth group",
-        "Another Fifth group",
-        "Another Sixth group",
+    var allGroups = [
+        Group(name: "Another Group 1", avatar: UIImage(imageLiteralResourceName: "groupImage")),
+        Group(name: "Another Group 2", avatar: UIImage(imageLiteralResourceName: "groupImage")),
+        Group(name: "Another Group 3", avatar: UIImage(imageLiteralResourceName: "groupImage")),
+        Group(name: "Another Group 4", avatar: UIImage(imageLiteralResourceName: "groupImage")),
     ]
 
     override func viewDidLoad() {
@@ -37,10 +35,19 @@ class AllGroupsController: UITableViewController {
             preconditionFailure("Can't create GroupCell")
         }
         
-        let groupName =  allGroups[indexPath.row]
-        cell.GroupName.text = groupName
+        let group = allGroups[indexPath.row]
+        cell.GroupName.text = group.name
+        cell.GroupAvatarImage.image = group.avatar
         
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            // Delete the row from the data source
+            allGroups.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        }
     }
 
 
