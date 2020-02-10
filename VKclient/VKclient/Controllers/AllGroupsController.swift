@@ -50,5 +50,4 @@ class AllGroupsController: UITableViewController {
         }
     }
 
-
 }

@@ -9,7 +9,6 @@
 import UIKit
 
 class FavoriteGroupsController: UITableViewController {
-    @IBOutlet weak var addGroup: UIBarButtonItem!
     
     var favoriteGroups = [
         Group(name: "Group 1", avatar: UIImage(imageLiteralResourceName: "groupImage")),
@@ -51,11 +50,21 @@ class FavoriteGroupsController: UITableViewController {
         }
     }
     
-    @IBAction func addGroup(_ sender: Any) {
-        favoriteGroups.append(Group(name: "Added Group", avatar: .add))
-        tableView.reloadData()
+    @IBAction func addGroup(segue: UIStoryboardSegue) {
+        if segue.identifier == "addGroup" {
+            guard let allGroupsController = segue.source as? AllGroupsController else { return }
+            
+            if let indexPath = allGroupsController.tableView.indexPathForSelectedRow {
+                let group = allGroupsController.allGroups[indexPath.row]
+                
+                if !favoriteGroups.contains(group) {
+                    favoriteGroups.append(group)
+                }
+                
+                tableView.reloadData()
+            }
+        }
     }
-   
 
 
 }

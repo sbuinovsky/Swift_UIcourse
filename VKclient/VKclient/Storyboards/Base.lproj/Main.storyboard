@@ -261,22 +261,12 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="kAn-Ji-Uio">
-                        <rightBarButtonItems>
-                            <barButtonItem title="All groups" id="dTL-Rd-aOz">
-                                <connections>
-                                    <segue destination="spX-1d-hAN" kind="show" id="LSp-XW-IrF"/>
-                                </connections>
-                            </barButtonItem>
-                            <barButtonItem systemItem="add" id="v6v-hw-2ru">
-                                <connections>
-                                    <action selector="addGroup:" destination="VP0-OM-GFE" id="DM6-B2-F2l"/>
-                                </connections>
-                            </barButtonItem>
-                        </rightBarButtonItems>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="dTL-Rd-aOz">
+                            <connections>
+                                <segue destination="spX-1d-hAN" kind="show" id="LSp-XW-IrF"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
-                    <connections>
-                        <outlet property="addGroup" destination="v6v-hw-2ru" id="02j-Rg-JTz"/>
-                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fZL-qW-fW4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -326,6 +316,7 @@
                                 <connections>
                                     <outlet property="GroupAvatarImage" destination="Sem-Do-iul" id="iOC-vb-yp4"/>
                                     <outlet property="GroupName" destination="BeI-Ub-WuN" id="Wqy-Gi-ajo"/>
+                                    <segue destination="Lph-Pg-Bev" kind="unwind" identifier="addGroup" unwindAction="addGroupWithSegue:" id="ner-vu-eun"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -337,8 +328,9 @@
                     <navigationItem key="navigationItem" id="klq-xf-lJF"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dDv-mN-BDq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="Lph-Pg-Bev" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1345" y="-330"/>
+            <point key="canvasLocation" x="1344.9275362318842" y="-330.13392857142856"/>
         </scene>
         <!--Friend Profile Controller-->
         <scene sceneID="gkT-dw-njx">
