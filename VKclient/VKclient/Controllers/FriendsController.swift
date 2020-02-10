@@ -36,7 +36,7 @@ class FriendsController: UITableViewController {
         }
         
         let friendName = friends[indexPath.row]
-        cell.friendNameLabel.text = friendName
+        cell.FriendName.text = friendName
         
         return cell
     }
