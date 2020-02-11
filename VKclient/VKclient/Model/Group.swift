@@ -9,9 +9,6 @@
 import UIKit
 
 class Group: Equatable {
-    static func == (lhs: Group, rhs: Group) -> Bool {
-        lhs.name == rhs.name
-    }
     
     let name: String
     let avatar: UIImage
@@ -19,5 +16,9 @@ class Group: Equatable {
     init(name: String, avatar: UIImage) {
         self.name = name
         self.avatar = avatar
+    }
+    
+    static func == (lhs: Group, rhs: Group) -> Bool {
+        lhs.name == rhs.name
     }
 }
