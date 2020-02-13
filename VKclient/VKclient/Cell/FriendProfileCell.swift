@@ -10,5 +10,7 @@ import UIKit
 
 class FriendProfileCell: UICollectionViewCell {
     @IBOutlet weak var FriendProfileImage: UIImageView!
+    @IBOutlet weak var FriendProfileImageShadow: FriendProfileImageShadow!
+    
     
 }
