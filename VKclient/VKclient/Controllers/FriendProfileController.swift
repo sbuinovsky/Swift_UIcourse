@@ -10,8 +10,6 @@ import UIKit
 
 private let reuseIdentifier = "Cell"
 
-
-
 class FriendProfileController: UICollectionViewController {
     
     override func viewDidLoad() {
@@ -46,21 +44,6 @@ class FriendProfileController: UICollectionViewController {
         cell.FriendProfileImageShadow.addShadow()
 
         return cell
-    }
-    
-    
-    @objc func onTap(_ sender: UIGestureRecognizer) {
-        print(#function)
-        if likeBox.active == false {
-            likeBox.active = true
-            likeBox.counter += 1
-            likeBox.image = UIImage(imageLiteralResourceName: "likeImageActive")
-        } else {
-            likeBox.active = false
-            likeBox.counter -= 1
-            likeBox.image = UIImage(imageLiteralResourceName: "likeImageDefault")
-       }
-            self.collectionView.reloadData()
     }
     
 }
