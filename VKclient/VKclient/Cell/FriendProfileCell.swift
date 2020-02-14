@@ -9,8 +9,13 @@
 import UIKit
 
 class FriendProfileCell: UICollectionViewCell {
+    //изображение аватара пользователя
     @IBOutlet weak var FriendProfileImage: UIImageView!
+    //слой для отображение тени под аватаром
     @IBOutlet weak var FriendProfileImageShadow: FriendProfileImageShadow!
-    
+    //изображение иконки счетчика лайков
+    @IBOutlet weak var FriendLikeCounterImage: UIImageView!
+    //счетчик количества лайков на иконке
+    @IBOutlet weak var FriendLikeCounterLabel: UILabel!
     
 }

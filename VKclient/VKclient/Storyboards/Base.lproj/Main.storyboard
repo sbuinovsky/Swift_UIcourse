@@ -335,7 +335,7 @@
         <!--Friend Profile Controller-->
         <scene sceneID="gkT-dw-njx">
             <objects>
-                <collectionViewController id="zbC-XC-cFF" customClass="FriendProfileController" customModule="VKclient" customModuleProvider="target" sceneMemberID="viewController">
+                <collectionViewController modalPresentationStyle="fullScreen" id="zbC-XC-cFF" customClass="FriendProfileController" customModule="VKclient" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="w0W-HP-hif">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -372,24 +372,43 @@
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="friendImage" translatesAutoresizingMaskIntoConstraints="NO" id="NEN-wW-Vqy">
                                             <rect key="frame" x="10" y="10" width="280" height="280"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="250" id="9wW-3X-G5U"/>
-                                                <constraint firstAttribute="width" secondItem="NEN-wW-Vqy" secondAttribute="height" multiplier="1:1" id="ENb-hf-Uxu"/>
+                                                <constraint firstAttribute="width" constant="250" id="NpR-JD-y2p"/>
+                                                <constraint firstAttribute="width" secondItem="NEN-wW-Vqy" secondAttribute="height" multiplier="1:1" id="ish-Jo-14N"/>
+                                            </constraints>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" restorationIdentifier="FriendLikeCounterLabel" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wbz-xR-gqU">
+                                            <rect key="frame" x="10" y="472" width="50" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" red="0.15985679629999999" green="0.37138825650000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" restorationIdentifier="FriendLikeCounterImage" image="likeImageDefault" translatesAutoresizingMaskIntoConstraints="NO" id="N5a-NT-2HT">
+                                            <rect key="frame" x="10" y="10" width="50" height="50"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="50" id="DJP-xJ-ZXu"/>
+                                                <constraint firstAttribute="width" secondItem="N5a-NT-2HT" secondAttribute="height" multiplier="1:1" id="yHU-Iw-Fgt"/>
                                             </constraints>
                                         </imageView>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="NEN-wW-Vqy" firstAttribute="top" secondItem="EWb-f3-qUT" secondAttribute="top" constant="10" id="03Q-0G-evY"/>
                                         <constraint firstAttribute="trailing" secondItem="NEN-wW-Vqy" secondAttribute="trailing" constant="10" id="1QA-QE-4o7"/>
+                                        <constraint firstItem="Wbz-xR-gqU" firstAttribute="trailing" secondItem="N5a-NT-2HT" secondAttribute="trailing" id="A3m-FH-19f"/>
                                         <constraint firstAttribute="bottom" secondItem="pCt-sw-YbA" secondAttribute="bottom" constant="10" id="DLH-pp-Cbi"/>
                                         <constraint firstItem="pCt-sw-YbA" firstAttribute="top" secondItem="EWb-f3-qUT" secondAttribute="top" constant="10" id="NUN-ho-7Nr"/>
+                                        <constraint firstItem="N5a-NT-2HT" firstAttribute="top" secondItem="EWb-f3-qUT" secondAttribute="top" constant="10" id="TgK-nw-yKa"/>
                                         <constraint firstItem="pCt-sw-YbA" firstAttribute="leading" secondItem="EWb-f3-qUT" secondAttribute="leading" constant="10" id="etL-z7-Nwm"/>
                                         <constraint firstAttribute="trailing" secondItem="pCt-sw-YbA" secondAttribute="trailing" constant="10" id="fkU-L1-rX2"/>
                                         <constraint firstItem="NEN-wW-Vqy" firstAttribute="leading" secondItem="EWb-f3-qUT" secondAttribute="leading" constant="10" id="kMg-ah-ZVu"/>
+                                        <constraint firstItem="Wbz-xR-gqU" firstAttribute="leading" secondItem="NEN-wW-Vqy" secondAttribute="leading" id="snv-4v-aGW"/>
+                                        <constraint firstItem="N5a-NT-2HT" firstAttribute="leading" secondItem="EWb-f3-qUT" secondAttribute="leading" constant="10" id="xob-qe-mQH"/>
                                         <constraint firstAttribute="bottom" secondItem="NEN-wW-Vqy" secondAttribute="bottom" constant="10" id="zDE-2q-zOG"/>
                                     </constraints>
                                 </collectionViewCellContentView>
                                 <size key="customSize" width="300" height="300"/>
                                 <connections>
+                                    <outlet property="FriendLikeCounterImage" destination="N5a-NT-2HT" id="USm-Ts-FE5"/>
+                                    <outlet property="FriendLikeCounterLabel" destination="Wbz-xR-gqU" id="FtW-i1-n33"/>
                                     <outlet property="FriendProfileImage" destination="NEN-wW-Vqy" id="bvY-B0-YpX"/>
                                     <outlet property="FriendProfileImageShadow" destination="pCt-sw-YbA" id="44Z-Ky-CC6"/>
                                 </connections>
@@ -410,6 +429,7 @@
     <resources>
         <image name="friendImage" width="5760" height="3840"/>
         <image name="groupImage" width="7360" height="4912"/>
+        <image name="likeImageDefault" width="512" height="512"/>
         <image name="person" catalog="system" width="64" height="58"/>
         <image name="person.3" catalog="system" width="72" height="35"/>
     </resources>
