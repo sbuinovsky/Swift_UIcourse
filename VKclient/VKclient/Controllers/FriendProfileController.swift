@@ -10,26 +10,32 @@ import UIKit
 
 private let reuseIdentifier = "Cell"
 
+
+
 class FriendProfileController: UICollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+        
     }
 
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
+        //количество секций
         return 1
     }
 
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        //количество ячеек в секции
         return 1
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FriendProfileCell", for: indexPath) as! FriendProfileCell
         
+        //скругление аватара пользователя и добавление тени
         let path = UIBezierPath()
         path.addArc(withCenter: CGPoint(x: 125, y:125), radius: 125, startAngle: 0, endAngle: 360, clockwise: true)
         let maskLayer = CAShapeLayer()
@@ -37,19 +43,23 @@ class FriendProfileController: UICollectionViewController {
 
         cell.FriendProfileImage.image = UIImage(imageLiteralResourceName: "friendImage")
         cell.FriendProfileImage.layer.mask = maskLayer
-        
         cell.FriendProfileImageShadow.addShadow()
+
         return cell
     }
     
 }
 
+
 @IBDesignable class FriendProfileImageShadow: UIView {
+// класс для формирования тени
     
+    // основные параметры
     @IBInspectable var shadowColor: UIColor = .black
     @IBInspectable var shadowRadius: CGFloat = 6
     @IBInspectable var shadowOpacity: Float = 0.9
     
+    //метод для формирования тени
     func addShadow() {
         layer.masksToBounds = false
         layer.cornerRadius = 125

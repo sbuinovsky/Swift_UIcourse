@@ -45,6 +45,8 @@ class FriendsController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        // долбавление возможности удаления ячейки
+        
         if editingStyle == .delete {
             // Delete the row from the data source
             friends.remove(at: indexPath.row)
