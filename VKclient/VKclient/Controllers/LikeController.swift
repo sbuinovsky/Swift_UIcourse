@@ -11,12 +11,12 @@ import UIKit
 class LikeController: UIViewController {
     
     //изображение иконки счетчика лайков
-    @IBOutlet weak var FriendLikeCounterImage: UIImageView!
+    @IBOutlet weak var friendLikeCounterImage: UIImageView!
     //счетчик количества лайков на иконке
-    @IBOutlet weak var FriendLikeCounterLabel: UILabel!
+    @IBOutlet weak var friendLikeCounterLabel: UILabel!
     
     //создаем объект Like по-умолчанию
-    let likeBox = Like()
+    var likeBox = Like()
     
     
     override func viewDidLoad() {
@@ -24,8 +24,8 @@ class LikeController: UIViewController {
         
         //добавляем обработку нажатия на элемент
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(onTap(_:)))
-        FriendLikeCounterImage.addGestureRecognizer(tapGesture)
-        FriendLikeCounterImage.isUserInteractionEnabled = true
+        friendLikeCounterImage.addGestureRecognizer(tapGesture)
+        friendLikeCounterImage.isUserInteractionEnabled = true
         
         
     }
@@ -35,13 +35,13 @@ class LikeController: UIViewController {
         if likeBox.active == false {
             likeBox.active = true
             likeBox.counter += 1
-            FriendLikeCounterLabel.text = "\(likeBox.counter)"
-            FriendLikeCounterImage.image = UIImage(imageLiteralResourceName: "likeImageActive")
+            friendLikeCounterLabel.text = "\(likeBox.counter)"
+            friendLikeCounterImage.image = UIImage(imageLiteralResourceName: "likeImageActive")
         } else {
             likeBox.active = false
             likeBox.counter -= 1
-            FriendLikeCounterLabel.text = "\(likeBox.counter)"
-            FriendLikeCounterImage.image = UIImage(imageLiteralResourceName: "likeImageDefault")
+            friendLikeCounterLabel.text = "\(likeBox.counter)"
+            friendLikeCounterImage.image = UIImage(imageLiteralResourceName: "likeImageDefault")
        }
     }
 

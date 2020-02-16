@@ -10,8 +10,10 @@ import UIKit
 
 class FriendProfileCell: UICollectionViewCell {
     //изображение аватара пользователя
-    @IBOutlet weak var FriendProfileImage: UIImageView!
+    @IBOutlet weak var friendProfileImage: UIImageView!
     //слой для отображение тени под аватаром
-    @IBOutlet weak var FriendProfileImageShadow: FriendProfileImageShadow!
+    @IBOutlet weak var friendProfileImageShadow: FriendProfileImageShadow!
+    //Имя пользователя под аватаром
+    @IBOutlet weak var friendNameLabel: UILabel!
     
 }

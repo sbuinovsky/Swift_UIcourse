@@ -11,6 +11,7 @@ import UIKit
 private let reuseIdentifier = "Cell"
 
 class FriendProfileController: UICollectionViewController {
+    var friendName: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,15 +34,18 @@ class FriendProfileController: UICollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FriendProfileCell", for: indexPath) as! FriendProfileCell
         
+        //задаем имя пользователя
+        cell.friendNameLabel.text = friendName
+        
         //скругление аватара пользователя и добавление тени
         let path = UIBezierPath()
         path.addArc(withCenter: CGPoint(x: 125, y:125), radius: 125, startAngle: 0, endAngle: 360, clockwise: true)
         let maskLayer = CAShapeLayer()
         maskLayer.path = path.cgPath
 
-        cell.FriendProfileImage.image = UIImage(imageLiteralResourceName: "friendImage")
-        cell.FriendProfileImage.layer.mask = maskLayer
-        cell.FriendProfileImageShadow.addShadow()
+        cell.friendProfileImage.image = UIImage(imageLiteralResourceName: "friendImage")
+        cell.friendProfileImage.layer.mask = maskLayer
+        cell.friendProfileImageShadow.addShadow()
 
         return cell
     }

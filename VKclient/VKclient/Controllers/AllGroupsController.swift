@@ -36,8 +36,8 @@ class AllGroupsController: UITableViewController {
         }
         
         let group = allGroups[indexPath.row]
-        cell.GroupName.text = group.name
-        cell.GroupAvatarImage.image = group.avatar
+        cell.groupNameLabel.text = group.name
+        cell.groupAvatarImage.image = group.avatar
         
         return cell
     }

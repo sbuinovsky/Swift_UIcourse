@@ -38,8 +38,16 @@ class FriendsController: UITableViewController {
         
         let friend = friends[indexPath.row]
         
-        cell.FriendName.text = friend.name
-        cell.FriendAvatarImage.image = friend.avatar
+        cell.friendNameLabel.text = friend.name
+        cell.friendAvatarImage.image = friend.avatar
+        
+        //скругление аватара пользователя
+        let path = UIBezierPath()
+        path.addArc(withCenter: CGPoint(x: 30, y:30), radius: 20, startAngle: 0, endAngle: 360, clockwise: true)
+        let maskLayer = CAShapeLayer()
+        maskLayer.path = path.cgPath
+        
+        cell.friendAvatarImage.layer.mask = maskLayer
         
         return cell
     }
@@ -53,6 +61,15 @@ class FriendsController: UITableViewController {
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }
-
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "friendProfileSegue" {
+            guard let collectionViewController = segue.destination as? FriendProfileController,
+                let cell = sender as? FriendCell
+                else { return }
+            
+            collectionViewController.friendName = cell.friendNameLabel.text
+        }
+    }
 
 }

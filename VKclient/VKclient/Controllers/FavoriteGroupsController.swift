@@ -35,8 +35,9 @@ class FavoriteGroupsController: UITableViewController {
         }
         
         let favoriteGroup = favoriteGroups[indexPath.row]
-        cell.FavoriteGroupName.text = favoriteGroup.name
-        cell.FavoriteGroupAvatarImage.image = favoriteGroup.avatar
+        cell.favoriteGroupNameLabel.text = favoriteGroup.name
+        cell.favoriteGroupAvatarImage.image = favoriteGroup.avatar
+        
 
         return cell
     }
