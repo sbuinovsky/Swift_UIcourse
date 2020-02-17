@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AllGroupsController: UITableViewController {
+class AllGroupsTableViewController: UITableViewController {
     
     var allGroups = [
         Group(name: "Another Group 1", avatar: UIImage(imageLiteralResourceName: "groupImage")),

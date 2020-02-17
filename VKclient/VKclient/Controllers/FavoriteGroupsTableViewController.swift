@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FavoriteGroupsController: UITableViewController {
+class FavoriteGroupsTableViewController: UITableViewController {
     
     var favoriteGroups = [
         Group(name: "Group 1", avatar: UIImage(imageLiteralResourceName: "groupImage")),
@@ -53,7 +53,7 @@ class FavoriteGroupsController: UITableViewController {
     
     @IBAction func addGroup(segue: UIStoryboardSegue) {
         if segue.identifier == "addGroup" {
-            guard let allGroupsController = segue.source as? AllGroupsController else { return }
+            guard let allGroupsController = segue.source as? AllGroupsTableViewController else { return }
             
             if let indexPath = allGroupsController.tableView.indexPathForSelectedRow {
                 let group = allGroupsController.allGroups[indexPath.row]

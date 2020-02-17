@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FriendsController: UITableViewController {
+class FriendsTableViewController: UITableViewController {
     
     var friends = [
         User(name: "User 1", avatar: UIImage(imageLiteralResourceName: "friendImage")),
@@ -64,11 +64,12 @@ class FriendsController: UITableViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "friendProfileSegue" {
-            guard let collectionViewController = segue.destination as? FriendProfileController,
+            guard let friendProfileController = segue.destination as? FriendProfileCollectionViewController,
                 let cell = sender as? FriendCell
                 else { return }
             
-            collectionViewController.friendName = cell.friendNameLabel.text
+            friendProfileController.friendName = cell.friendNameLabel.text
+            friendProfileController.friendAvatar = cell.friendAvatarImage.image
         }
     }
 

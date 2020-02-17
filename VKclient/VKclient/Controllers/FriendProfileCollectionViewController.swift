@@ -10,8 +10,9 @@ import UIKit
 
 private let reuseIdentifier = "Cell"
 
-class FriendProfileController: UICollectionViewController {
+class FriendProfileCollectionViewController: UICollectionViewController {
     var friendName: String?
+    var friendAvatar: UIImage?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,6 +37,7 @@ class FriendProfileController: UICollectionViewController {
         
         //задаем имя пользователя
         cell.friendNameLabel.text = friendName
+        cell.friendProfileImage.image = friendAvatar
         
         //скругление аватара пользователя и добавление тени
         let path = UIBezierPath()
