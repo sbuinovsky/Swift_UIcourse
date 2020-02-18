@@ -9,6 +9,7 @@
 import UIKit
 
 class Like {
+    
     var image: UIImage
     var active: Bool = false
     var counter: Int = 0
