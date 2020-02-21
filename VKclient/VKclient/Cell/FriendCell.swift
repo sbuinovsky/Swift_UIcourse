@@ -12,5 +12,10 @@ class FriendCell: UITableViewCell {
     @IBOutlet weak var friendAvatarImage: UIImageView!
     @IBOutlet weak var friendNameLabel: UILabel!
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        friendAvatarImage.image = nil
+        friendNameLabel.text = ""
+    }
     
 }

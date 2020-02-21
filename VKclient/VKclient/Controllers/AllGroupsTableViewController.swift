@@ -15,6 +15,14 @@ class AllGroupsTableViewController: UITableViewController {
         Group(name: "Another Group 2", avatar: UIImage(imageLiteralResourceName: "groupImage")),
         Group(name: "Another Group 3", avatar: UIImage(imageLiteralResourceName: "groupImage")),
         Group(name: "Another Group 4", avatar: UIImage(imageLiteralResourceName: "groupImage")),
+        Group(name: "Another Group 5", avatar: UIImage(imageLiteralResourceName: "groupImage")),
+        Group(name: "Another Group 6", avatar: UIImage(imageLiteralResourceName: "groupImage")),
+        Group(name: "Another Group 7", avatar: UIImage(imageLiteralResourceName: "groupImage")),
+        Group(name: "Another Group 8", avatar: UIImage(imageLiteralResourceName: "groupImage")),
+        Group(name: "Another Group 9", avatar: UIImage(imageLiteralResourceName: "groupImage")),
+        Group(name: "Another Group 10", avatar: UIImage(imageLiteralResourceName: "groupImage")),
+        Group(name: "Another Group 11", avatar: UIImage(imageLiteralResourceName: "groupImage")),
+        Group(name: "Another Group 12", avatar: UIImage(imageLiteralResourceName: "groupImage")),
     ]
 
     override func viewDidLoad() {

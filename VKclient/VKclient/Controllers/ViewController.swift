@@ -70,7 +70,7 @@ class ViewController: UIViewController {
             
             print("Login: \(login) and Password: \(password)")
             
-            if login == "user", password == "123" {
+            if login == "admin", password == "admin" {
                 print("Sign in success")
                 return true
             } else {

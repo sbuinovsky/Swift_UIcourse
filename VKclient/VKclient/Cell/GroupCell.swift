@@ -14,4 +14,9 @@ class GroupCell: UITableViewCell {
     @IBOutlet weak var groupAvatarImage: UIImageView!
     @IBOutlet weak var groupNameLabel: UILabel!
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        favoriteGroupAvatarImage.image = nil
+        favoriteGroupNameLabel.text = ""
+    }
 }

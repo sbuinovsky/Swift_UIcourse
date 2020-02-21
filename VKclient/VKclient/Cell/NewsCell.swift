@@ -16,6 +16,13 @@ class NewsCell: UITableViewCell {
     @IBOutlet weak var textField: UITextView!
     @IBOutlet weak var likeImage: UIImageView!
     @IBOutlet weak var likeCounter: UILabel!
+    @IBOutlet weak var newsImage: UIImageView!
+    @IBOutlet weak var shareButton: UIImageView!
+    @IBOutlet weak var commentsButton: UIImageView!
+    @IBOutlet weak var viewsImage: UIImageView!
+    @IBOutlet weak var viewsCounter: UILabel!
+    
+    
     
     //инициализируем базовый объект Like
     let likeBox = Like()
@@ -43,6 +50,22 @@ class NewsCell: UITableViewCell {
             likeCounter.text = "\(likeBox.counter)"
             likeImage.image = UIImage(imageLiteralResourceName: "likeImageDefault")
         }
+        
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        groupImage.image = nil
+        groupName.text = ""
+        date.text = ""
+        textField.text = ""
+        likeImage.image = nil
+        likeCounter.text = ""
+        newsImage.image = nil
+        shareButton.image = nil
+        commentsButton.image = nil
+        viewsImage.image = nil
+        viewsCounter.text = ""
         
     }
 }

@@ -45,7 +45,6 @@ class FriendProfileCollectionViewController: UICollectionViewController {
         let maskLayer = CAShapeLayer()
         maskLayer.path = path.cgPath
 
-        cell.friendProfileImage.image = UIImage(imageLiteralResourceName: "friendImage")
         cell.friendProfileImage.layer.mask = maskLayer
         cell.friendProfileImageShadow.addShadow()
 

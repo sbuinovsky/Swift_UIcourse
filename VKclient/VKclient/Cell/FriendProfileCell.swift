@@ -16,4 +16,10 @@ class FriendProfileCell: UICollectionViewCell {
     //Имя пользователя под аватаром
     @IBOutlet weak var friendNameLabel: UILabel!
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        friendProfileImage.image = nil
+        friendProfileImageShadow = nil
+        friendNameLabel.text = ""
+    }
 }

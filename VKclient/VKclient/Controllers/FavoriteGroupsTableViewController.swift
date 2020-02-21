@@ -15,6 +15,18 @@ class FavoriteGroupsTableViewController: UITableViewController {
         Group(name: "Group 2", avatar: UIImage(imageLiteralResourceName: "groupImage")),
         Group(name: "Group 3", avatar: UIImage(imageLiteralResourceName: "groupImage")),
         Group(name: "Group 4", avatar: UIImage(imageLiteralResourceName: "groupImage")),
+        Group(name: "Group 5", avatar: UIImage(imageLiteralResourceName: "groupImage")),
+        Group(name: "Group 6", avatar: UIImage(imageLiteralResourceName: "groupImage")),
+        Group(name: "Group 7", avatar: UIImage(imageLiteralResourceName: "groupImage")),
+        Group(name: "Group 8", avatar: UIImage(imageLiteralResourceName: "groupImage")),
+        Group(name: "Group 9", avatar: UIImage(imageLiteralResourceName: "groupImage")),
+        Group(name: "Group 10", avatar: UIImage(imageLiteralResourceName: "groupImage")),
+        Group(name: "Group 11", avatar: UIImage(imageLiteralResourceName: "groupImage")),
+        Group(name: "Group 12", avatar: UIImage(imageLiteralResourceName: "groupImage")),
+        Group(name: "Group 13", avatar: UIImage(imageLiteralResourceName: "groupImage")),
+        Group(name: "Group 14", avatar: UIImage(imageLiteralResourceName: "groupImage")),
+        Group(name: "Group 15", avatar: UIImage(imageLiteralResourceName: "groupImage")),
+        Group(name: "Group 16", avatar: UIImage(imageLiteralResourceName: "groupImage")),
     ]
     
     override func viewDidLoad() {
