@@ -8,13 +8,25 @@
 
 import UIKit
 
-class FavoriteGroupsController: UITableViewController {
+class FavoriteGroupsTableViewController: UITableViewController {
     
     var favoriteGroups = [
         Group(name: "Group 1", avatar: UIImage(imageLiteralResourceName: "groupImage")),
         Group(name: "Group 2", avatar: UIImage(imageLiteralResourceName: "groupImage")),
         Group(name: "Group 3", avatar: UIImage(imageLiteralResourceName: "groupImage")),
         Group(name: "Group 4", avatar: UIImage(imageLiteralResourceName: "groupImage")),
+        Group(name: "Group 5", avatar: UIImage(imageLiteralResourceName: "groupImage")),
+        Group(name: "Group 6", avatar: UIImage(imageLiteralResourceName: "groupImage")),
+        Group(name: "Group 7", avatar: UIImage(imageLiteralResourceName: "groupImage")),
+        Group(name: "Group 8", avatar: UIImage(imageLiteralResourceName: "groupImage")),
+        Group(name: "Group 9", avatar: UIImage(imageLiteralResourceName: "groupImage")),
+        Group(name: "Group 10", avatar: UIImage(imageLiteralResourceName: "groupImage")),
+        Group(name: "Group 11", avatar: UIImage(imageLiteralResourceName: "groupImage")),
+        Group(name: "Group 12", avatar: UIImage(imageLiteralResourceName: "groupImage")),
+        Group(name: "Group 13", avatar: UIImage(imageLiteralResourceName: "groupImage")),
+        Group(name: "Group 14", avatar: UIImage(imageLiteralResourceName: "groupImage")),
+        Group(name: "Group 15", avatar: UIImage(imageLiteralResourceName: "groupImage")),
+        Group(name: "Group 16", avatar: UIImage(imageLiteralResourceName: "groupImage")),
     ]
     
     override func viewDidLoad() {
@@ -35,8 +47,9 @@ class FavoriteGroupsController: UITableViewController {
         }
         
         let favoriteGroup = favoriteGroups[indexPath.row]
-        cell.FavoriteGroupName.text = favoriteGroup.name
-        cell.FavoriteGroupAvatarImage.image = favoriteGroup.avatar
+        cell.favoriteGroupNameLabel.text = favoriteGroup.name
+        cell.favoriteGroupAvatarImage.image = favoriteGroup.avatar
+        
 
         return cell
     }
@@ -52,7 +65,7 @@ class FavoriteGroupsController: UITableViewController {
     
     @IBAction func addGroup(segue: UIStoryboardSegue) {
         if segue.identifier == "addGroup" {
-            guard let allGroupsController = segue.source as? AllGroupsController else { return }
+            guard let allGroupsController = segue.source as? AllGroupsTableViewController else { return }
             
             if let indexPath = allGroupsController.tableView.indexPathForSelectedRow {
                 let group = allGroupsController.allGroups[indexPath.row]

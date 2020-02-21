@@ -9,6 +9,17 @@
 import UIKit
 
 class FriendProfileCell: UICollectionViewCell {
-    @IBOutlet weak var FriendProfileImage: UIImageView!
+    //изображение аватара пользователя
+    @IBOutlet weak var friendProfileImage: UIImageView!
+    //слой для отображение тени под аватаром
+    @IBOutlet weak var friendProfileImageShadow: FriendProfileImageShadow!
+    //Имя пользователя под аватаром
+    @IBOutlet weak var friendNameLabel: UILabel!
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        friendProfileImage.image = nil
+        friendProfileImageShadow = nil
+        friendNameLabel.text = ""
+    }
 }

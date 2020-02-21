@@ -16,6 +16,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // обработка нажатий на экран для скрытия клавиатуры
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
         
         scrollView.addGestureRecognizer(tapGesture)
@@ -38,6 +39,8 @@ class ViewController: UIViewController {
     }
     
     @objc func keyboardWillShown (notification: Notification) {
+        //добавление размера области перед открытием клавиатуры
+        
         let info = notification.userInfo! as NSDictionary
         let size = (info.value(forKey: UIResponder.keyboardFrameEndUserInfoKey) as! NSValue).cgRectValue.size
         
@@ -49,6 +52,8 @@ class ViewController: UIViewController {
     }
     
     @objc func keyboardWillHide (notification: Notification) {
+        //очистка отступов перед скрытием клавиатуры
+        
         self.scrollView.contentInset = .zero
         
     }
@@ -58,12 +63,14 @@ class ViewController: UIViewController {
     }
     
     func checkLogin() -> Bool {
+        //функция проверки логина и пароля пользователя
+        
         if let login = loginTextField.text,
             let password = passwordTextField.text {
             
             print("Login: \(login) and Password: \(password)")
             
-            if login == "user", password == "123" {
+            if login == "admin", password == "admin" {
                 print("Sign in success")
                 return true
             } else {
@@ -76,6 +83,8 @@ class ViewController: UIViewController {
     }
     
     func showLoginError() {
+        //функция 
+        
         let alert = UIAlertController(title: "Ошибка", message: "Неверное сочетания логиина и пароля", preferredStyle: .alert)
         let action = UIAlertAction(title: "OK", style: .default) { _ in
             print("Ok clicked")

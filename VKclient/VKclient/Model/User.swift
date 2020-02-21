@@ -8,12 +8,37 @@
 
 import UIKit
 
-class User {
-    let name: String
-    let avatar: UIImage
+class User: Comparable {
+    
+    var name: String
+    var avatar: UIImage
     
     init(name: String, avatar: UIImage) {
         self.name = name
         self.avatar = avatar
+    }
+    
+    static func < (lhs: User, rhs: User) -> Bool {
+     if lhs.name.startIndex < rhs.name.startIndex {
+            return lhs.name < rhs.name
+     } else {
+        return false
+        }
+    }
+    
+    static func > (lhs: User, rhs: User) -> Bool {
+     if lhs.name.startIndex > rhs.name.startIndex {
+            return lhs.name > rhs.name
+     } else {
+        return false
+        }
+    }
+    
+    static func == (lhs: User, rhs: User) -> Bool {
+        if lhs.name == rhs.name {
+            return true
+        } else {
+            return false
+        }
     }
 }
