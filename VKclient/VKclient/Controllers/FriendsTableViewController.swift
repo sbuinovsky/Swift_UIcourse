@@ -51,6 +51,8 @@ class FriendsTableViewController: UITableViewController {
         
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //регистрируем xib для кастомного отображения header ячеек
         tableView.register(UINib(nibName: "FriendsTableViewCellHeader", bundle: nil), forHeaderFooterViewReuseIdentifier: "cellHeaderView")
         
         for index in 0..<friends.count {
@@ -80,6 +82,7 @@ class FriendsTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        //формируем title для header секций
         guard let headerTitle = friendsNamesArray[section].first?.first else { return nil }
         return "\(headerTitle)"
     }
@@ -89,10 +92,12 @@ class FriendsTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        // настраиваем отображение кастомного title для header ячеек
         return tableView.dequeueReusableHeaderFooterView(withIdentifier: "cellHeaderView")
     }
     
     override func sectionIndexTitles(for tableView: UITableView) -> [String]? {
+        // вывод боковой полоски алфавитного указателя справа экрана
         return friendsNamesAlphabet
     }
 
@@ -137,6 +142,7 @@ class FriendsTableViewController: UITableViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // реализация передачи имени и аватара на view с профилем пользователя
         if segue.identifier == "friendProfileSegue" {
             guard let friendProfileController = segue.destination as? FriendProfileCollectionViewController,
                 let cell = sender as? FriendCell
@@ -150,6 +156,7 @@ class FriendsTableViewController: UITableViewController {
 }
 
 extension FriendsTableViewController: UISearchBarDelegate {
+    // реализация работы поисковой строки
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         
         for index in 0..<friendsNamesArray.count {
