@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="2f6-ze-pIH">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="uFO-bB-uLa">
     <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
@@ -344,6 +344,60 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ETB-ud-G0y" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="389.85507246376812" y="75.669642857142847"/>
+        </scene>
+        <!--Loader Circles View Controller-->
+        <scene sceneID="TFr-Q7-NMi">
+            <objects>
+                <viewController id="uFO-bB-uLa" customClass="LoaderCirclesViewController" customModule="VKclient" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="0JQ-UR-ICx">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Lcd-Jp-Ho8">
+                                <rect key="frame" x="10" y="94" width="40" height="40"/>
+                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="40" id="AJ4-7Z-dmM"/>
+                                    <constraint firstAttribute="width" secondItem="Lcd-Jp-Ho8" secondAttribute="height" multiplier="1:1" id="Vao-np-xCB"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J8Z-sB-Gql">
+                                <rect key="frame" x="110" y="94" width="40" height="40"/>
+                                <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="J8Z-sB-Gql" secondAttribute="height" multiplier="1:1" id="5Ht-s9-koO"/>
+                                    <constraint firstAttribute="width" constant="40" id="8Xk-59-1tg"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="onc-4V-tpb">
+                                <rect key="frame" x="60" y="94" width="40" height="40"/>
+                                <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="onc-4V-tpb" secondAttribute="height" multiplier="1:1" id="OJx-eo-Grw"/>
+                                    <constraint firstAttribute="width" constant="40" id="P4d-px-4Yi"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="onc-4V-tpb" firstAttribute="centerY" secondItem="Lcd-Jp-Ho8" secondAttribute="centerY" id="1qZ-Nu-NOl"/>
+                            <constraint firstItem="Lcd-Jp-Ho8" firstAttribute="top" secondItem="Ijb-9f-GQv" secondAttribute="top" constant="50" id="Edb-a0-B0l"/>
+                            <constraint firstItem="onc-4V-tpb" firstAttribute="leading" secondItem="Lcd-Jp-Ho8" secondAttribute="trailing" constant="10" id="Ga8-TU-Eb8"/>
+                            <constraint firstItem="Lcd-Jp-Ho8" firstAttribute="leading" secondItem="Ijb-9f-GQv" secondAttribute="leading" constant="10" id="JYI-Mt-QTf"/>
+                            <constraint firstItem="J8Z-sB-Gql" firstAttribute="leading" secondItem="onc-4V-tpb" secondAttribute="trailing" constant="10" id="b3i-4L-wPl"/>
+                            <constraint firstItem="J8Z-sB-Gql" firstAttribute="centerY" secondItem="onc-4V-tpb" secondAttribute="centerY" id="gzK-OD-rJ6"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Ijb-9f-GQv"/>
+                    </view>
+                    <connections>
+                        <outlet property="firstCircle" destination="Lcd-Jp-Ho8" id="el3-m3-aZq"/>
+                        <outlet property="secondCircle" destination="onc-4V-tpb" id="yG5-0e-ofc"/>
+                        <outlet property="thirdCircle" destination="J8Z-sB-Gql" id="Xpa-e2-Wwc"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6EI-bg-c7F" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1321.7391304347827" y="75.669642857142847"/>
         </scene>
         <!--News-->
         <scene sceneID="C4X-uQ-5Cy">
