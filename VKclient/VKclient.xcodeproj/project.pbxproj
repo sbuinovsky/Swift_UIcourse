@@ -27,7 +27,7 @@
 		C27CEC2723F169080011115C /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = C27CEC2623F169080011115C /* Group.swift */; };
 		C2BCEDEC23FB2609009D981F /* NewsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2BCEDEB23FB2609009D981F /* NewsTableViewController.swift */; };
 		C2BCEDEE23FB2639009D981F /* NewsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2BCEDED23FB2639009D981F /* NewsCell.swift */; };
-		C2EE21F724051DB100F9979D /* LoaderCirclesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2EE21F624051DB100F9979D /* LoaderCirclesViewController.swift */; };
+		C2EE21FB24052C3600F9979D /* LoaderCirclesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2EE21FA24052C3600F9979D /* LoaderCirclesView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -53,7 +53,7 @@
 		C27CEC2623F169080011115C /* Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
 		C2BCEDEB23FB2609009D981F /* NewsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsTableViewController.swift; sourceTree = "<group>"; };
 		C2BCEDED23FB2639009D981F /* NewsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NewsCell.swift; path = VKclient/Cell/NewsCell.swift; sourceTree = SOURCE_ROOT; };
-		C2EE21F624051DB100F9979D /* LoaderCirclesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LoaderCirclesViewController.swift; path = VKclient/Controllers/LoaderCirclesViewController.swift; sourceTree = SOURCE_ROOT; };
+		C2EE21FA24052C3600F9979D /* LoaderCirclesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoaderCirclesView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,7 +107,6 @@
 				C25A0F7723EC8D3A00CAD84B /* FavoriteGroupsTableViewController.swift */,
 				C25A0F7B23EC8DB800CAD84B /* AllGroupsTableViewController.swift */,
 				C2BCEDEB23FB2609009D981F /* NewsTableViewController.swift */,
-				C2EE21F624051DB100F9979D /* LoaderCirclesViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -140,6 +139,7 @@
 				C27CEC2423F158F50011115C /* User.swift */,
 				C27CEC2623F169080011115C /* Group.swift */,
 				C230B0A923F6943A0041FD0A /* Like.swift */,
+				C2EE21FA24052C3600F9979D /* LoaderCirclesView.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -219,8 +219,8 @@
 				C25A0F7C23EC8DB800CAD84B /* AllGroupsTableViewController.swift in Sources */,
 				C27CEC1D23F153690011115C /* FriendProfileCell.swift in Sources */,
 				C2BCEDEE23FB2639009D981F /* NewsCell.swift in Sources */,
+				C2EE21FB24052C3600F9979D /* LoaderCirclesView.swift in Sources */,
 				C2119BCF23E0081500EC528E /* ViewController.swift in Sources */,
-				C2EE21F724051DB100F9979D /* LoaderCirclesViewController.swift in Sources */,
 				C22E087B240070A600354324 /* FriendsTableViewCellHeader.swift in Sources */,
 				C27CEC2723F169080011115C /* Group.swift in Sources */,
 				C230B0AA23F6943A0041FD0A /* Like.swift in Sources */,

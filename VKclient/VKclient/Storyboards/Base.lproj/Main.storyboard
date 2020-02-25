@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="uFO-bB-uLa">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
@@ -58,6 +58,14 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
                                     </textField>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vTi-wR-ZPb" customClass="LoaderCirclesView" customModule="VKclient" customModuleProvider="target">
+                                        <rect key="frame" x="177" y="608" width="60" height="20"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="60" id="UAZ-5e-ryP"/>
+                                            <constraint firstAttribute="width" secondItem="vTi-wR-ZPb" secondAttribute="height" multiplier="3:1" id="uqT-Zo-cl2"/>
+                                        </constraints>
+                                    </view>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="tp0-O5-bB3" firstAttribute="top" secondItem="ZlE-HA-r4X" secondAttribute="bottom" constant="100" id="5XU-Wj-MSF"/>
@@ -71,7 +79,9 @@
                                     <constraint firstItem="DB9-Gn-jMf" firstAttribute="top" secondItem="giB-Zc-0h4" secondAttribute="bottom" constant="40" id="doD-yi-MQh"/>
                                     <constraint firstItem="ewB-mn-oNx" firstAttribute="width" secondItem="giB-Zc-0h4" secondAttribute="width" id="eIe-zv-eHJ"/>
                                     <constraint firstItem="ewB-mn-oNx" firstAttribute="centerX" secondItem="DB9-Gn-jMf" secondAttribute="centerX" id="eVs-nn-cfz"/>
+                                    <constraint firstItem="vTi-wR-ZPb" firstAttribute="centerX" secondItem="pwG-DV-ayH" secondAttribute="centerX" id="fFV-7c-lha"/>
                                     <constraint firstItem="ewB-mn-oNx" firstAttribute="top" secondItem="DB9-Gn-jMf" secondAttribute="bottom" constant="20" id="nPM-pf-r4s"/>
+                                    <constraint firstItem="vTi-wR-ZPb" firstAttribute="top" secondItem="pwG-DV-ayH" secondAttribute="bottom" constant="40" id="rnJ-mO-OpK"/>
                                     <constraint firstAttribute="trailing" secondItem="ZlE-HA-r4X" secondAttribute="trailing" constant="20" id="taQ-9m-ISP"/>
                                     <constraint firstItem="ZlE-HA-r4X" firstAttribute="centerX" secondItem="jsV-7g-6Yb" secondAttribute="centerX" id="tqp-lz-kQ2"/>
                                     <constraint firstItem="pwG-DV-ayH" firstAttribute="top" secondItem="ewB-mn-oNx" secondAttribute="bottom" constant="100" id="xxZ-kH-7gs"/>
@@ -91,6 +101,7 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="loaderView" destination="vTi-wR-ZPb" id="BE4-nI-KxH"/>
                         <outlet property="loginTextField" destination="giB-Zc-0h4" id="nTb-Qz-bat"/>
                         <outlet property="passwordTextField" destination="ewB-mn-oNx" id="G16-zc-79W"/>
                         <outlet property="scrollView" destination="jsV-7g-6Yb" id="h9e-8F-jM2"/>
@@ -377,6 +388,14 @@
                                     <constraint firstAttribute="width" constant="40" id="P4d-px-4Yi"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="m2K-ec-bB8" customClass="LoaderCirclesView" customModule="VKclient" customModuleProvider="target">
+                                <rect key="frame" x="157" y="436.33333333333331" width="100" height="33.333333333333314"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="m2K-ec-bB8" secondAttribute="height" multiplier="3:1" id="2v1-BE-c6V"/>
+                                    <constraint firstAttribute="width" constant="100" id="Vib-yi-gmZ"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
@@ -384,13 +403,16 @@
                             <constraint firstItem="Lcd-Jp-Ho8" firstAttribute="top" secondItem="Ijb-9f-GQv" secondAttribute="top" constant="50" id="Edb-a0-B0l"/>
                             <constraint firstItem="onc-4V-tpb" firstAttribute="leading" secondItem="Lcd-Jp-Ho8" secondAttribute="trailing" constant="10" id="Ga8-TU-Eb8"/>
                             <constraint firstItem="Lcd-Jp-Ho8" firstAttribute="leading" secondItem="Ijb-9f-GQv" secondAttribute="leading" constant="10" id="JYI-Mt-QTf"/>
+                            <constraint firstItem="m2K-ec-bB8" firstAttribute="centerX" secondItem="Ijb-9f-GQv" secondAttribute="centerX" id="Wuo-3v-FoO"/>
                             <constraint firstItem="J8Z-sB-Gql" firstAttribute="leading" secondItem="onc-4V-tpb" secondAttribute="trailing" constant="10" id="b3i-4L-wPl"/>
                             <constraint firstItem="J8Z-sB-Gql" firstAttribute="centerY" secondItem="onc-4V-tpb" secondAttribute="centerY" id="gzK-OD-rJ6"/>
+                            <constraint firstItem="m2K-ec-bB8" firstAttribute="centerY" secondItem="Ijb-9f-GQv" secondAttribute="centerY" id="jrR-vd-H4H"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Ijb-9f-GQv"/>
                     </view>
                     <connections>
                         <outlet property="firstCircle" destination="Lcd-Jp-Ho8" id="el3-m3-aZq"/>
+                        <outlet property="loaderView" destination="m2K-ec-bB8" id="NLp-sO-zah"/>
                         <outlet property="secondCircle" destination="onc-4V-tpb" id="yG5-0e-ofc"/>
                         <outlet property="thirdCircle" destination="J8Z-sB-Gql" id="Xpa-e2-Wwc"/>
                     </connections>
