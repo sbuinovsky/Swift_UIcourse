@@ -11,31 +11,31 @@ import UIKit
 class FriendsTableViewController: UITableViewController {
     
     var friends : [User] = [
-        User(name: "Ivanov Ivan", avatar: UIImage(imageLiteralResourceName: "friendImage")),
-        User(name: "Ivanov Andrei", avatar: UIImage(imageLiteralResourceName: "friendImage")),
-        User(name: "Petrov Petr", avatar: UIImage(imageLiteralResourceName: "friendImage")),
-        User(name: "Sidorov Sidr", avatar: UIImage(imageLiteralResourceName: "friendImage")),
-        User(name: "Vinogradov Vasily", avatar: UIImage(imageLiteralResourceName: "friendImage")),
-        User(name: "Eroshkin Egor", avatar: UIImage(imageLiteralResourceName: "friendImage")),
-        User(name: "Yardov Nikolay", avatar: UIImage(imageLiteralResourceName: "friendImage")),
-        User(name: "Zagorian Armen", avatar: UIImage(imageLiteralResourceName: "friendImage")),
-        User(name: "Tupichkin Andrei", avatar: UIImage(imageLiteralResourceName: "friendImage")),
-        User(name: "Karasev Ivan", avatar: UIImage(imageLiteralResourceName: "friendImage")),
-        User(name: "Prevolgin Petr", avatar: UIImage(imageLiteralResourceName: "friendImage")),
-        User(name: "Arutunov Anton", avatar: UIImage(imageLiteralResourceName: "groupImage")),
-        User(name: "Krestov Kirill", avatar: UIImage(imageLiteralResourceName: "friendImage")),
-        User(name: "Ivanov Vasily", avatar: UIImage(imageLiteralResourceName: "friendImage")),
-        User(name: "Petrov Petr", avatar: UIImage(imageLiteralResourceName: "friendImage")),
-        User(name: "Sidorov Petr", avatar: UIImage(imageLiteralResourceName: "friendImage")),
-        User(name: "Vinogradov Ivan", avatar: UIImage(imageLiteralResourceName: "friendImage")),
-        User(name: "Eroshkin Andrei", avatar: UIImage(imageLiteralResourceName: "friendImage")),
-        User(name: "Yardov Nikolay", avatar: UIImage(imageLiteralResourceName: "friendImage")),
-        User(name: "Zagorian Artur", avatar: UIImage(imageLiteralResourceName: "friendImage")),
-        User(name: "Tupichkin Andrei", avatar: UIImage(imageLiteralResourceName: "friendImage")),
-        User(name: "Karasev Ivan", avatar: UIImage(imageLiteralResourceName: "friendImage")),
-        User(name: "Prevolgin Petr", avatar: UIImage(imageLiteralResourceName: "friendImage")),
-        User(name: "Arutunov Vladimir", avatar: UIImage(imageLiteralResourceName: "friendImage")),
-        User(name: "Krestov Oleg", avatar: UIImage(imageLiteralResourceName: "friendImage"))
+        User(name: "Ivanov Ivan", avatar: UIImage(imageLiteralResourceName: "profileImage1")),
+        User(name: "Ivanov Andrei", avatar: UIImage(imageLiteralResourceName: "profileImage2")),
+        User(name: "Petrov Petr", avatar: UIImage(imageLiteralResourceName: "profileImage3")),
+        User(name: "Sidorov Sidr", avatar: UIImage(imageLiteralResourceName: "profileImage4")),
+        User(name: "Vinogradov Vasily", avatar: UIImage(imageLiteralResourceName: "profileImage5")),
+        User(name: "Eroshkin Egor", avatar: UIImage(imageLiteralResourceName: "profileImage6")),
+        User(name: "Yardov Nikolay", avatar: UIImage(imageLiteralResourceName: "profileImage7")),
+        User(name: "Zagorian Armen", avatar: UIImage(imageLiteralResourceName: "profileImage3")),
+        User(name: "Tupichkin Andrei", avatar: UIImage(imageLiteralResourceName: "profileImage1")),
+        User(name: "Karasev Ivan", avatar: UIImage(imageLiteralResourceName: "profileImage2")),
+        User(name: "Prevolgin Petr", avatar: UIImage(imageLiteralResourceName: "profileImage3")),
+        User(name: "Arutunov Anton", avatar: UIImage(imageLiteralResourceName: "profileImage4")),
+        User(name: "Krestov Kirill", avatar: UIImage(imageLiteralResourceName: "profileImage5")),
+        User(name: "Ivanov Vasily", avatar: UIImage(imageLiteralResourceName: "profileImage6")),
+        User(name: "Petrov Petr", avatar: UIImage(imageLiteralResourceName: "profileImage7")),
+        User(name: "Sidorov Petr", avatar: UIImage(imageLiteralResourceName: "profileImage1")),
+        User(name: "Vinogradov Ivan", avatar: UIImage(imageLiteralResourceName: "profileImage2")),
+        User(name: "Eroshkin Andrei", avatar: UIImage(imageLiteralResourceName: "profileImage3")),
+        User(name: "Yardov Nikolay", avatar: UIImage(imageLiteralResourceName: "profileImage4")),
+        User(name: "Zagorian Artur", avatar: UIImage(imageLiteralResourceName: "profileImage5")),
+        User(name: "Tupichkin Andrei", avatar: UIImage(imageLiteralResourceName: "profileImage6")),
+        User(name: "Karasev Ivan", avatar: UIImage(imageLiteralResourceName: "profileImage7")),
+        User(name: "Prevolgin Petr", avatar: UIImage(imageLiteralResourceName: "profileImage1")),
+        User(name: "Arutunov Vladimir", avatar: UIImage(imageLiteralResourceName: "profileImage2")),
+        User(name: "Krestov Oleg", avatar: UIImage(imageLiteralResourceName: "profileImage3"))
     ]
     
     // создаем массив для алфавитного указателя
@@ -120,14 +120,6 @@ class FriendsTableViewController: UITableViewController {
         cell.friendNameLabel.text = friendName
         cell.friendAvatarImage.image = friendImage
         
-        //скругление аватара пользователя
-        let path = UIBezierPath()
-        path.addArc(withCenter: CGPoint(x: 30, y:30), radius: 20, startAngle: 0, endAngle: 360, clockwise: true)
-        let maskLayer = CAShapeLayer()
-        maskLayer.path = path.cgPath
-        
-        cell.friendAvatarImage.layer.mask = maskLayer
-        
         return cell
     }
     
@@ -142,6 +134,7 @@ class FriendsTableViewController: UITableViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
         // реализация передачи имени и аватара на view с профилем пользователя
         if segue.identifier == "friendProfileSegue" {
             guard let friendProfileController = segue.destination as? FriendProfileCollectionViewController,
