@@ -35,6 +35,7 @@ class NewsCell: UITableViewCell {
         
         likeImage.addGestureRecognizer(tapGesture)
         likeImage.isUserInteractionEnabled = true
+        
     }
     
     @objc func onTap(_ sender: UIGestureRecognizer) {
@@ -50,6 +51,16 @@ class NewsCell: UITableViewCell {
             likeCounter.text = "\(likeBox.counter)"
             likeImage.image = UIImage(imageLiteralResourceName: "likeImageDefault")
         }
+        
+        UIView.animate(withDuration: 1,
+                       delay: 0,
+                       usingSpringWithDamping: 0.2,
+                       initialSpringVelocity: 20,
+                       options: .curveEaseInOut,
+                       animations: {
+                        self.likeImage.center.y += 4
+                        self.likeCounter.center.y += 4
+        })
         
     }
     
@@ -68,4 +79,5 @@ class NewsCell: UITableViewCell {
         viewsCounter.text = ""
         
     }
+
 }
