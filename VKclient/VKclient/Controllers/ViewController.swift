@@ -12,7 +12,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var loginTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var scrollView: UIScrollView!
-    @IBOutlet weak var loaderView: LoaderCirclesView!
+    @IBOutlet weak var loaderView: LoaderCloudView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,8 +21,6 @@ class ViewController: UIViewController {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
         
         scrollView.addGestureRecognizer(tapGesture)
-        
-        loaderView.animateLoader()
         
     }
     
