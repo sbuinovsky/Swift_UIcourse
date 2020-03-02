@@ -19,6 +19,7 @@ class FriendProfileCollectionViewController: UICollectionViewController {
 
         self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         
+        
     }
 
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -38,37 +39,9 @@ class FriendProfileCollectionViewController: UICollectionViewController {
         //задаем имя пользователя
         cell.friendNameLabel.text = friendName
         cell.friendProfileImage.image = friendAvatar
-        
-        //скругление аватара пользователя и добавление тени
-        let path = UIBezierPath()
-        path.addArc(withCenter: CGPoint(x: 125, y:125), radius: 125, startAngle: 0, endAngle: 360, clockwise: true)
-        let maskLayer = CAShapeLayer()
-        maskLayer.path = path.cgPath
-
-        cell.friendProfileImage.layer.mask = maskLayer
-        cell.friendProfileImageShadow.addShadow()
 
         return cell
     }
     
 }
 
-
-@IBDesignable class FriendProfileImageShadow: UIView {
-// класс для формирования тени
-    
-    // основные параметры
-    @IBInspectable var shadowColor: UIColor = .black
-    @IBInspectable var shadowRadius: CGFloat = 6
-    @IBInspectable var shadowOpacity: Float = 0.9
-    
-    //метод для формирования тени
-    func addShadow() {
-        layer.masksToBounds = false
-        layer.cornerRadius = 125
-        layer.shadowColor = shadowColor.cgColor
-        layer.shadowRadius = shadowRadius
-        layer.shadowOpacity = shadowOpacity
-        layer.shadowOffset = CGSize.zero
-    }
-}

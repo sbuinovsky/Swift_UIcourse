@@ -21,6 +21,14 @@ class FriendCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
+        //скругление аватара пользователя
+        let path = UIBezierPath()
+        path.addArc(withCenter: CGPoint(x: 30, y:30), radius: 20, startAngle: 0, endAngle: 360, clockwise: true)
+        let maskLayer = CAShapeLayer()
+        maskLayer.path = path.cgPath
+        
+        friendAvatarImage.layer.mask = maskLayer
+        
         //добавляем обработку нажатия на элемент
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(onTap(_:)))
         

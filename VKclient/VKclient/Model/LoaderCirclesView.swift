@@ -36,15 +36,16 @@ class LoaderCirclesView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        let indent: CGFloat = 4
+        // задаем начальные параметры
+        let indent: CGFloat = bounds.height*0.1
         let circleDiameter = bounds.height - indent
         let circleStep = bounds.width/3 + (indent*2)
         let cornerRadiusSize = circleDiameter/2
         
         //создаемся фреймы
-        firstCircle.frame = CGRect(x: 0, y: 0, width: circleDiameter, height: circleDiameter)
-        secondCircle.frame = CGRect(x: circleStep, y: 0, width: circleDiameter, height: circleDiameter)
-        thirdCircle.frame = CGRect(x: circleStep*2, y: 0, width: circleDiameter, height: circleDiameter)
+        firstCircle.frame = CGRect(x: 0, y: indent, width: circleDiameter, height: circleDiameter)
+        secondCircle.frame = CGRect(x: circleStep, y: indent, width: circleDiameter, height: circleDiameter)
+        thirdCircle.frame = CGRect(x: circleStep*2, y: indent, width: circleDiameter, height: circleDiameter)
         
         //скругляем углы так чтобы получились кружки
         firstCircle.layer.cornerRadius = cornerRadiusSize
@@ -54,6 +55,7 @@ class LoaderCirclesView: UIView {
     }
     
     public func animateLoader() {
+        
         UIView.animate(withDuration: 1,
                        delay: 0,
                        options: [.repeat, .autoreverse, .curveEaseIn],
@@ -75,11 +77,5 @@ class LoaderCirclesView: UIView {
                         self.thirdCircle.alpha = 0.5
         })
                
-    }
-    
-    public func stopAnimateLoader() {
-        firstCircle.layer.removeAllAnimations()
-        secondCircle.layer.removeAllAnimations()
-        thirdCircle.layer.removeAllAnimations()
     }
 }
