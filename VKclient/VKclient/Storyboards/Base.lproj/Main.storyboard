@@ -134,7 +134,7 @@
         <!--Friends Navigation Controller-->
         <scene sceneID="wHy-XF-egH">
             <objects>
-                <navigationController modalPresentationStyle="fullScreen" id="LO4-fw-s9u" userLabel="Friends Navigation Controller" sceneMemberID="viewController">
+                <navigationController modalPresentationStyle="fullScreen" id="LO4-fw-s9u" userLabel="Friends Navigation Controller" customClass="CustomFriendsNavigationController" customModule="VKclient" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Friends" image="person" catalog="system" id="18C-b4-d1S"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="zMc-kg-nt0">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>

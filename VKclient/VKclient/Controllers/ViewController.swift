@@ -22,6 +22,10 @@ class ViewController: UIViewController {
         
         scrollView.addGestureRecognizer(tapGesture)
         
+        //чтобы вечно не вводить логин и пароль
+        loginTextField.text = "admin"
+        passwordTextField.text = "admin"
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
