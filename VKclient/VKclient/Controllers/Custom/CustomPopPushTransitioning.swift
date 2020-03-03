@@ -31,7 +31,6 @@ class CustomPushAnimator: NSObject, UIViewControllerAnimatedTransitioning {
                                                         destination.view.transform = position.concatenating(rotation)
                                     })
 
-                           
                                     UIView.addKeyframe(withRelativeStartTime: 0,
                                                        relativeDuration: 0.8,
                                                        animations: {
