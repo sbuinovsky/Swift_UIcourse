@@ -9,36 +9,10 @@
 import UIKit
 
 class SessionData {
-    private var token: String
-    private var userId: Int
+    var token: String = .init()
+    var userId: Int = .init()
     
-    private init(token: String, userId: Int) {
-        self.token = token
-        self.userId = userId
-    }
+    private init() {}
     
-    static let shared: SessionData = .init(token: "", userId: 0)
-    
-    func tokenPush(_ newToken: String) {
-        token = newToken
-    }
-    
-    func tokenPop() -> String {
-        return token
-    }
-    
-    func userIdPush(_ newUserId: Int) {
-        userId = newUserId
-    }
-    
-    func userIdPop() -> Int {
-        return userId
-    }
-    
-    func pushNewData(_ newToken: String, _ newUserId: Int) {
-        token = newToken
-        userId = newUserId
-    }
-    
+    static let shared: SessionData = .init()
 }
-
