@@ -25,7 +25,6 @@ class ViewController: UIViewController {
         //чтобы вечно не вводить логин и пароль
         loginTextField.text = "admin"
         passwordTextField.text = "admin"
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
