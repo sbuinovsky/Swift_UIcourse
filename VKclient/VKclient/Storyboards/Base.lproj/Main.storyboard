@@ -58,14 +58,6 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
                                     </textField>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vTi-wR-ZPb" customClass="LoaderCloudView" customModule="VKclient" customModuleProvider="target">
-                                        <rect key="frame" x="107" y="608" width="200" height="133.33333333333337"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="200" id="UAZ-5e-ryP"/>
-                                            <constraint firstAttribute="width" secondItem="vTi-wR-ZPb" secondAttribute="height" multiplier="3:2" id="uqT-Zo-cl2"/>
-                                        </constraints>
-                                    </view>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="tp0-O5-bB3" firstAttribute="top" secondItem="ZlE-HA-r4X" secondAttribute="bottom" constant="100" id="5XU-Wj-MSF"/>
@@ -79,9 +71,7 @@
                                     <constraint firstItem="DB9-Gn-jMf" firstAttribute="top" secondItem="giB-Zc-0h4" secondAttribute="bottom" constant="40" id="doD-yi-MQh"/>
                                     <constraint firstItem="ewB-mn-oNx" firstAttribute="width" secondItem="giB-Zc-0h4" secondAttribute="width" id="eIe-zv-eHJ"/>
                                     <constraint firstItem="ewB-mn-oNx" firstAttribute="centerX" secondItem="DB9-Gn-jMf" secondAttribute="centerX" id="eVs-nn-cfz"/>
-                                    <constraint firstItem="vTi-wR-ZPb" firstAttribute="centerX" secondItem="pwG-DV-ayH" secondAttribute="centerX" id="fFV-7c-lha"/>
                                     <constraint firstItem="ewB-mn-oNx" firstAttribute="top" secondItem="DB9-Gn-jMf" secondAttribute="bottom" constant="20" id="nPM-pf-r4s"/>
-                                    <constraint firstItem="vTi-wR-ZPb" firstAttribute="top" secondItem="pwG-DV-ayH" secondAttribute="bottom" constant="40" id="rnJ-mO-OpK"/>
                                     <constraint firstAttribute="trailing" secondItem="ZlE-HA-r4X" secondAttribute="trailing" constant="20" id="taQ-9m-ISP"/>
                                     <constraint firstItem="ZlE-HA-r4X" firstAttribute="centerX" secondItem="jsV-7g-6Yb" secondAttribute="centerX" id="tqp-lz-kQ2"/>
                                     <constraint firstItem="pwG-DV-ayH" firstAttribute="top" secondItem="ewB-mn-oNx" secondAttribute="bottom" constant="100" id="xxZ-kH-7gs"/>
@@ -101,7 +91,6 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
-                        <outlet property="loaderView" destination="vTi-wR-ZPb" id="BE4-nI-KxH"/>
                         <outlet property="loginTextField" destination="giB-Zc-0h4" id="nTb-Qz-bat"/>
                         <outlet property="passwordTextField" destination="ewB-mn-oNx" id="G16-zc-79W"/>
                         <outlet property="scrollView" destination="jsV-7g-6Yb" id="h9e-8F-jM2"/>
@@ -245,11 +234,11 @@
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="Text of news will be here" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="edV-4b-M4G">
-                                            <rect key="frame" x="10" y="60" width="394" height="48"/>
+                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="Text of news will be here" adjustsFontForContentSizeCategory="YES" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="edV-4b-M4G">
+                                            <rect key="frame" x="10" y="60" width="394" height="51"/>
                                             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                             <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                         </textView>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="3Rn-Dv-Omw" userLabel="News Image">
@@ -306,10 +295,9 @@
                                         <constraint firstItem="GVO-Mz-fCz" firstAttribute="top" secondItem="3Rn-Dv-Omw" secondAttribute="bottom" constant="10" id="8tR-48-i5d"/>
                                         <constraint firstItem="K08-Xx-IJ7" firstAttribute="leading" secondItem="GVO-Mz-fCz" secondAttribute="trailing" constant="40" id="Ija-2R-ItG"/>
                                         <constraint firstAttribute="trailing" secondItem="3Rn-Dv-Omw" secondAttribute="trailing" constant="10" id="J2O-uP-Rzo"/>
-                                        <constraint firstItem="3Rn-Dv-Omw" firstAttribute="width" secondItem="edV-4b-M4G" secondAttribute="width" id="K6D-ns-v7t"/>
                                         <constraint firstItem="EcL-C8-rr3" firstAttribute="leading" secondItem="trk-wT-5sq" secondAttribute="trailing" constant="10" id="Oab-Q6-ebD"/>
                                         <constraint firstItem="edV-4b-M4G" firstAttribute="top" secondItem="trk-wT-5sq" secondAttribute="bottom" constant="10" id="P0t-kE-6qy"/>
-                                        <constraint firstItem="3Rn-Dv-Omw" firstAttribute="top" secondItem="edV-4b-M4G" secondAttribute="bottom" constant="18" id="Pin-zT-1ne"/>
+                                        <constraint firstItem="3Rn-Dv-Omw" firstAttribute="top" secondItem="edV-4b-M4G" secondAttribute="bottom" constant="15" id="Pin-zT-1ne"/>
                                         <constraint firstItem="xRo-Dn-Y7w" firstAttribute="centerY" secondItem="C3W-9y-be8" secondAttribute="centerY" id="RXo-Wk-Syc"/>
                                         <constraint firstItem="Ekc-jz-48q" firstAttribute="height" secondItem="EbO-Lz-QzH" secondAttribute="height" multiplier="0.7" id="SPv-dj-nN3"/>
                                         <constraint firstItem="hzy-iH-Vjj" firstAttribute="centerY" secondItem="EcL-C8-rr3" secondAttribute="centerY" id="UZW-Rd-lmH"/>

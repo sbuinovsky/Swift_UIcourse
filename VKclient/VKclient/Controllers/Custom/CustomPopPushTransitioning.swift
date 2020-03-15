@@ -26,13 +26,14 @@ class CustomPushAnimator: NSObject, UIViewControllerAnimatedTransitioning {
                                     UIView.addKeyframe(withRelativeStartTime: 0,
                                                        relativeDuration: 0,
                                                        animations: {
-                                                        let position = CGAffineTransform(translationX: source.view.frame.width, y: source.view.bounds.height)
-                                                        let rotation = CGAffineTransform(rotationAngle: .pi/2*3)
-                                                        destination.view.transform = position.concatenating(rotation)
+                                                        let position = CGAffineTransform(translationX: source.view.frame.width, y: 0)
+//                                                        let rotation = CGAffineTransform(rotationAngle: .pi/2*3)
+//                                                        destination.view.transform = position.concatenating(rotation)
+                                                        destination.view.transform = position
                                     })
 
                                     UIView.addKeyframe(withRelativeStartTime: 0,
-                                                       relativeDuration: 0.8,
+                                                       relativeDuration: 0.3,
                                                        animations: {
                                                         destination.view.transform = .identity
                                     })
@@ -66,14 +67,15 @@ class CustomPopAnimator: NSObject, UIViewControllerAnimatedTransitioning {
                                 delay: 0,
                                 animations: {
                                     UIView.addKeyframe(withRelativeStartTime: 0,
-                                                       relativeDuration: 0.8,
+                                                       relativeDuration: 0.3,
                                                        animations: {
-                                                        let position = CGAffineTransform(translationX: -source.view.frame.width, y: source.view.bounds.height)
-                                                        let rotation = CGAffineTransform(rotationAngle: .pi/2)
-                                                        destination.view.transform = position.concatenating(rotation)
+                                                        let position = CGAffineTransform(translationX: -source.view.frame.width, y: 0)
+//                                                        let rotation = CGAffineTransform(rotationAngle: .pi/2)
+//                                                        destination.view.transform = position.concatenating(rotation)
+                                                        destination.view.transform = position
                                     })
                                     UIView.addKeyframe(withRelativeStartTime: 0,
-                                                       relativeDuration: 0.8,
+                                                       relativeDuration: 0.3,
                                                        animations: {
                                                         destination.view.transform = .identity
                                     })

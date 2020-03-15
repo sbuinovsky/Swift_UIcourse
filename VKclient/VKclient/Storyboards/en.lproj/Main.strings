@@ -1,0 +1,54 @@
+
+/* Class = "UITabBarItem"; title = "Friends"; ObjectID = "18C-b4-d1S"; */
+"18C-b4-d1S.title" = "Friends";
+
+/* Class = "UITabBarItem"; title = "News"; ObjectID = "3nP-3d-QyC"; */
+"3nP-3d-QyC.title" = "News";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "BeI-Ub-WuN"; */
+"BeI-Ub-WuN.text" = "Label";
+
+/* Class = "UILabel"; text = "Password"; ObjectID = "DB9-Gn-jMf"; */
+"DB9-Gn-jMf.text" = "Password";
+
+/* Class = "UILabel"; text = "GroupName"; ObjectID = "EcL-C8-rr3"; */
+"EcL-C8-rr3.text" = "GroupName";
+
+/* Class = "UILabel"; text = "0"; ObjectID = "Ekc-jz-48q"; */
+"Ekc-jz-48q.text" = "0";
+
+/* Class = "UILabel"; text = "Friend Name"; ObjectID = "FpW-LJ-HhV"; */
+"FpW-LJ-HhV.text" = "Friend Name";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "MJ5-Nf-cZO"; */
+"MJ5-Nf-cZO.text" = "Label";
+
+/* Class = "UINavigationItem"; title = "Root View Controller"; ObjectID = "X1c-ZG-mLf"; */
+"X1c-ZG-mLf.title" = "Root View Controller";
+
+/* Class = "UILabel"; text = "VK client app"; ObjectID = "ZlE-HA-r4X"; */
+"ZlE-HA-r4X.text" = "VK client app";
+
+/* Class = "UILabel"; text = "Friend Name"; ObjectID = "b7B-SA-YXT"; */
+"b7B-SA-YXT.text" = "Friend Name";
+
+/* Class = "UISearchBar"; placeholder = "Type hear"; ObjectID = "c5T-Ri-Wpy"; */
+"c5T-Ri-Wpy.placeholder" = "Type hear";
+
+/* Class = "UITextView"; text = "Text of news will be here"; ObjectID = "edV-4b-M4G"; */
+"edV-4b-M4G.text" = "Text of news will be here";
+
+/* Class = "UILabel"; text = "Date"; ObjectID = "hzy-iH-Vjj"; */
+"hzy-iH-Vjj.text" = "Date";
+
+/* Class = "UITabBarItem"; title = "Groups"; ObjectID = "oqE-Ke-0B3"; */
+"oqE-Ke-0B3.title" = "Groups";
+
+/* Class = "UIButton"; normalTitle = "Sign in"; ObjectID = "pwG-DV-ayH"; */
+"pwG-DV-ayH.normalTitle" = "Sign in";
+
+/* Class = "UILabel"; text = "Login"; ObjectID = "tp0-O5-bB3"; */
+"tp0-O5-bB3.text" = "Login";
+
+/* Class = "UILabel"; text = "0"; ObjectID = "xRo-Dn-Y7w"; */
+"xRo-Dn-Y7w.text" = "0";

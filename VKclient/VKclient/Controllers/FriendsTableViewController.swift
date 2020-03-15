@@ -20,22 +20,7 @@ class FriendsTableViewController: UITableViewController {
         User(name: "Yardov Nikolay", avatar: UIImage(imageLiteralResourceName: "profileImage7")),
         User(name: "Zagorian Armen", avatar: UIImage(imageLiteralResourceName: "profileImage3")),
         User(name: "Tupichkin Andrei", avatar: UIImage(imageLiteralResourceName: "profileImage1")),
-        User(name: "Karasev Ivan", avatar: UIImage(imageLiteralResourceName: "profileImage2")),
-        User(name: "Prevolgin Petr", avatar: UIImage(imageLiteralResourceName: "profileImage3")),
-        User(name: "Arutunov Anton", avatar: UIImage(imageLiteralResourceName: "profileImage4")),
-        User(name: "Krestov Kirill", avatar: UIImage(imageLiteralResourceName: "profileImage5")),
-        User(name: "Ivanov Vasily", avatar: UIImage(imageLiteralResourceName: "profileImage6")),
-        User(name: "Petrov Petr", avatar: UIImage(imageLiteralResourceName: "profileImage7")),
-        User(name: "Sidorov Petr", avatar: UIImage(imageLiteralResourceName: "profileImage1")),
-        User(name: "Vinogradov Ivan", avatar: UIImage(imageLiteralResourceName: "profileImage2")),
-        User(name: "Eroshkin Andrei", avatar: UIImage(imageLiteralResourceName: "profileImage3")),
-        User(name: "Yardov Nikolay", avatar: UIImage(imageLiteralResourceName: "profileImage4")),
-        User(name: "Zagorian Artur", avatar: UIImage(imageLiteralResourceName: "profileImage5")),
-        User(name: "Tupichkin Andrei", avatar: UIImage(imageLiteralResourceName: "profileImage6")),
-        User(name: "Karasev Ivan", avatar: UIImage(imageLiteralResourceName: "profileImage7")),
-        User(name: "Prevolgin Petr", avatar: UIImage(imageLiteralResourceName: "profileImage1")),
-        User(name: "Arutunov Vladimir", avatar: UIImage(imageLiteralResourceName: "profileImage2")),
-        User(name: "Krestov Oleg", avatar: UIImage(imageLiteralResourceName: "profileImage3"))
+        User(name: "Karasev Ivan", avatar: UIImage(imageLiteralResourceName: "profileImage2"))
     ]
     
     // создаем массив для алфавитного указателя

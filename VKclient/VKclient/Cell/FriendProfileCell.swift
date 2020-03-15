@@ -91,7 +91,7 @@ class FriendProfileCell: UICollectionViewCell {
     func animationLeftToRight() {
         friendProfileImage.transform = CGAffineTransform(translationX: -contentView.bounds.width, y: 0)
         
-        UIView.animate(withDuration: 1,
+        UIView.animate(withDuration: 0.5,
                        delay: 0,
                        options: .curveEaseIn,
                        animations: {
@@ -103,7 +103,7 @@ class FriendProfileCell: UICollectionViewCell {
     func animationRightToLeft() {
         friendProfileImage.transform = CGAffineTransform(translationX: contentView.bounds.width, y: 0)
         
-        UIView.animate(withDuration: 1,
+        UIView.animate(withDuration: 0.5,
                        delay: 0,
                        options: .curveEaseIn,
                        animations: {
@@ -115,7 +115,7 @@ class FriendProfileCell: UICollectionViewCell {
     
     func animationZoomOut() {
         let scaleAnimation = CABasicAnimation(keyPath: "transform.scale")
-        scaleAnimation.duration = 1
+        scaleAnimation.duration = 0.5
         scaleAnimation.fromValue = 1
         scaleAnimation.toValue = 0.2
         scaleAnimation.beginTime = CACurrentMediaTime()
