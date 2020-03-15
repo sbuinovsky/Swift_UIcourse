@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="4CO-u2-rLo">
     <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
@@ -8,6 +8,41 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Login Web View Controller-->
+        <scene sceneID="eOw-hx-SeV">
+            <objects>
+                <viewController id="4CO-u2-rLo" customClass="LoginWebViewController" customModule="VKclient" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="O0G-Ar-Izu">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="O7e-EE-Ot3">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <wkWebViewConfiguration key="configuration">
+                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                    <wkPreferences key="preferences"/>
+                                </wkWebViewConfiguration>
+                            </wkWebView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="Hmd-xF-FPC" firstAttribute="bottom" secondItem="O7e-EE-Ot3" secondAttribute="bottom" id="4Po-97-PaX"/>
+                            <constraint firstItem="O7e-EE-Ot3" firstAttribute="leading" secondItem="Hmd-xF-FPC" secondAttribute="leading" id="c9r-MD-DHe"/>
+                            <constraint firstItem="Hmd-xF-FPC" firstAttribute="trailing" secondItem="O7e-EE-Ot3" secondAttribute="trailing" id="jNa-dK-O5A"/>
+                            <constraint firstItem="O7e-EE-Ot3" firstAttribute="top" secondItem="Hmd-xF-FPC" secondAttribute="top" id="qPj-uV-GDl"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Hmd-xF-FPC"/>
+                    </view>
+                    <connections>
+                        <outlet property="webView" destination="O7e-EE-Ot3" id="g9B-eR-x4G"/>
+                        <segue destination="eaM-Vc-NO0" kind="show" identifier="ShowTabBarController" id="ifj-d4-7qF"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="L6o-lc-ol6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2459" y="-836"/>
+        </scene>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
@@ -98,7 +133,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2478" y="-836"/>
+            <point key="canvasLocation" x="-2514" y="-44"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="6CB-uQ-waV">
@@ -587,4 +622,7 @@
         <image name="person" catalog="system" width="64" height="58"/>
         <image name="person.3" catalog="system" width="72" height="35"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="ifj-d4-7qF"/>
+    </inferredMetricsTieBreakers>
 </document>

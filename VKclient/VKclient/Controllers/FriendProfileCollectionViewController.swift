@@ -19,7 +19,6 @@ class FriendProfileCollectionViewController: UICollectionViewController {
 
         self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         
-        
     }
 
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
