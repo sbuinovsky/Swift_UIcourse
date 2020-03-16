@@ -30,9 +30,9 @@ class LoginWebViewController: UIViewController {
         URLQueryItem(name: "client_id", value: "7359889"),
         URLQueryItem(name: "display", value: "mobile"),
         URLQueryItem(name: "redirect_uri", value: "https://oauth.vk.com/blank.html"),
-        URLQueryItem(name: "scope", value: "7359889"),
+        URLQueryItem(name: "scope", value: "users,friends,groups,photos"),
         URLQueryItem(name: "response_type", value: "token"),
-        URLQueryItem(name: "v", value: "5.68"),
+        URLQueryItem(name: "v", value: "5.103"),
         ]
         
         let request = URLRequest(url: components.url!)
