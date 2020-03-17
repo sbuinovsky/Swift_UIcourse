@@ -31,6 +31,25 @@ class FavoriteGroupsTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Начало получения данных
+        
+        let apiKey = SessionData.shared.token
+        
+        let apiMethod = "groups.get"
+        
+        let parameters: [String : String] = [
+            "extended" : "1",
+            "access_token" : apiKey,
+            "v" : "5.103"
+        ]
+        
+        
+        let getFriends: GetDataService = .init()
+        getFriends.loadFriendsData(method: apiMethod, parametersDict: parameters)
+        
+        // Конец получения данных
+        
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {

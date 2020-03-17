@@ -9,7 +9,7 @@
 import UIKit
 
 class FriendsTableViewController: UITableViewController {
-    
+
     var friends : [User] = [
         User(name: "Ivanov Ivan", avatar: UIImage(imageLiteralResourceName: "profileImage1")),
         User(name: "Ivanov Andrei", avatar: UIImage(imageLiteralResourceName: "profileImage2")),
@@ -36,6 +36,26 @@ class FriendsTableViewController: UITableViewController {
         
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Начало получения данных
+        
+        let apiKey = SessionData.shared.token
+        
+        let apiMethod = "friends.get"
+        
+        let parameters: [String : String] = [
+            "user_ids" : "7359889",
+            "fields" : "city,domain,contacts,education,relation,last_seen, status",
+            "order" : "name",
+            "access_token" : apiKey,
+            "v" : "5.103"
+        ]
+        
+        
+        let getFriends: GetDataService = .init()
+        getFriends.loadFriendsData(method: apiMethod, parametersDict: parameters)
+        
+        // Конец получения данных
         
         //регистрируем xib для кастомного отображения header ячеек
         tableView.register(UINib(nibName: "FriendsTableViewCellHeader", bundle: nil), forHeaderFooterViewReuseIdentifier: "cellHeaderView")

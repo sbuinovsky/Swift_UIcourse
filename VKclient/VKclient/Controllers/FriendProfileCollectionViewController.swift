@@ -16,6 +16,24 @@ class FriendProfileCollectionViewController: UICollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Начало получения данных
+        
+        let apiKey = SessionData.shared.token
+        
+        let apiMethod = "photos.getAll"
+        
+        let parameters: [String : String] = [
+            "access_token" : apiKey,
+            "v" : "5.103"
+        ]
+        
+        
+        let getFriends: GetDataService = .init()
+        getFriends.loadFriendsData(method: apiMethod, parametersDict: parameters)
+        
+        // Конец получения данных
+        
 
         self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         
