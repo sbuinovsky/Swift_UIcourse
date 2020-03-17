@@ -19,14 +19,9 @@ class FriendProfileCollectionViewController: UICollectionViewController {
         
         // Начало получения данных
         
-        let apiKey = SessionData.shared.token
-        
         let apiMethod = "photos.getAll"
         
-        let parameters: [String : String] = [
-            "access_token" : apiKey,
-            "v" : "5.103"
-        ]
+        let parameters: [String : String] = [ : ]
         
         
         let getFriends: GetDataService = .init()

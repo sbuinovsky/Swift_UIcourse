@@ -34,14 +34,10 @@ class FavoriteGroupsTableViewController: UITableViewController {
         
         // Начало получения данных
         
-        let apiKey = SessionData.shared.token
-        
         let apiMethod = "groups.get"
         
         let parameters: [String : String] = [
             "extended" : "1",
-            "access_token" : apiKey,
-            "v" : "5.103"
         ]
         
         

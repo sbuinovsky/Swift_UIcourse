@@ -39,16 +39,12 @@ class FriendsTableViewController: UITableViewController {
         
         // Начало получения данных
         
-        let apiKey = SessionData.shared.token
-        
         let apiMethod = "friends.get"
         
         let parameters: [String : String] = [
             "user_ids" : "7359889",
             "fields" : "city,domain,contacts,education,relation,last_seen, status",
             "order" : "name",
-            "access_token" : apiKey,
-            "v" : "5.103"
         ]
         
         

@@ -29,16 +29,12 @@ class AllGroupsTableViewController: UITableViewController {
         super.viewDidLoad()
         
         // Начало получения данных
-        
-        let apiKey = SessionData.shared.token
-        
+                
         let apiMethod = "groups.search"
         
         let parameters: [String : String] = [
             "q" : "swift",
             "extended" : "1",
-            "access_token" : apiKey,
-            "v" : "5.103"
         ]
         
         

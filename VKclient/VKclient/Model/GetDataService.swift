@@ -12,9 +12,19 @@ import Alamofire
 class GetDataService {
     let baseUrl = "https://api.vk.com/method/"
     
+    let apiKey = SessionData.shared.token
+    
     func loadFriendsData(method: String, parametersDict: [String : String]) {
         
-        let parameters: Parameters = parametersDict
+        var parameters: Parameters = parametersDict
+        
+        let additionalParam = [
+            "access_token" : apiKey,
+            "v" : "5.103"
+        ]
+        
+        additionalParam.forEach { (k,v) in parameters[k] = v }
+        
         let url = baseUrl + method
         
         AF.request(url, parameters: parameters).responseJSON { (response) in
