@@ -39,7 +39,7 @@ class AllGroupsTableViewController: UITableViewController {
         
         
         let getFriends: GetDataService = .init()
-        getFriends.loadFriendsData(method: apiMethod, parametersDict: parameters)
+        getFriends.loadFriendsData(method: apiMethod, parameters: parameters)
         
         // Конец получения данных
 

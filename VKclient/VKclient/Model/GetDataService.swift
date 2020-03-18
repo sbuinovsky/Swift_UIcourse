@@ -14,9 +14,9 @@ class GetDataService {
     
     let apiKey = SessionData.shared.token
     
-    func loadFriendsData(method: String, parametersDict: [String : String]) {
+    func loadFriendsData(method: String, parameters: [String : Any]) {
         
-        var parameters: Parameters = parametersDict
+        var parameters: Parameters = parameters
         
         let additionalParam = [
             "access_token" : apiKey,
