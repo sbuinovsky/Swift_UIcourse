@@ -11,23 +11,24 @@ import UIKit
 private let reuseIdentifier = "Cell"
 
 class FriendProfileCollectionViewController: UICollectionViewController {
+    
+    
     var friendName: String?
     var friendAvatar: UIImage?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Начало получения данных
-        
-        let apiMethod = "photos.getAll"
-        
-        let parameters: [String : String] = [ : ]
-        
-        
-        let getFriends: GetDataService = .init()
-        getFriends.loadFriendsData(method: apiMethod, parameters: parameters)
-        
-        // Конец получения данных
+//        // Начало получения данных
+//        
+//        let apiMethod = "photos.getAll"
+//        
+//        let parameters: [String : String] = [ : ]
+//        
+//        
+//        
+//        
+//        // Конец получения данных
         
 
         self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)

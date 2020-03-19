@@ -10,13 +10,9 @@ import UIKit
 
 class User: Comparable {
     
-    var name: String
-    var avatar: UIImage
+    var name: String = ""
+    var avatar: String = ""
     
-    init(name: String, avatar: UIImage) {
-        self.name = name
-        self.avatar = avatar
-    }
     
     static func < (lhs: User, rhs: User) -> Bool {
      if lhs.name.startIndex < rhs.name.startIndex {

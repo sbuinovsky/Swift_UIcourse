@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		B71E627B0BE3FB89C771C2FA /* Pods_VKclient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC15456E852C80DD81540537 /* Pods_VKclient.framework */; };
-		C208CBF22420EC7400EF0A10 /* GetDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C208CBF12420EC7400EF0A10 /* GetDataService.swift */; };
+		C208CBF22420EC7400EF0A10 /* UsersDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C208CBF12420EC7400EF0A10 /* UsersDataService.swift */; };
 		C2119BCB23E0081500EC528E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2119BCA23E0081500EC528E /* AppDelegate.swift */; };
 		C2119BCD23E0081500EC528E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2119BCC23E0081500EC528E /* SceneDelegate.swift */; };
 		C2119BCF23E0081500EC528E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2119BCE23E0081500EC528E /* ViewController.swift */; };
@@ -42,7 +42,7 @@
 /* Begin PBXFileReference section */
 		37CAF2A37CAAD829DB62770F /* Pods-VKclient.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VKclient.release.xcconfig"; path = "Target Support Files/Pods-VKclient/Pods-VKclient.release.xcconfig"; sourceTree = "<group>"; };
 		450D928CF4DF0BB8CA31E1C4 /* Pods-VKclient.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VKclient.debug.xcconfig"; path = "Target Support Files/Pods-VKclient/Pods-VKclient.debug.xcconfig"; sourceTree = "<group>"; };
-		C208CBF12420EC7400EF0A10 /* GetDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetDataService.swift; sourceTree = "<group>"; };
+		C208CBF12420EC7400EF0A10 /* UsersDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersDataService.swift; sourceTree = "<group>"; };
 		C2119BC723E0081500EC528E /* VKclient.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VKclient.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C2119BCA23E0081500EC528E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C2119BCC23E0081500EC528E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -184,7 +184,7 @@
 				C2EE21FA24052C3600F9979D /* LoaderCirclesView.swift */,
 				C2BEBC7C240928B10073C498 /* LoaderCloudView.swift */,
 				C216A57A2407E11A00679FC5 /* ImageShadow.swift */,
-				C208CBF12420EC7400EF0A10 /* GetDataService.swift */,
+				C208CBF12420EC7400EF0A10 /* UsersDataService.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -326,7 +326,7 @@
 			files = (
 				C25A0F7C23EC8DB800CAD84B /* AllGroupsTableViewController.swift in Sources */,
 				C27CEC1D23F153690011115C /* FriendProfileCell.swift in Sources */,
-				C208CBF22420EC7400EF0A10 /* GetDataService.swift in Sources */,
+				C208CBF22420EC7400EF0A10 /* UsersDataService.swift in Sources */,
 				C2BCEDEE23FB2639009D981F /* NewsCell.swift in Sources */,
 				C2EE21FB24052C3600F9979D /* LoaderCirclesView.swift in Sources */,
 				C2DCDEAA240C3BB400DF7780 /* CustomFriendsNavigationController.swift in Sources */,

@@ -9,19 +9,9 @@
 import UIKit
 
 class FriendsTableViewController: UITableViewController {
-
-    var friends : [User] = [
-        User(name: "Ivanov Ivan", avatar: UIImage(imageLiteralResourceName: "profileImage1")),
-        User(name: "Ivanov Andrei", avatar: UIImage(imageLiteralResourceName: "profileImage2")),
-        User(name: "Petrov Petr", avatar: UIImage(imageLiteralResourceName: "profileImage3")),
-        User(name: "Sidorov Sidr", avatar: UIImage(imageLiteralResourceName: "profileImage4")),
-        User(name: "Vinogradov Vasily", avatar: UIImage(imageLiteralResourceName: "profileImage5")),
-        User(name: "Eroshkin Egor", avatar: UIImage(imageLiteralResourceName: "profileImage6")),
-        User(name: "Yardov Nikolay", avatar: UIImage(imageLiteralResourceName: "profileImage7")),
-        User(name: "Zagorian Armen", avatar: UIImage(imageLiteralResourceName: "profileImage3")),
-        User(name: "Tupichkin Andrei", avatar: UIImage(imageLiteralResourceName: "profileImage1")),
-        User(name: "Karasev Ivan", avatar: UIImage(imageLiteralResourceName: "profileImage2"))
-    ]
+    let getDataService: UsersDataServiceProtocol = UsersDataService(parser: SwiftyJSONParser())
+    
+    var friends: [User] = []
     
     // создаем массив для алфавитного указателя
     var friendsNamesAlphabet = [String]()
@@ -31,51 +21,44 @@ class FriendsTableViewController: UITableViewController {
     
     //словарь с именами пользователей
     var defaultfriendsNamesArray = [[String]]()
-    
-    
         
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Начало получения данных
         
-        let apiMethod = "friends.get"
-        
-        let parameters: [String : String] = [
-            "user_ids" : "7359889",
-            "fields" : "city,domain,contacts,education,relation,last_seen, status",
-            "order" : "name",
-        ]
-        
-        
-        let getFriends: GetDataService = .init()
-        getFriends.loadFriendsData(method: apiMethod, parameters: parameters)
-        
-        // Конец получения данных
+        getDataService.loadUsersData() { (users) in
+            self.friends = users
+            self.fillFriendsNamesAlphabet()
+            self.fillFriendsNamesArray()
+            self.defaultfriendsNamesArray = self.friendsNamesArray
+            self.tableView.reloadData()
+        }
         
         //регистрируем xib для кастомного отображения header ячеек
         tableView.register(UINib(nibName: "FriendsTableViewCellHeader", bundle: nil), forHeaderFooterViewReuseIdentifier: "cellHeaderView")
-        
+    }
+    
+    func fillFriendsNamesAlphabet() {
         for index in 0..<friends.count {
             guard let firstCharacter = friends[index].name.first else { return } //забираем первые символы
                 friendsNamesAlphabet.append(String(firstCharacter))
             }
         
-        friendsNamesAlphabet = Array(Set(friendsNamesAlphabet)).sorted() //убираем дубли и сортируем по алфавиту
-        
+        friendsNamesAlphabet = Array(Set(friendsNamesAlphabet)).sorted()
+    }
+    
+    func fillFriendsNamesArray() {
         for section in 0..<friendsNamesAlphabet.count {
             var tempString = [String]() //временный массив накопления имен
             
             for index in 0..<friends.count {
-                if String(friends[index].name.first!) == friendsNamesAlphabet[section] {
+                if String(friends[index].name.first!) == friendsNamesAlphabet[section] && friends[index].name != " DELETED" {
                     tempString.append(String(friends[index].name))
                 }
             }
             
             friendsNamesArray.append(tempString)
         }
-        
-        defaultfriendsNamesArray = friendsNamesArray
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -113,10 +96,14 @@ class FriendsTableViewController: UITableViewController {
         //ищем в исходных данных аватар соответствующий имени пользователя
         for index in 0..<friends.count {
             if friendName == friends[index].name {
-                friendImage = friends[index].avatar
+                let urlString = friends[index].avatar
+                let url = NSURL(string: urlString)! as URL
+                if let imageData: NSData = NSData(contentsOf: url) {
+                    friendImage = UIImage(data: imageData as Data) ?? friendImage
+                }
             }
         }
-        
+
         //заполнение ячейки
         cell.friendNameLabel.text = friendName
         cell.friendAvatarImage.image = friendImage

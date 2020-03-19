@@ -32,19 +32,19 @@ class FavoriteGroupsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Начало получения данных
-        
-        let apiMethod = "groups.get"
-        
-        let parameters: [String : String] = [
-            "extended" : "1",
-        ]
-        
-        
-        let getFriends: GetDataService = .init()
-        getFriends.loadFriendsData(method: apiMethod, parameters: parameters)
-        
-        // Конец получения данных
+//        // Начало получения данных
+//        
+//        let apiMethod = "groups.get"
+//        
+//        let parameters: [String : String] = [
+//            "extended" : "1",
+//        ]
+//        
+//        
+//        let getFriends: GetDataService = .init()
+//        getFriends.loadFriendsData(method: apiMethod, parameters: parameters)
+//        
+//        // Конец получения данных
         
     }
 
