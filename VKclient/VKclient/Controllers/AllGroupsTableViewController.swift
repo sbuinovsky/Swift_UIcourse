@@ -27,6 +27,21 @@ class AllGroupsTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Начало получения данных
+                
+        let apiMethod = "groups.search"
+        
+        let parameters: [String : String] = [
+            "q" : "swift",
+            "extended" : "1",
+        ]
+        
+        
+        let getFriends: GetDataService = .init()
+        getFriends.loadFriendsData(method: apiMethod, parameters: parameters)
+        
+        // Конец получения данных
 
     }
 
