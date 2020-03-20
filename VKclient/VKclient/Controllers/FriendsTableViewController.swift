@@ -9,7 +9,7 @@
 import UIKit
 
 class FriendsTableViewController: UITableViewController {
-    let getDataService: UsersDataServiceProtocol = UsersDataService(parser: SwiftyJSONParser())
+    let getDataService: UsersDataServiceProtocol = UsersDataService(parser: UsersSwiftyJSONParser())
     
     var friends: [User] = []
     
@@ -52,7 +52,7 @@ class FriendsTableViewController: UITableViewController {
             var tempString = [String]() //временный массив накопления имен
             
             for index in 0..<friends.count {
-                if String(friends[index].name.first!) == friendsNamesAlphabet[section] && friends[index].name != " DELETED" {
+                if String(friends[index].name.first!) == friendsNamesAlphabet[section] {
                     tempString.append(String(friends[index].name))
                 }
             }
@@ -96,11 +96,7 @@ class FriendsTableViewController: UITableViewController {
         //ищем в исходных данных аватар соответствующий имени пользователя
         for index in 0..<friends.count {
             if friendName == friends[index].name {
-                let urlString = friends[index].avatar
-                let url = NSURL(string: urlString)! as URL
-                if let imageData: NSData = NSData(contentsOf: url) {
-                    friendImage = UIImage(data: imageData as Data) ?? friendImage
-                }
+                friendImage = getImageByURL(imageUrl: friends[index].avatar)
             }
         }
 
@@ -124,6 +120,7 @@ class FriendsTableViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         // реализация передачи имени и аватара на view с профилем пользователя
+        
         if segue.identifier == "friendProfileSegue" {
             guard let friendProfileController = segue.destination as? FriendProfileCollectionViewController,
                 let cell = sender as? FriendCell
@@ -137,7 +134,9 @@ class FriendsTableViewController: UITableViewController {
 }
 
 extension FriendsTableViewController: UISearchBarDelegate {
+    
     // реализация работы поисковой строки
+    
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         
         for index in 0..<friendsNamesArray.count {
@@ -146,6 +145,7 @@ extension FriendsTableViewController: UISearchBarDelegate {
         if searchText == "" {
             friendsNamesArray = defaultfriendsNamesArray
         }
+        
         tableView.reloadData()
     }
 }

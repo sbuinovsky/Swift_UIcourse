@@ -9,43 +9,19 @@
 import UIKit
 
 class FavoriteGroupsTableViewController: UITableViewController {
+    let getDataService: GroupsDataServiceProtocol = GroupsDataService(parser: GroupsSwiftyJSONParser())
     
-    var favoriteGroups = [
-        Group(name: "Group 1", avatar: UIImage(imageLiteralResourceName: "groupImage")),
-        Group(name: "Group 2", avatar: UIImage(imageLiteralResourceName: "groupImage")),
-        Group(name: "Group 3", avatar: UIImage(imageLiteralResourceName: "groupImage")),
-        Group(name: "Group 4", avatar: UIImage(imageLiteralResourceName: "groupImage")),
-        Group(name: "Group 5", avatar: UIImage(imageLiteralResourceName: "groupImage")),
-        Group(name: "Group 6", avatar: UIImage(imageLiteralResourceName: "groupImage")),
-        Group(name: "Group 7", avatar: UIImage(imageLiteralResourceName: "groupImage")),
-        Group(name: "Group 8", avatar: UIImage(imageLiteralResourceName: "groupImage")),
-        Group(name: "Group 9", avatar: UIImage(imageLiteralResourceName: "groupImage")),
-        Group(name: "Group 10", avatar: UIImage(imageLiteralResourceName: "groupImage")),
-        Group(name: "Group 11", avatar: UIImage(imageLiteralResourceName: "groupImage")),
-        Group(name: "Group 12", avatar: UIImage(imageLiteralResourceName: "groupImage")),
-        Group(name: "Group 13", avatar: UIImage(imageLiteralResourceName: "groupImage")),
-        Group(name: "Group 14", avatar: UIImage(imageLiteralResourceName: "groupImage")),
-        Group(name: "Group 15", avatar: UIImage(imageLiteralResourceName: "groupImage")),
-        Group(name: "Group 16", avatar: UIImage(imageLiteralResourceName: "groupImage")),
-    ]
+    var favoriteGroups: [Group] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-//        // Начало получения данных
-//        
-//        let apiMethod = "groups.get"
-//        
-//        let parameters: [String : String] = [
-//            "extended" : "1",
-//        ]
-//        
-//        
-//        let getFriends: GetDataService = .init()
-//        getFriends.loadFriendsData(method: apiMethod, parameters: parameters)
-//        
-//        // Конец получения данных
-        
+
+        getDataService.loadGroupsData() { (groups) in
+            
+            self.favoriteGroups = groups
+            
+            self.tableView.reloadData()
+        }
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -61,10 +37,8 @@ class FavoriteGroupsTableViewController: UITableViewController {
             preconditionFailure("Can't create GroupCell")
         }
         
-        let favoriteGroup = favoriteGroups[indexPath.row]
-        cell.favoriteGroupNameLabel.text = favoriteGroup.name
-        cell.favoriteGroupAvatarImage.image = favoriteGroup.avatar
-        
+        cell.favoriteGroupNameLabel.text = favoriteGroups[indexPath.row].name
+        cell.favoriteGroupAvatarImage.image = getImageByURL(imageUrl: favoriteGroups[indexPath.row].avatar)
 
         return cell
     }
@@ -93,6 +67,5 @@ class FavoriteGroupsTableViewController: UITableViewController {
             }
         }
     }
-
 
 }

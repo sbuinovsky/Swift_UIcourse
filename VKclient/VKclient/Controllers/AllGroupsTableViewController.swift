@@ -10,20 +10,7 @@ import UIKit
 
 class AllGroupsTableViewController: UITableViewController {
     
-    var allGroups = [
-        Group(name: "Another Group 1", avatar: UIImage(imageLiteralResourceName: "groupImage")),
-        Group(name: "Another Group 2", avatar: UIImage(imageLiteralResourceName: "groupImage")),
-        Group(name: "Another Group 3", avatar: UIImage(imageLiteralResourceName: "groupImage")),
-        Group(name: "Another Group 4", avatar: UIImage(imageLiteralResourceName: "groupImage")),
-        Group(name: "Another Group 5", avatar: UIImage(imageLiteralResourceName: "groupImage")),
-        Group(name: "Another Group 6", avatar: UIImage(imageLiteralResourceName: "groupImage")),
-        Group(name: "Another Group 7", avatar: UIImage(imageLiteralResourceName: "groupImage")),
-        Group(name: "Another Group 8", avatar: UIImage(imageLiteralResourceName: "groupImage")),
-        Group(name: "Another Group 9", avatar: UIImage(imageLiteralResourceName: "groupImage")),
-        Group(name: "Another Group 10", avatar: UIImage(imageLiteralResourceName: "groupImage")),
-        Group(name: "Another Group 11", avatar: UIImage(imageLiteralResourceName: "groupImage")),
-        Group(name: "Another Group 12", avatar: UIImage(imageLiteralResourceName: "groupImage")),
-    ]
+    var allGroups: [Group] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,8 +46,8 @@ class AllGroupsTableViewController: UITableViewController {
         }
         
         let group = allGroups[indexPath.row]
-        cell.groupNameLabel.text = group.name
-        cell.groupAvatarImage.image = group.avatar
+//        cell.groupNameLabel.text = group.name
+//        cell.groupAvatarImage.image = group.avatar
         
         return cell
     }

@@ -18,18 +18,6 @@ class FriendProfileCollectionViewController: UICollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-//        // Начало получения данных
-//        
-//        let apiMethod = "photos.getAll"
-//        
-//        let parameters: [String : String] = [ : ]
-//        
-//        
-//        
-//        
-//        // Конец получения данных
-        
 
         self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         

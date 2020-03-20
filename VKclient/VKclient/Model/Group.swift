@@ -10,13 +10,8 @@ import UIKit
 
 class Group: Equatable {
     
-    let name: String
-    let avatar: UIImage
-    
-    init(name: String, avatar: UIImage) {
-        self.name = name
-        self.avatar = avatar
-    }
+    var name: String = ""
+    var avatar: String = ""
     
     static func == (lhs: Group, rhs: Group) -> Bool {
         lhs.name == rhs.name
