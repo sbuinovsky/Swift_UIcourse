@@ -15,8 +15,12 @@ class FavoriteGroupsTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let apiParameters: [String : Any] = [
+            "extended" : 1
+            ]
 
-        getDataService.loadGroupsData() { (groups) in
+        getDataService.loadData(additionalParameters: apiParameters) { (groups) in
             
             self.favoriteGroups = groups
             
@@ -39,7 +43,7 @@ class FavoriteGroupsTableViewController: UITableViewController {
         
         cell.favoriteGroupNameLabel.text = favoriteGroups[indexPath.row].name
         cell.favoriteGroupAvatarImage.image = getImageByURL(imageUrl: favoriteGroups[indexPath.row].avatar)
-
+        
         return cell
     }
     

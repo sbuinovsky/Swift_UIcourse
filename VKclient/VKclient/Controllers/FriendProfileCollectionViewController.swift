@@ -14,7 +14,8 @@ class FriendProfileCollectionViewController: UICollectionViewController {
     let getDataService: PhotosDataServiceProtocol = PhotosDataService(parser: PhotosSwiftyJSONParser())
     
     var photos: [Photo] = []
-    
+    var friends: [User] = []
+
     var friendName: String?
     var friendAvatar: UIImage?
     
@@ -23,7 +24,15 @@ class FriendProfileCollectionViewController: UICollectionViewController {
 
         self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         
-        getDataService.loadPhotosData() { (photos) in
+        friends = friends.filter({friendName!.contains($0.name)})
+        guard let friendId = friends.first?.id else { return }
+        
+        let apiParameters: [String : Any] = [
+            "owner_id" :  friendId,
+            "album_id" : "profile",
+            ]
+        
+        getDataService.loadData(additionalParameters: apiParameters) { (photos) in
             self.photos = photos
             self.collectionView.reloadData()
         }

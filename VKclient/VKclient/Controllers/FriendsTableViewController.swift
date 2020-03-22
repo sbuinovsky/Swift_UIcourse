@@ -24,9 +24,14 @@ class FriendsTableViewController: UITableViewController {
         
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
-        getDataService.loadUsersData() { (users) in
+
+        let apiParameters: [String : Any] = [
+            "user_ids" : "7359889",
+            "fields" : "photo_200_orig",
+            "order" : "name",
+            ]
+
+        getDataService.loadData(additionalParameters: apiParameters) { (users) in
             self.friends = users
             self.fillFriendsNamesAlphabet()
             self.fillFriendsNamesArray()
@@ -126,6 +131,7 @@ class FriendsTableViewController: UITableViewController {
                 let cell = sender as? FriendCell
                 else { return }
             
+            friendProfileController.friends = friends
             friendProfileController.friendName = cell.friendNameLabel.text
             friendProfileController.friendAvatar = cell.friendAvatarImage.image
         }

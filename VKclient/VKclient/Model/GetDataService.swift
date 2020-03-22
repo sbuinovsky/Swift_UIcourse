@@ -10,8 +10,24 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 
+private let apiKey = SessionData.shared.token
+
+private let baseUrl = "https://api.vk.com/method/"
+
+private var parameters: Parameters = [
+    "access_token" : apiKey,
+    "v" : "5.103"
+]
+
+private enum apiMethods: String {
+    case friends = "friends.get"
+    case groups = "groups.get"
+    case photos = "photos.get"
+    case groupsSearch = "groups.search"
+}
+
 protocol UsersDataServiceProtocol {
-    func loadUsersData(completion: @escaping ([User]) -> Void)
+    func loadData(additionalParameters: [String : Any], completion: @escaping ([User]) -> Void)
 }
 
 protocol UsersParser {
@@ -19,7 +35,7 @@ protocol UsersParser {
 }
 
 protocol GroupsDataServiceProtocol {
-    func loadGroupsData(completion: @escaping ([Group]) -> Void)
+    func loadData(additionalParameters: [String : Any], completion: @escaping ([Group]) -> Void)
 }
 
 protocol GroupsParser {
@@ -27,7 +43,7 @@ protocol GroupsParser {
 }
 
 protocol PhotosDataServiceProtocol {
-    func loadPhotosData(completion: @escaping ([Photo]) -> Void)
+    func loadData(additionalParameters: [String : Any], completion: @escaping ([Photo]) -> Void)
 }
 
 protocol PhotosParser {
@@ -40,29 +56,18 @@ class APIparams {
 }
 
 class UsersDataService: UsersDataServiceProtocol {
-    
-    let baseUrl = "https://api.vk.com/method/"
+
     let parser: UsersParser
     
     init(parser: UsersParser) {
         self.parser = parser
     }
     
-    let apiKey = SessionData.shared.token
-    
-    func loadUsersData(completion: @escaping ([User]) -> Void) {
+    func loadData(additionalParameters: [String : Any], completion: @escaping ([User]) -> Void) {
         
-        let parameters: Parameters = [
-            "user_ids" : "7359889",
-            "fields" : "photo_200_orig",
-            "order" : "name",
-            "access_token" : apiKey,
-            "v" : "5.103"
-        ]
+        additionalParameters.forEach { (k,v) in parameters[k] = v }
         
-        let method = "friends.get"
-        
-        let url = baseUrl + method
+        let url = baseUrl + apiMethods.friends.rawValue
         
         AF.request(url, parameters: parameters).responseJSON { [completion] (response) in
             if let error = response.error {
@@ -81,27 +86,17 @@ class UsersDataService: UsersDataServiceProtocol {
 
 class GroupsDataService: GroupsDataServiceProtocol {
     
-    let baseUrl = "https://api.vk.com/method/"
     let parser: GroupsParser
     
     init(parser: GroupsParser) {
         self.parser = parser
     }
     
-    let apiKey = SessionData.shared.token
-    
-    func loadGroupsData(completion: @escaping ([Group]) -> Void) {
+    func loadData(additionalParameters: [String : Any], completion: @escaping ([Group]) -> Void) {
+
+        additionalParameters.forEach { (k,v) in parameters[k] = v }
         
-        let parameters: Parameters = [
-            "extended" : 1,
-            "order" : "name",
-            "access_token" : apiKey,
-            "v" : "5.103"
-        ]
-        
-        let method = "groups.get"
-        
-        let url = baseUrl + method
+        let url = baseUrl + apiMethods.groups.rawValue
         
         AF.request(url, parameters: parameters).responseJSON { [completion] (response) in
             if let error = response.error {
@@ -120,27 +115,17 @@ class GroupsDataService: GroupsDataServiceProtocol {
 
 class PhotosDataService: PhotosDataServiceProtocol {
     
-    let baseUrl = "https://api.vk.com/method/"
     let parser: PhotosParser
     
     init(parser: PhotosParser) {
         self.parser = parser
     }
     
-    let apiKey = SessionData.shared.token
-    
-    func loadPhotosData(completion: @escaping ([Photo]) -> Void) {
+    func loadData(additionalParameters: [String : Any], completion: @escaping ([Photo]) -> Void) {
         
-        let parameters: Parameters = [
-            "owner_id" : 1129934,
-            "album_id" : "profile",
-            "access_token" : apiKey,
-            "v" : "5.103"
-        ]
+        additionalParameters.forEach { (k,v) in parameters[k] = v }
         
-        let method = "photos.get"
-        
-        let url = baseUrl + method
+        let url = baseUrl + apiMethods.photos.rawValue
         
         AF.request(url, parameters: parameters).responseJSON { [completion] (response) in
             if let error = response.error {
@@ -167,6 +152,7 @@ class UsersSwiftyJSONParser: UsersParser {
             let result = array.map { item -> User in
                 
                 let user = User()
+                user.id = item["id"].intValue
                 user.name = item["first_name"].stringValue + " " + item["last_name"].stringValue
                 user.avatar = item["photo_200_orig"].stringValue
                 
@@ -190,7 +176,7 @@ class GroupsSwiftyJSONParser: GroupsParser {
             let array = json["response"]["items"].arrayValue
             
             let result = array.map { item -> Group in
-                
+            
                 let group = Group()
                 group.name = item["name"].stringValue
                 group.avatar = item["photo_200"].stringValue
@@ -221,8 +207,8 @@ class PhotosSwiftyJSONParser: PhotosParser {
                 photo.ownerId = item["owner_id"].intValue
                 
                 let sizeValues = item["sizes"].arrayValue
-                if let last = sizeValues.last {
-                    photo.imageUrl = last["url"].stringValue
+                if let first = sizeValues.first {
+                    photo.imageUrl = first["url"].stringValue
                 }
                 
                 return photo
@@ -247,29 +233,4 @@ func getImageByURL(imageUrl: String) -> UIImage {
     }
     
     return image
-}
-
-func prepareParams(method: String, parameters: Parameters) -> APIparams {
-    var apiParams: APIparams = .init()
-    
-    let baseUrl = "https://api.vk.com/method/"
-    
-    let apiKey = SessionData.shared.token
-    
-    let defaultParams: Parameters = [
-        "access_token" : apiKey,
-        "v" : "5.103"
-        
-    ]
-    
-//    let parameters: Parameters = [
-//        "owner_id" : 1129934,
-//        "album_id" : "profile",
-//
-//    ]
-    
-    apiParams.url = baseUrl + method
-    apiParams.parameters = defaultParams + parameters
-    
-    return apiParams
 }

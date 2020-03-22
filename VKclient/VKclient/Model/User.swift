@@ -10,6 +10,7 @@ import UIKit
 
 class User: Comparable {
     
+    var id: Int = 0
     var name: String = ""
     var avatar: String = ""
     
