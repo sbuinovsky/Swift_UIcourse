@@ -50,11 +50,6 @@ protocol PhotosParser {
     func parse(data: Data) -> [Photo]
 }
 
-class APIparams {
-    var url: String = ""
-    var parameters: Parameters = [ : ]
-}
-
 class UsersDataService: UsersDataServiceProtocol {
 
     let parser: UsersParser
