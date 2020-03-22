@@ -11,7 +11,9 @@ import UIKit
 private let reuseIdentifier = "Cell"
 
 class FriendProfileCollectionViewController: UICollectionViewController {
+    let getDataService: PhotosDataServiceProtocol = PhotosDataService(parser: PhotosSwiftyJSONParser())
     
+    var photos: [Photo] = []
     
     var friendName: String?
     var friendAvatar: UIImage?
@@ -21,6 +23,10 @@ class FriendProfileCollectionViewController: UICollectionViewController {
 
         self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         
+        getDataService.loadPhotosData() { (photos) in
+            self.photos = photos
+            self.collectionView.reloadData()
+        }
     }
 
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -31,15 +37,15 @@ class FriendProfileCollectionViewController: UICollectionViewController {
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         //количество ячеек в секции
-        return 1
+        return photos.count
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FriendProfileCell", for: indexPath) as! FriendProfileCell
         
         //задаем имя пользователя
-        cell.friendNameLabel.text = friendName
-        cell.friendProfileImage.image = friendAvatar
+        cell.friendNameLabel.text = " \(photos[indexPath.row].id)"
+        cell.friendProfileImage.image = getImageByURL(imageUrl: photos[indexPath.row].imageUrl)
 
         return cell
     }

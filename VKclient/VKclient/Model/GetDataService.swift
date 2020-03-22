@@ -26,6 +26,19 @@ protocol GroupsParser {
     func parse(data: Data) -> [Group]
 }
 
+protocol PhotosDataServiceProtocol {
+    func loadPhotosData(completion: @escaping ([Photo]) -> Void)
+}
+
+protocol PhotosParser {
+    func parse(data: Data) -> [Photo]
+}
+
+class APIparams {
+    var url: String = ""
+    var parameters: Parameters = [ : ]
+}
+
 class UsersDataService: UsersDataServiceProtocol {
     
     let baseUrl = "https://api.vk.com/method/"
@@ -105,6 +118,45 @@ class GroupsDataService: GroupsDataServiceProtocol {
     }
 }
 
+class PhotosDataService: PhotosDataServiceProtocol {
+    
+    let baseUrl = "https://api.vk.com/method/"
+    let parser: PhotosParser
+    
+    init(parser: PhotosParser) {
+        self.parser = parser
+    }
+    
+    let apiKey = SessionData.shared.token
+    
+    func loadPhotosData(completion: @escaping ([Photo]) -> Void) {
+        
+        let parameters: Parameters = [
+            "owner_id" : 1129934,
+            "album_id" : "profile",
+            "access_token" : apiKey,
+            "v" : "5.103"
+        ]
+        
+        let method = "photos.get"
+        
+        let url = baseUrl + method
+        
+        AF.request(url, parameters: parameters).responseJSON { [completion] (response) in
+            if let error = response.error {
+                print(error)
+            } else {
+                guard let data = response.data else { return }
+                
+                let photos: [Photo] = self.parser.parse(data: data)
+                
+                completion(photos)
+            }
+            
+        }
+    }
+}
+
 class UsersSwiftyJSONParser: UsersParser {
     
     func parse(data: Data) -> [User] {
@@ -155,6 +207,36 @@ class GroupsSwiftyJSONParser: GroupsParser {
     }
 }
 
+class PhotosSwiftyJSONParser: PhotosParser {
+    
+    func parse(data: Data) -> [Photo] {
+        do {
+            let json = try JSON(data: data)
+            let array = json["response"]["items"].arrayValue
+            
+            let result = array.map { item -> Photo in
+                
+                let photo = Photo()
+                photo.id = item["id"].intValue
+                photo.ownerId = item["owner_id"].intValue
+                
+                let sizeValues = item["sizes"].arrayValue
+                if let last = sizeValues.last {
+                    photo.imageUrl = last["url"].stringValue
+                }
+                
+                return photo
+            }
+            
+            return result
+            
+        } catch {
+            print(error.localizedDescription)
+            return []
+        }
+    }
+}
+
 func getImageByURL(imageUrl: String) -> UIImage {
     let urlString = imageUrl
     let url = NSURL(string: urlString)! as URL
@@ -165,4 +247,29 @@ func getImageByURL(imageUrl: String) -> UIImage {
     }
     
     return image
+}
+
+func prepareParams(method: String, parameters: Parameters) -> APIparams {
+    var apiParams: APIparams = .init()
+    
+    let baseUrl = "https://api.vk.com/method/"
+    
+    let apiKey = SessionData.shared.token
+    
+    let defaultParams: Parameters = [
+        "access_token" : apiKey,
+        "v" : "5.103"
+        
+    ]
+    
+//    let parameters: Parameters = [
+//        "owner_id" : 1129934,
+//        "album_id" : "profile",
+//
+//    ]
+    
+    apiParams.url = baseUrl + method
+    apiParams.parameters = defaultParams + parameters
+    
+    return apiParams
 }

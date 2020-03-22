@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="4CO-u2-rLo">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
@@ -11,7 +11,7 @@
         <!--Login Web View Controller-->
         <scene sceneID="eOw-hx-SeV">
             <objects>
-                <viewController id="4CO-u2-rLo" customClass="LoginWebViewController" customModule="VKclient" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController modalPresentationStyle="fullScreen" id="4CO-u2-rLo" customClass="LoginWebViewController" customModule="VKclient" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="O0G-Ar-Izu">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -34,14 +34,15 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Hmd-xF-FPC"/>
                     </view>
+                    <navigationItem key="navigationItem" id="ZpK-xW-QSY"/>
                     <connections>
                         <outlet property="webView" destination="O7e-EE-Ot3" id="g9B-eR-x4G"/>
-                        <segue destination="eaM-Vc-NO0" kind="show" identifier="ShowTabBarController" id="ifj-d4-7qF"/>
+                        <segue destination="eaM-Vc-NO0" kind="show" identifier="ToTabBarController" id="ifj-d4-7qF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="L6o-lc-ol6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2459" y="-836"/>
+            <point key="canvasLocation" x="-2658" y="-836"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -85,7 +86,7 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                         <state key="normal" title="Sign in"/>
                                         <connections>
-                                            <segue destination="eaM-Vc-NO0" kind="show" id="wWz-d8-Z6I"/>
+                                            <segue destination="4CO-u2-rLo" kind="show" identifier="ToAuthWebController" id="gy4-9x-XDj"/>
                                         </connections>
                                     </button>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ewB-mn-oNx">
@@ -133,7 +134,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2514" y="-44"/>
+            <point key="canvasLocation" x="-3783" y="-836"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="6CB-uQ-waV">
@@ -622,7 +623,4 @@
         <image name="person" catalog="system" width="64" height="58"/>
         <image name="person.3" catalog="system" width="72" height="35"/>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="ifj-d4-7qF"/>
-    </inferredMetricsTieBreakers>
 </document>
