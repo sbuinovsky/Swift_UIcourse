@@ -7,13 +7,11 @@
 //
 
 import UIKit
+import RealmSwift
 
-class Group: Equatable {
+class Group: Object {
     
-    var name: String = ""
-    var avatar: String = ""
-    
-    static func == (lhs: Group, rhs: Group) -> Bool {
-        lhs.name == rhs.name
-    }
+    @objc dynamic var name: String = ""
+    @objc dynamic var avatar: String = ""
+
 }

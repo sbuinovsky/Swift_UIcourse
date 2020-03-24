@@ -54,6 +54,8 @@ class UsersDataService: UsersDataServiceProtocol {
 
     let parser: UsersParser
     
+    let db: RealmService = .init()
+    
     init(parser: UsersParser) {
         self.parser = parser
     }
@@ -71,6 +73,14 @@ class UsersDataService: UsersDataServiceProtocol {
                 guard let data = response.data else { return }
                 
                 let users: [User] = self.parser.parse(data: data)
+                
+                do {
+                    try self.db.save(objects: users)
+                } catch {
+                    print("Error while saving users to db")
+                }
+                
+                print(self.db.loadUsers())
                 
                 completion(users)
             }
@@ -173,8 +183,11 @@ class GroupsSwiftyJSONParser: GroupsParser {
             let result = array.map { item -> Group in
             
                 let group = Group()
+                
                 group.name = item["name"].stringValue
                 group.avatar = item["photo_200"].stringValue
+                
+                print("MARKER_URL \(group.avatar)")
                 
                 return group
             }

@@ -7,12 +7,13 @@
 //
 
 import UIKit
+import RealmSwift
 
-class User: Comparable {
+class User: Object, Comparable {
     
-    var id: Int = 0
-    var name: String = ""
-    var avatar: String = ""
+    @objc dynamic var id: Int = 0
+    @objc dynamic var name: String = ""
+    @objc dynamic var avatar: String = ""
     
     
     static func < (lhs: User, rhs: User) -> Bool {

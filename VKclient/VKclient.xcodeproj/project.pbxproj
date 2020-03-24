@@ -35,6 +35,7 @@
 		C2BCEDEC23FB2609009D981F /* NewsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2BCEDEB23FB2609009D981F /* NewsTableViewController.swift */; };
 		C2BCEDEE23FB2639009D981F /* NewsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2BCEDED23FB2639009D981F /* NewsCell.swift */; };
 		C2BEBC7D240928B20073C498 /* LoaderCloudView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2BEBC7C240928B10073C498 /* LoaderCloudView.swift */; };
+		C2CD5EA7242A0BB900CB2285 /* RealmService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2CD5EA6242A0BB900CB2285 /* RealmService.swift */; };
 		C2DCDEAA240C3BB400DF7780 /* CustomFriendsNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2DCDEA9240C3BB400DF7780 /* CustomFriendsNavigationController.swift */; };
 		C2DCDEAC240C3D5900DF7780 /* CustomPopPushTransitioning.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2DCDEAB240C3D5900DF7780 /* CustomPopPushTransitioning.swift */; };
 		C2EE21FB24052C3600F9979D /* LoaderCirclesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2EE21FA24052C3600F9979D /* LoaderCirclesView.swift */; };
@@ -72,6 +73,7 @@
 		C2BCEDEB23FB2609009D981F /* NewsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsTableViewController.swift; sourceTree = "<group>"; };
 		C2BCEDED23FB2639009D981F /* NewsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NewsCell.swift; path = VKclient/Cell/NewsCell.swift; sourceTree = SOURCE_ROOT; };
 		C2BEBC7C240928B10073C498 /* LoaderCloudView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoaderCloudView.swift; sourceTree = "<group>"; };
+		C2CD5EA6242A0BB900CB2285 /* RealmService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmService.swift; sourceTree = "<group>"; };
 		C2DCDEA9240C3BB400DF7780 /* CustomFriendsNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFriendsNavigationController.swift; sourceTree = "<group>"; };
 		C2DCDEAB240C3D5900DF7780 /* CustomPopPushTransitioning.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPopPushTransitioning.swift; sourceTree = "<group>"; };
 		C2EE21FA24052C3600F9979D /* LoaderCirclesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoaderCirclesView.swift; sourceTree = "<group>"; };
@@ -188,6 +190,7 @@
 				C2BEBC7C240928B10073C498 /* LoaderCloudView.swift */,
 				C216A57A2407E11A00679FC5 /* ImageShadow.swift */,
 				C208CBF12420EC7400EF0A10 /* GetDataService.swift */,
+				C2CD5EA6242A0BB900CB2285 /* RealmService.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -340,6 +343,7 @@
 				C230B0AA23F6943A0041FD0A /* Like.swift in Sources */,
 				C25A0F7823EC8D3A00CAD84B /* FavoriteGroupsTableViewController.swift in Sources */,
 				C216A57B2407E11A00679FC5 /* ImageShadow.swift in Sources */,
+				C2CD5EA7242A0BB900CB2285 /* RealmService.swift in Sources */,
 				C27CEC1B23F1534A0011115C /* FriendCell.swift in Sources */,
 				C2BCEDEC23FB2609009D981F /* NewsTableViewController.swift in Sources */,
 				C2654891241EAF6300D2681A /* LoginWebViewController.swift in Sources */,

@@ -17,6 +17,7 @@ class FavoriteGroupsTableViewController: UITableViewController {
         super.viewDidLoad()
         
         let apiParameters: [String : Any] = [
+            
             "extended" : 1
             ]
 
