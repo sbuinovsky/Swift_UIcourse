@@ -73,7 +73,7 @@ extension LoginWebViewController: WKNavigationDelegate {
         SessionData.shared.token = params["access_token"]!
         print("TOKEN: \(SessionData.shared.token)")
         decisionHandler(.cancel)
-        performSegue(withIdentifier: "ShowTabBarController", sender: AnyObject.self)
+        performSegue(withIdentifier: "ToTabBarController", sender: AnyObject.self)
     }
     
 }

@@ -7,16 +7,14 @@
 //
 
 import UIKit
+import RealmSwift
 
-class User: Comparable {
+class User: Object, Comparable {
     
-    var name: String
-    var avatar: UIImage
+    @objc dynamic var id: Int = 0
+    @objc dynamic var name: String = ""
+    @objc dynamic var avatar: String = ""
     
-    init(name: String, avatar: UIImage) {
-        self.name = name
-        self.avatar = avatar
-    }
     
     static func < (lhs: User, rhs: User) -> Bool {
      if lhs.name.startIndex < rhs.name.startIndex {
