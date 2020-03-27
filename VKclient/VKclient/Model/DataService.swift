@@ -26,41 +26,16 @@ private enum apiMethods: String {
     case groupsSearch = "groups.search"
 }
 
-protocol UsersDataServiceProtocol {
-    func loadData(additionalParameters: [String : Any], completion: @escaping ([User]) -> Void)
+protocol DataServiceProtocol {
+    func loadUsers(additionalParameters: [String : Any], completion: @escaping ([User]) -> Void)
+    func loadGroups(additionalParameters: [String : Any], completion: @escaping ([Group]) -> Void)
+    func loadPhotos(additionalParameters: [String : Any], completion: @escaping ([Photo]) -> Void)
+    func getImageByURL(imageURL: String) -> UIImage?
 }
 
-protocol UsersParser {
-    func parse(data: Data) -> [User]
-}
+class DataService: DataServiceProtocol {
 
-protocol GroupsDataServiceProtocol {
-    func loadData(additionalParameters: [String : Any], completion: @escaping ([Group]) -> Void)
-}
-
-protocol GroupsParser {
-    func parse(data: Data) -> [Group]
-}
-
-protocol PhotosDataServiceProtocol {
-    func loadData(additionalParameters: [String : Any], completion: @escaping ([Photo]) -> Void)
-}
-
-protocol PhotosParser {
-    func parse(data: Data) -> [Photo]
-}
-
-class UsersDataService: UsersDataServiceProtocol {
-
-    let parser: UsersParser
-    
-    let db: RealmService = .init()
-    
-    init(parser: UsersParser) {
-        self.parser = parser
-    }
-    
-    func loadData(additionalParameters: [String : Any], completion: @escaping ([User]) -> Void) {
+    func loadUsers(additionalParameters: [String : Any], completion: @escaping ([User]) -> Void) {
         
         additionalParameters.forEach { (k,v) in parameters[k] = v }
         
@@ -72,32 +47,15 @@ class UsersDataService: UsersDataServiceProtocol {
             } else {
                 guard let data = response.data else { return }
                 
-                let users: [User] = self.parser.parse(data: data)
-                
-                do {
-                    try self.db.save(objects: users)
-                } catch {
-                    print("Error while saving users to db")
-                }
-                
-                print(self.db.loadUsers())
-                
+                let users: [User] = self.usersParser(data: data)
+
                 completion(users)
             }
             
         }
     }
-}
 
-class GroupsDataService: GroupsDataServiceProtocol {
-    
-    let parser: GroupsParser
-    
-    init(parser: GroupsParser) {
-        self.parser = parser
-    }
-    
-    func loadData(additionalParameters: [String : Any], completion: @escaping ([Group]) -> Void) {
+    func loadGroups(additionalParameters: [String : Any], completion: @escaping ([Group]) -> Void) {
 
         additionalParameters.forEach { (k,v) in parameters[k] = v }
         
@@ -109,24 +67,15 @@ class GroupsDataService: GroupsDataServiceProtocol {
             } else {
                 guard let data = response.data else { return }
                 
-                let groups: [Group] = self.parser.parse(data: data)
+                let groups: [Group] = self.groupsParser(data: data)
                 
                 completion(groups)
             }
             
         }
     }
-}
 
-class PhotosDataService: PhotosDataServiceProtocol {
-    
-    let parser: PhotosParser
-    
-    init(parser: PhotosParser) {
-        self.parser = parser
-    }
-    
-    func loadData(additionalParameters: [String : Any], completion: @escaping ([Photo]) -> Void) {
+    func loadPhotos(additionalParameters: [String : Any], completion: @escaping ([Photo]) -> Void) {
         
         additionalParameters.forEach { (k,v) in parameters[k] = v }
         
@@ -138,18 +87,16 @@ class PhotosDataService: PhotosDataServiceProtocol {
             } else {
                 guard let data = response.data else { return }
                 
-                let photos: [Photo] = self.parser.parse(data: data)
+                let photos: [Photo] = self.photosParser(data: data)
                 
                 completion(photos)
             }
             
         }
     }
-}
 
-class UsersSwiftyJSONParser: UsersParser {
-    
-    func parse(data: Data) -> [User] {
+    private func usersParser(data: Data) -> [User] {
+
         do {
             let json = try JSON(data: data)
             let array = json["response"]["items"].arrayValue
@@ -171,11 +118,9 @@ class UsersSwiftyJSONParser: UsersParser {
             return []
         }
     }
-}
 
-class GroupsSwiftyJSONParser: GroupsParser {
-    
-    func parse(data: Data) -> [Group] {
+    private func groupsParser(data: Data) -> [Group] {
+
         do {
             let json = try JSON(data: data)
             let array = json["response"]["items"].arrayValue
@@ -199,11 +144,9 @@ class GroupsSwiftyJSONParser: GroupsParser {
             return []
         }
     }
-}
 
-class PhotosSwiftyJSONParser: PhotosParser {
+    private func photosParser(data: Data) -> [Photo] {
     
-    func parse(data: Data) -> [Photo] {
         do {
             let json = try JSON(data: data)
             let array = json["response"]["items"].arrayValue
@@ -215,8 +158,8 @@ class PhotosSwiftyJSONParser: PhotosParser {
                 photo.ownerId = item["owner_id"].intValue
                 
                 let sizeValues = item["sizes"].arrayValue
-                if let first = sizeValues.first {
-                    photo.imageUrl = first["url"].stringValue
+                if let last = sizeValues.last {
+                    photo.imageUrl = last["url"].stringValue
                 }
                 
                 return photo
@@ -229,16 +172,15 @@ class PhotosSwiftyJSONParser: PhotosParser {
             return []
         }
     }
-}
 
-func getImageByURL(imageUrl: String) -> UIImage {
-    let urlString = imageUrl
-    let url = NSURL(string: urlString)! as URL
-    var image: UIImage = .init()
-    
-    if let imageData: NSData = NSData(contentsOf: url) {
-        image = UIImage(data: imageData as Data)!
+    func getImageByURL(imageURL: String) -> UIImage? {
+        let urlString = imageURL
+        guard let url = URL(string: urlString) else { return nil }
+        
+        if let imageData: Data = try? Data(contentsOf: url) {
+            return UIImage(data: imageData)
+        }
+        
+        return nil
     }
-    
-    return image
 }
