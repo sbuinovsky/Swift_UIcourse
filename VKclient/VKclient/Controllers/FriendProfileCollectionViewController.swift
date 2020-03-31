@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 private let reuseIdentifier = "Cell"
 
@@ -35,9 +36,19 @@ class FriendProfileCollectionViewController: UICollectionViewController {
             "album_id" : "profile",
             ]
         
-        dataService.loadPhotos(additionalParameters: apiParameters) { (photos) in
-            self.photos = photos
+        dataService.loadPhotos(additionalParameters: apiParameters) {
+            self.loadData(ownerId: friendId)
             self.collectionView.reloadData()
+        }
+    }
+    
+    func loadData(ownerId: Int) {
+        do {
+            let realm = try Realm()
+            let photos = realm.objects(Photo.self).filter("ownerId = %@", ownerId)
+            self.photos = Array(photos)
+        } catch {
+            print(error.localizedDescription)
         }
     }
     

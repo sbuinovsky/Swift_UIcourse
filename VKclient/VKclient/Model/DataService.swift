@@ -30,9 +30,10 @@ private enum apiMethods: String {
 protocol DataServiceProtocol {
     func loadUsers(additionalParameters: [String : Any], completion: @escaping () -> Void)
     func loadGroups(additionalParameters: [String : Any], completion: @escaping () -> Void)
-    func loadPhotos(additionalParameters: [String : Any], completion: @escaping ([Photo]) -> Void)
+    func loadPhotos(additionalParameters: [String : Any], completion: @escaping () -> Void)
     func saveUsers(users: [User])
     func saveGroups(groups: [Group])
+    func savePhotos(photos: [Photo])
     func getImageByURL(imageURL: String) -> UIImage?
 }
 
@@ -83,7 +84,7 @@ class DataService: DataServiceProtocol {
         }
     }
 
-    func loadPhotos(additionalParameters: [String : Any], completion: @escaping ([Photo]) -> Void) {
+    func loadPhotos(additionalParameters: [String : Any], completion: @escaping () -> Void) {
         
         additionalParameters.forEach { (k,v) in parameters[k] = v }
         
@@ -97,7 +98,9 @@ class DataService: DataServiceProtocol {
                 
                 let photos: [Photo] = self.photosParser(data: data)
                 
-                completion(photos)
+                self.savePhotos(photos: photos)
+                
+                completion()
             }
             
         }
@@ -201,6 +204,20 @@ class DataService: DataServiceProtocol {
             print(realm.configuration.fileURL)
             realm.beginWrite()
             realm.add(groups, update: .modified)
+            try realm.commitWrite()
+        }
+        catch {
+            print(error.localizedDescription)
+        }
+    }
+    
+    func savePhotos(photos: [Photo]) {
+        do {
+            Realm.Configuration.defaultConfiguration = Realm.Configuration(deleteRealmIfMigrationNeeded: true)
+            let realm = try Realm()
+            print(realm.configuration.fileURL)
+            realm.beginWrite()
+            realm.add(photos, update: .modified)
             try realm.commitWrite()
         }
         catch {
