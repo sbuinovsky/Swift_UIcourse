@@ -27,8 +27,6 @@ class CustomPushAnimator: NSObject, UIViewControllerAnimatedTransitioning {
                                                        relativeDuration: 0,
                                                        animations: {
                                                         let position = CGAffineTransform(translationX: source.view.frame.width, y: 0)
-//                                                        let rotation = CGAffineTransform(rotationAngle: .pi/2*3)
-//                                                        destination.view.transform = position.concatenating(rotation)
                                                         destination.view.transform = position
                                     })
 
@@ -70,8 +68,6 @@ class CustomPopAnimator: NSObject, UIViewControllerAnimatedTransitioning {
                                                        relativeDuration: 0.3,
                                                        animations: {
                                                         let position = CGAffineTransform(translationX: -source.view.frame.width, y: 0)
-//                                                        let rotation = CGAffineTransform(rotationAngle: .pi/2)
-//                                                        destination.view.transform = position.concatenating(rotation)
                                                         destination.view.transform = position
                                     })
                                     UIView.addKeyframe(withRelativeStartTime: 0,
