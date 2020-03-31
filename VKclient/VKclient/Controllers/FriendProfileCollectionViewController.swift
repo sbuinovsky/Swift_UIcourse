@@ -11,7 +11,10 @@ import UIKit
 private let reuseIdentifier = "Cell"
 
 class FriendProfileCollectionViewController: UICollectionViewController {
-    let getDataService: PhotosDataServiceProtocol = PhotosDataService(parser: PhotosSwiftyJSONParser())
+    let dataService: DataServiceProtocol = DataService()
+    
+    //словарь для кэшированных аватаров
+    var cachedPhotos = [String: UIImage]()
     
     var photos: [Photo] = []
     var friends: [User] = []
@@ -32,12 +35,12 @@ class FriendProfileCollectionViewController: UICollectionViewController {
             "album_id" : "profile",
             ]
         
-        getDataService.loadData(additionalParameters: apiParameters) { (photos) in
+        dataService.loadPhotos(additionalParameters: apiParameters) { (photos) in
             self.photos = photos
             self.collectionView.reloadData()
         }
     }
-
+    
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         //количество секций
         return 1
@@ -52,10 +55,20 @@ class FriendProfileCollectionViewController: UICollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FriendProfileCell", for: indexPath) as! FriendProfileCell
         
+        let url = photos[indexPath.row].imageUrl
+        
         //задаем имя пользователя
         cell.friendNameLabel.text = " \(photos[indexPath.row].id)"
-        cell.friendProfileImage.image = getImageByURL(imageUrl: photos[indexPath.row].imageUrl)
 
+        DispatchQueue.global().async {
+            if let image = self.dataService.getImageByURL(imageURL: url) {
+                
+                DispatchQueue.main.async {
+                   cell.friendProfileImage.image = image
+                }
+            }
+        }
+        
         return cell
     }
     

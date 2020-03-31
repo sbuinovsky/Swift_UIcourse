@@ -10,7 +10,7 @@ import UIKit
 import RealmSwift
 
 class FriendsTableViewController: UITableViewController {
-    let getDataService: UsersDataServiceProtocol = UsersDataService(parser: UsersSwiftyJSONParser())
+    let dataService: DataServiceProtocol = DataService()
 
     var friends: [User] = []
     
@@ -32,7 +32,7 @@ class FriendsTableViewController: UITableViewController {
             "order" : "name",
             ]
 
-        getDataService.loadData(additionalParameters: apiParameters) { (users) in
+        dataService.loadUsers(additionalParameters: apiParameters) { (users) in
             self.friends = users
             self.friendsNamesAlphabet = self.fillFriendsNamesAlphabet(friendsArray: self.friends)
             self.defaultfriendsNamesArray = self.friends
@@ -81,7 +81,7 @@ class FriendsTableViewController: UITableViewController {
 //        // вывод боковой полоски алфавитного указателя справа экрана
 //        return friendsNamesAlphabet
 //    }
-
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "FriendCell", for: indexPath) as? FriendCell else {
             preconditionFailure("Can't deque FriendCell")
@@ -90,12 +90,21 @@ class FriendsTableViewController: UITableViewController {
         let friendsForSection = friends.filter { $0.name.first == friendsNamesAlphabet[indexPath.section] }
         
         let friendName = friendsForSection[indexPath.row].name
-        let friendImage: UIImage = getImageByURL(imageUrl: friendsForSection[indexPath.row].avatar)
-
+        
+        let url = friendsForSection[indexPath.row].avatar
+        
         //заполнение ячейки
         cell.friendNameLabel.text = friendName
-        cell.friendAvatarImage.image = friendImage
         
+        DispatchQueue.global().async {
+            if let image = self.dataService.getImageByURL(imageURL: url) {
+                
+                DispatchQueue.main.async {
+                   cell.friendAvatarImage.image = image
+                }
+            }
+        }
+
         return cell
     }
     

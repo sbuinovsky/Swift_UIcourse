@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		B71E627B0BE3FB89C771C2FA /* Pods_VKclient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC15456E852C80DD81540537 /* Pods_VKclient.framework */; };
-		C208CBF22420EC7400EF0A10 /* GetDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C208CBF12420EC7400EF0A10 /* GetDataService.swift */; };
+		C208CBF22420EC7400EF0A10 /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C208CBF12420EC7400EF0A10 /* DataService.swift */; };
 		C2119BCB23E0081500EC528E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2119BCA23E0081500EC528E /* AppDelegate.swift */; };
 		C2119BCD23E0081500EC528E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2119BCC23E0081500EC528E /* SceneDelegate.swift */; };
 		C2119BCF23E0081500EC528E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2119BCE23E0081500EC528E /* ViewController.swift */; };
@@ -38,13 +38,14 @@
 		C2CD5EA7242A0BB900CB2285 /* RealmService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2CD5EA6242A0BB900CB2285 /* RealmService.swift */; };
 		C2DCDEAA240C3BB400DF7780 /* CustomFriendsNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2DCDEA9240C3BB400DF7780 /* CustomFriendsNavigationController.swift */; };
 		C2DCDEAC240C3D5900DF7780 /* CustomPopPushTransitioning.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2DCDEAB240C3D5900DF7780 /* CustomPopPushTransitioning.swift */; };
+		C2E61EC9242E85710091947F /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2E61EC8242E85710091947F /* WebKit.framework */; };
 		C2EE21FB24052C3600F9979D /* LoaderCirclesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2EE21FA24052C3600F9979D /* LoaderCirclesView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		37CAF2A37CAAD829DB62770F /* Pods-VKclient.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VKclient.release.xcconfig"; path = "Target Support Files/Pods-VKclient/Pods-VKclient.release.xcconfig"; sourceTree = "<group>"; };
 		450D928CF4DF0BB8CA31E1C4 /* Pods-VKclient.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VKclient.debug.xcconfig"; path = "Target Support Files/Pods-VKclient/Pods-VKclient.debug.xcconfig"; sourceTree = "<group>"; };
-		C208CBF12420EC7400EF0A10 /* GetDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetDataService.swift; sourceTree = "<group>"; };
+		C208CBF12420EC7400EF0A10 /* DataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
 		C2119BC723E0081500EC528E /* VKclient.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VKclient.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C2119BCA23E0081500EC528E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C2119BCC23E0081500EC528E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -76,6 +77,7 @@
 		C2CD5EA6242A0BB900CB2285 /* RealmService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmService.swift; sourceTree = "<group>"; };
 		C2DCDEA9240C3BB400DF7780 /* CustomFriendsNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFriendsNavigationController.swift; sourceTree = "<group>"; };
 		C2DCDEAB240C3D5900DF7780 /* CustomPopPushTransitioning.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPopPushTransitioning.swift; sourceTree = "<group>"; };
+		C2E61EC8242E85710091947F /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		C2EE21FA24052C3600F9979D /* LoaderCirclesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoaderCirclesView.swift; sourceTree = "<group>"; };
 		CC15456E852C80DD81540537 /* Pods_VKclient.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VKclient.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -85,6 +87,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C2E61EC9242E85710091947F /* WebKit.framework in Frameworks */,
 				B71E627B0BE3FB89C771C2FA /* Pods_VKclient.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -95,6 +98,7 @@
 		157282CBEC98591310D6853F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C2E61EC8242E85710091947F /* WebKit.framework */,
 				CC15456E852C80DD81540537 /* Pods_VKclient.framework */,
 			);
 			name = Frameworks;
@@ -189,7 +193,7 @@
 				C2EE21FA24052C3600F9979D /* LoaderCirclesView.swift */,
 				C2BEBC7C240928B10073C498 /* LoaderCloudView.swift */,
 				C216A57A2407E11A00679FC5 /* ImageShadow.swift */,
-				C208CBF12420EC7400EF0A10 /* GetDataService.swift */,
+				C208CBF12420EC7400EF0A10 /* DataService.swift */,
 				C2CD5EA6242A0BB900CB2285 /* RealmService.swift */,
 			);
 			path = Model;
@@ -332,7 +336,7 @@
 			files = (
 				C25A0F7C23EC8DB800CAD84B /* AllGroupsTableViewController.swift in Sources */,
 				C27CEC1D23F153690011115C /* FriendProfileCell.swift in Sources */,
-				C208CBF22420EC7400EF0A10 /* GetDataService.swift in Sources */,
+				C208CBF22420EC7400EF0A10 /* DataService.swift in Sources */,
 				C2BCEDEE23FB2639009D981F /* NewsCell.swift in Sources */,
 				C2EE21FB24052C3600F9979D /* LoaderCirclesView.swift in Sources */,
 				C2DCDEAA240C3BB400DF7780 /* CustomFriendsNavigationController.swift in Sources */,

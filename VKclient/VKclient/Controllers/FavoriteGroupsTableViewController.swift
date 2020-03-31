@@ -9,7 +9,7 @@
 import UIKit
 
 class FavoriteGroupsTableViewController: UITableViewController {
-    let getDataService: GroupsDataServiceProtocol = GroupsDataService(parser: GroupsSwiftyJSONParser())
+    let dataService: DataServiceProtocol = DataService()
     
     var favoriteGroups: [Group] = []
     
@@ -21,7 +21,7 @@ class FavoriteGroupsTableViewController: UITableViewController {
             "extended" : 1
             ]
 
-        getDataService.loadData(additionalParameters: apiParameters) { (groups) in
+        dataService.loadGroups(additionalParameters: apiParameters) { (groups) in
             
             self.favoriteGroups = groups
             
@@ -42,8 +42,20 @@ class FavoriteGroupsTableViewController: UITableViewController {
             preconditionFailure("Can't create GroupCell")
         }
         
+        let url = favoriteGroups[indexPath.row].avatar
+        
         cell.favoriteGroupNameLabel.text = favoriteGroups[indexPath.row].name
-        cell.favoriteGroupAvatarImage.image = getImageByURL(imageUrl: favoriteGroups[indexPath.row].avatar)
+        
+        DispatchQueue.global().async {
+            if let image = self.dataService.getImageByURL(imageURL: url) {
+                
+                DispatchQueue.main.async {
+                    cell.favoriteGroupAvatarImage.image = image
+                }
+            }
+        }
+
+        cell.favoriteGroupAvatarImage.image = self.dataService.getImageByURL(imageURL: favoriteGroups[indexPath.row].avatar)
         
         return cell
     }
