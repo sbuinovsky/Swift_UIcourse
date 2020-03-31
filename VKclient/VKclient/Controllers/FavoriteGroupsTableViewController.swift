@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 class FavoriteGroupsTableViewController: UITableViewController {
     let dataService: DataServiceProtocol = DataService()
@@ -17,15 +18,22 @@ class FavoriteGroupsTableViewController: UITableViewController {
         super.viewDidLoad()
         
         let apiParameters: [String : Any] = [
-            
             "extended" : 1
             ]
 
-        dataService.loadGroups(additionalParameters: apiParameters) { (groups) in
-            
-            self.favoriteGroups = groups
-            
+        dataService.loadGroups(additionalParameters: apiParameters) {
+            self.loadData()
             self.tableView.reloadData()
+        }
+    }
+    
+    func loadData() {
+        do {
+            let realm = try Realm()
+            let groups = realm.objects(Group.self)
+            self.favoriteGroups = Array(groups)
+        } catch {
+            print(error.localizedDescription)
         }
     }
 
@@ -54,8 +62,6 @@ class FavoriteGroupsTableViewController: UITableViewController {
                 }
             }
         }
-
-        cell.favoriteGroupAvatarImage.image = self.dataService.getImageByURL(imageURL: favoriteGroups[indexPath.row].avatar)
         
         return cell
     }
@@ -66,22 +72,6 @@ class FavoriteGroupsTableViewController: UITableViewController {
             tableView.deleteRows(at: [indexPath], with: .fade)
         } else if editingStyle == .insert {
             tableView.insertRows(at: [indexPath], with: .automatic)
-        }
-    }
-    
-    @IBAction func addGroup(segue: UIStoryboardSegue) {
-        if segue.identifier == "addGroup" {
-            guard let allGroupsController = segue.source as? AllGroupsTableViewController else { return }
-            
-            if let indexPath = allGroupsController.tableView.indexPathForSelectedRow {
-                let group = allGroupsController.allGroups[indexPath.row]
-                
-                if !favoriteGroups.contains(group) {
-                    favoriteGroups.append(group)
-                }
-                
-                tableView.reloadData()
-            }
         }
     }
 

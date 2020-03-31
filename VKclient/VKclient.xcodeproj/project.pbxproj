@@ -22,7 +22,6 @@
 		C25A0F7523EC8CDE00CAD84B /* FriendsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C25A0F7423EC8CDE00CAD84B /* FriendsTableViewController.swift */; };
 		C25A0F7823EC8D3A00CAD84B /* FavoriteGroupsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C25A0F7723EC8D3A00CAD84B /* FavoriteGroupsTableViewController.swift */; };
 		C25A0F7A23EC8D8B00CAD84B /* FriendProfileCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C25A0F7923EC8D8B00CAD84B /* FriendProfileCollectionViewController.swift */; };
-		C25A0F7C23EC8DB800CAD84B /* AllGroupsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C25A0F7B23EC8DB800CAD84B /* AllGroupsTableViewController.swift */; };
 		C2654891241EAF6300D2681A /* LoginWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2654890241EAF6300D2681A /* LoginWebViewController.swift */; };
 		C270648E2418DDEC00A17245 /* SessionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C270648D2418DDEC00A17245 /* SessionData.swift */; };
 		C27CEC1B23F1534A0011115C /* FriendCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C27CEC1A23F1534A0011115C /* FriendCell.swift */; };
@@ -61,7 +60,6 @@
 		C25A0F7423EC8CDE00CAD84B /* FriendsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsTableViewController.swift; sourceTree = "<group>"; };
 		C25A0F7723EC8D3A00CAD84B /* FavoriteGroupsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteGroupsTableViewController.swift; sourceTree = "<group>"; };
 		C25A0F7923EC8D8B00CAD84B /* FriendProfileCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendProfileCollectionViewController.swift; sourceTree = "<group>"; };
-		C25A0F7B23EC8DB800CAD84B /* AllGroupsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllGroupsTableViewController.swift; sourceTree = "<group>"; };
 		C2654890241EAF6300D2681A /* LoginWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginWebViewController.swift; sourceTree = "<group>"; };
 		C270648D2418DDEC00A17245 /* SessionData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionData.swift; sourceTree = "<group>"; };
 		C27CEC1A23F1534A0011115C /* FriendCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendCell.swift; sourceTree = "<group>"; };
@@ -146,7 +144,6 @@
 				C25A0F7423EC8CDE00CAD84B /* FriendsTableViewController.swift */,
 				C25A0F7923EC8D8B00CAD84B /* FriendProfileCollectionViewController.swift */,
 				C25A0F7723EC8D3A00CAD84B /* FavoriteGroupsTableViewController.swift */,
-				C25A0F7B23EC8DB800CAD84B /* AllGroupsTableViewController.swift */,
 				C2BCEDEB23FB2609009D981F /* NewsTableViewController.swift */,
 				C2654890241EAF6300D2681A /* LoginWebViewController.swift */,
 			);
@@ -334,7 +331,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C25A0F7C23EC8DB800CAD84B /* AllGroupsTableViewController.swift in Sources */,
 				C27CEC1D23F153690011115C /* FriendProfileCell.swift in Sources */,
 				C208CBF22420EC7400EF0A10 /* DataService.swift in Sources */,
 				C2BCEDEE23FB2639009D981F /* NewsCell.swift in Sources */,

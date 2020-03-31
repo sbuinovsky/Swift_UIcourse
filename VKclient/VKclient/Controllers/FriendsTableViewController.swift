@@ -32,15 +32,30 @@ class FriendsTableViewController: UITableViewController {
             "order" : "name",
             ]
 
-        dataService.loadUsers(additionalParameters: apiParameters) { (users) in
-            self.friends = users
+        dataService.loadUsers(additionalParameters: apiParameters) {
+            self.loadData()
             self.friendsNamesAlphabet = self.fillFriendsNamesAlphabet(friendsArray: self.friends)
             self.defaultfriendsNamesArray = self.friends
             self.tableView.reloadData()
         }
         
+        
+
+        
+        
+        
         //регистрируем xib для кастомного отображения header ячеек
         tableView.register(UINib(nibName: "FriendsTableViewCellHeader", bundle: nil), forHeaderFooterViewReuseIdentifier: "cellHeaderView")
+    }
+    
+    func loadData() {
+        do {
+            let realm = try Realm()
+            let friends = realm.objects(User.self)
+            self.friends = Array(friends)
+        } catch {
+            print(error.localizedDescription)
+        }
     }
     
     func fillFriendsNamesAlphabet(friendsArray: [User]) -> [Character] {

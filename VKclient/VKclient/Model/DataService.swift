@@ -9,6 +9,7 @@
 import UIKit
 import Alamofire
 import SwiftyJSON
+import RealmSwift
 
 private let apiKey = SessionData.shared.token
 
@@ -27,35 +28,40 @@ private enum apiMethods: String {
 }
 
 protocol DataServiceProtocol {
-    func loadUsers(additionalParameters: [String : Any], completion: @escaping ([User]) -> Void)
-    func loadGroups(additionalParameters: [String : Any], completion: @escaping ([Group]) -> Void)
+    func loadUsers(additionalParameters: [String : Any], completion: @escaping () -> Void)
+    func loadGroups(additionalParameters: [String : Any], completion: @escaping () -> Void)
     func loadPhotos(additionalParameters: [String : Any], completion: @escaping ([Photo]) -> Void)
+    func saveUsers(users: [User])
+    func saveGroups(groups: [Group])
     func getImageByURL(imageURL: String) -> UIImage?
 }
 
 class DataService: DataServiceProtocol {
 
-    func loadUsers(additionalParameters: [String : Any], completion: @escaping ([User]) -> Void) {
+    func loadUsers(additionalParameters: [String : Any], completion: @escaping () -> Void) {
         
         additionalParameters.forEach { (k,v) in parameters[k] = v }
         
         let url = baseUrl + apiMethods.friends.rawValue
         
-        AF.request(url, parameters: parameters).responseJSON { [completion] (response) in
+        AF.request(url, parameters: parameters).responseJSON { (response) in
             if let error = response.error {
                 print(error)
             } else {
                 guard let data = response.data else { return }
                 
                 let users: [User] = self.usersParser(data: data)
+                
+                self.saveUsers(users: users)
+                
+                completion()
 
-                completion(users)
             }
             
         }
     }
 
-    func loadGroups(additionalParameters: [String : Any], completion: @escaping ([Group]) -> Void) {
+    func loadGroups(additionalParameters: [String : Any], completion: @escaping () -> Void) {
 
         additionalParameters.forEach { (k,v) in parameters[k] = v }
         
@@ -69,7 +75,9 @@ class DataService: DataServiceProtocol {
                 
                 let groups: [Group] = self.groupsParser(data: data)
                 
-                completion(groups)
+                self.saveGroups(groups: groups)
+                
+                completion()
             }
             
         }
@@ -129,10 +137,9 @@ class DataService: DataServiceProtocol {
             
                 let group = Group()
                 
+                group.id = item["id"].intValue
                 group.name = item["name"].stringValue
-                group.avatar = item["photo_200"].stringValue
-                
-                print("MARKER_URL \(group.avatar)")
+                group.avatar = item["photo_200_orig"].stringValue
                 
                 return group
             }
@@ -170,6 +177,34 @@ class DataService: DataServiceProtocol {
         } catch {
             print(error.localizedDescription)
             return []
+        }
+    }
+    
+    func saveUsers(users: [User]) {
+        do {
+            Realm.Configuration.defaultConfiguration = Realm.Configuration(deleteRealmIfMigrationNeeded: true)
+            let realm = try Realm()
+            print(realm.configuration.fileURL)
+            realm.beginWrite()
+            realm.add(users, update: .modified)
+            try realm.commitWrite()
+        }
+        catch {
+            print(error.localizedDescription)
+        }
+    }
+    
+    func saveGroups(groups: [Group]) {
+        do {
+            Realm.Configuration.defaultConfiguration = Realm.Configuration(deleteRealmIfMigrationNeeded: true)
+            let realm = try Realm()
+            print(realm.configuration.fileURL)
+            realm.beginWrite()
+            realm.add(groups, update: .modified)
+            try realm.commitWrite()
+        }
+        catch {
+            print(error.localizedDescription)
         }
     }
 
