@@ -20,10 +20,7 @@ class FriendProfileCollectionViewController: UICollectionViewController {
     var cachedPhotos = [String: UIImage]()
     
     var photos: [Photo] = []
-    var friends: [User] = []
-
-    var friendName: String?
-    var friendAvatar: UIImage?
+    var friend: User?
     
     
     override func viewDidLoad() {
@@ -31,8 +28,7 @@ class FriendProfileCollectionViewController: UICollectionViewController {
 
         self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         
-        friends = friends.filter({friendName!.contains($0.name)})
-        guard let friendId = friends.first?.id else { return }
+        guard let friendId = friend?.id else { return }
         
         let apiParameters: [String : Any] = [
             "owner_id" :  friendId,
