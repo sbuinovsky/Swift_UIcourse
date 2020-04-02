@@ -12,6 +12,7 @@ import RealmSwift
 private let reuseIdentifier = "Cell"
 
 class FriendProfileCollectionViewController: UICollectionViewController {
+   
     let dataService: DataServiceProtocol = DataService()
     let realmService: RealmServiceProtocol = RealmService()
     
@@ -23,6 +24,7 @@ class FriendProfileCollectionViewController: UICollectionViewController {
 
     var friendName: String?
     var friendAvatar: UIImage?
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,6 +45,7 @@ class FriendProfileCollectionViewController: UICollectionViewController {
         }
     }
     
+    
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         //количество секций
         return 1
@@ -54,6 +57,7 @@ class FriendProfileCollectionViewController: UICollectionViewController {
         return photos.count
     }
 
+    
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FriendProfileCell", for: indexPath) as! FriendProfileCell
         

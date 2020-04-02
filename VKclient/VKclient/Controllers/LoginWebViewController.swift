@@ -40,6 +40,7 @@ class LoginWebViewController: UIViewController {
         webView.load(request)
     }
     
+    
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         
         if SessionData.shared.token != "" {
@@ -52,7 +53,10 @@ class LoginWebViewController: UIViewController {
     }
 }
 
+
 extension LoginWebViewController: WKNavigationDelegate {
+    
+    
     func webView(_ webView: WKWebView, decidePolicyFor navigationResponse: WKNavigationResponse, decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {
         guard let url = navigationResponse.response.url, url.path == "/blank.html", let fragment = url.fragment else {
             decisionHandler(.allow)

@@ -9,9 +9,11 @@
 import UIKit
 
 class ViewController: UIViewController {
+    
     @IBOutlet weak var loginTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var scrollView: UIScrollView!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,6 +28,7 @@ class ViewController: UIViewController {
         passwordTextField.text = "admin"
     }
     
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -35,6 +38,7 @@ class ViewController: UIViewController {
         
     }
     
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
@@ -42,6 +46,7 @@ class ViewController: UIViewController {
         
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
+    
     
     @objc func keyboardWillShown (notification: Notification) {
         //добавление размера области перед открытием клавиатуры
@@ -56,6 +61,7 @@ class ViewController: UIViewController {
         
     }
     
+    
     @objc func keyboardWillHide (notification: Notification) {
         //очистка отступов перед скрытием клавиатуры
         
@@ -63,9 +69,11 @@ class ViewController: UIViewController {
         
     }
     
+    
     @objc func hideKeyboard() {
         self.scrollView.endEditing(true)
     }
+    
     
     func checkLogin() -> Bool {
         //функция проверки логина и пароля пользователя
@@ -87,6 +95,7 @@ class ViewController: UIViewController {
         return false
     }
     
+    
     func showLoginError() {
         //функция 
         
@@ -99,6 +108,7 @@ class ViewController: UIViewController {
         present(alert, animated: true, completion: nil)
         
     }
+    
     
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         

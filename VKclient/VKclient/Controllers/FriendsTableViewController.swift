@@ -10,6 +10,7 @@ import UIKit
 import RealmSwift
 
 class FriendsTableViewController: UITableViewController {
+    
     let dataService: DataServiceProtocol = DataService()
     let realmService: RealmServiceProtocol = RealmService()
 
@@ -23,7 +24,8 @@ class FriendsTableViewController: UITableViewController {
     
     //словарь с именами пользователей
     var defaultfriendsNamesArray = [User]()
-        
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -45,6 +47,7 @@ class FriendsTableViewController: UITableViewController {
         tableView.register(UINib(nibName: "FriendsTableViewCellHeader", bundle: nil), forHeaderFooterViewReuseIdentifier: "cellHeaderView")
     }
     
+    
     func fillFriendsNamesAlphabet(friendsArray: [User]) -> [Character] {
         var alphabetArray = [Character]()
         for index in 0..<friendsArray.count {
@@ -59,9 +62,11 @@ class FriendsTableViewController: UITableViewController {
         return alphabetArray
     }
     
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         return friendsNamesAlphabet.count
     }
+    
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         //формируем title для header секций
@@ -69,20 +74,24 @@ class FriendsTableViewController: UITableViewController {
         return "\(headerTitle)"
     }
 
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let friendsForSection = friends.filter { $0.name.first == friendsNamesAlphabet[section] }
         return friendsForSection.count
     }
+    
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         // настраиваем отображение кастомного title для header ячеек
         return tableView.dequeueReusableHeaderFooterView(withIdentifier: "cellHeaderView")
     }
     
+    
 //    override func sectionIndexTitles(for tableView: UITableView) -> [String]? {
 //        // вывод боковой полоски алфавитного указателя справа экрана
 //        return friendsNamesAlphabet
 //    }
+    
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "FriendCell", for: indexPath) as? FriendCell else {
@@ -110,6 +119,7 @@ class FriendsTableViewController: UITableViewController {
         return cell
     }
     
+    
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         // долбавление возможности удаления ячейки
         
@@ -119,6 +129,7 @@ class FriendsTableViewController: UITableViewController {
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }
+    
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
@@ -137,10 +148,11 @@ class FriendsTableViewController: UITableViewController {
 
 }
 
+
 extension FriendsTableViewController: UISearchBarDelegate {
     
-    // реализация работы поисковой строки
     
+    // реализация работы поисковой строки
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         
         if searchText != "" {

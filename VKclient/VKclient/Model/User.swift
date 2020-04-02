@@ -15,9 +15,11 @@ class User: Object, Comparable {
     @objc dynamic var name: String = ""
     @objc dynamic var avatar: String = ""
     
+    
     override class func primaryKey() -> String? {
         return "id"
     }
+    
     
     static func < (lhs: User, rhs: User) -> Bool {
      if lhs.name.startIndex < rhs.name.startIndex {
@@ -27,6 +29,7 @@ class User: Object, Comparable {
         }
     }
     
+    
     static func > (lhs: User, rhs: User) -> Bool {
      if lhs.name.startIndex > rhs.name.startIndex {
             return lhs.name > rhs.name
@@ -34,6 +37,7 @@ class User: Object, Comparable {
         return false
         }
     }
+    
     
     static func == (lhs: User, rhs: User) -> Bool {
         if lhs.name == rhs.name {

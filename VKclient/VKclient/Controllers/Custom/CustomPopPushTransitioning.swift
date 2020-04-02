@@ -9,9 +9,12 @@
 import UIKit
 
 class CustomPushAnimator: NSObject, UIViewControllerAnimatedTransitioning {
+    
+    
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
         return 0.8
     }
+    
     
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
         guard let source = transitionContext.viewController(forKey: .from),
@@ -50,9 +53,12 @@ class CustomPushAnimator: NSObject, UIViewControllerAnimatedTransitioning {
 }
 
 class CustomPopAnimator: NSObject, UIViewControllerAnimatedTransitioning {
+    
+    
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
         return 0.8
     }
+    
     
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
         guard let source = transitionContext.viewController(forKey: .from),

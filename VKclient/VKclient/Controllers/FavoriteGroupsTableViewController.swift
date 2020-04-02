@@ -10,10 +10,12 @@ import UIKit
 import RealmSwift
 
 class FavoriteGroupsTableViewController: UITableViewController {
+    
     let dataService: DataServiceProtocol = DataService()
     let realmService: RealmServiceProtocol = RealmService()
     
     var favoriteGroups: [Group] = []
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,13 +30,16 @@ class FavoriteGroupsTableViewController: UITableViewController {
         }
     }
 
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
 
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return favoriteGroups.count
     }
+    
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "GroupCell", for: indexPath) as? GroupCell else {
@@ -56,6 +61,7 @@ class FavoriteGroupsTableViewController: UITableViewController {
         
         return cell
     }
+    
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {

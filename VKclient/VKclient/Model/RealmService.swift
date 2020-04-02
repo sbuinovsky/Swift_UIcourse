@@ -10,6 +10,7 @@ import Foundation
 import RealmSwift
 
 protocol RealmServiceProtocol {
+    
     func saveData(objects: [Object]) throws
     func getUsers() -> [User]
     func getGroups() -> [Group]

@@ -9,12 +9,12 @@
 import UIKit
 
 class ImageShadow: UIImageView {
-    // класс для формирования тени
     
     // основные параметры
     @IBInspectable var shadowColor: UIColor = .black
     @IBInspectable var shadowRadius: CGFloat = 6
     @IBInspectable var shadowOpacity: Float = 0.9
+    
     
     //метод для формирования тени
     func addShadow() {

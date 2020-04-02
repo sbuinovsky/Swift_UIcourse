@@ -9,20 +9,25 @@
 import UIKit
 
 class LoaderCirclesView: UIView {
+    
     let firstCircle = UIView()
     let secondCircle = UIView()
     let thirdCircle = UIView()
+    
     
     override init(frame:CGRect) {
         super.init(frame:frame)
         
         initLoader()
     }
+    
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
 
         initLoader()
     }
+    
     
     private func initLoader() {
         addSubview(firstCircle)
@@ -32,6 +37,7 @@ class LoaderCirclesView: UIView {
         secondCircle.backgroundColor = .gray
         thirdCircle.backgroundColor = .gray
     }
+    
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -53,6 +59,7 @@ class LoaderCirclesView: UIView {
         thirdCircle.layer.cornerRadius = cornerRadiusSize
         
     }
+    
     
     public func animateLoader() {
         

@@ -38,6 +38,7 @@ protocol DataServiceProtocol {
 
 class DataService: DataServiceProtocol {
 
+    
     func loadUsers(additionalParameters: [String : Any], completion: @escaping () -> Void) {
         
         additionalParameters.forEach { (k,v) in parameters[k] = v }
@@ -63,6 +64,7 @@ class DataService: DataServiceProtocol {
         }
     }
 
+    
     func loadGroups(additionalParameters: [String : Any], completion: @escaping () -> Void) {
 
         additionalParameters.forEach { (k,v) in parameters[k] = v }
@@ -85,6 +87,7 @@ class DataService: DataServiceProtocol {
         }
     }
 
+    
     func loadPhotos(additionalParameters: [String : Any], completion: @escaping () -> Void) {
         
         additionalParameters.forEach { (k,v) in parameters[k] = v }
@@ -107,6 +110,7 @@ class DataService: DataServiceProtocol {
         }
     }
 
+    
     private func usersParser(data: Data) -> [User] {
 
         do {
@@ -131,6 +135,7 @@ class DataService: DataServiceProtocol {
         }
     }
 
+    
     private func groupsParser(data: Data) -> [Group] {
 
         do {
@@ -156,6 +161,7 @@ class DataService: DataServiceProtocol {
         }
     }
 
+    
     private func photosParser(data: Data) -> [Photo] {
     
         do {
@@ -184,6 +190,7 @@ class DataService: DataServiceProtocol {
         }
     }
 
+    
     func getImageByURL(imageURL: String) -> UIImage? {
         let urlString = imageURL
         guard let url = URL(string: urlString) else { return nil }

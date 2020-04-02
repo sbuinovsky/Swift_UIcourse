@@ -9,7 +9,9 @@
 import UIKit
 
 class CustomFriendsNavigationController: UINavigationController, UINavigationControllerDelegate {
+    
     private let interactiveTransition = CustomInteractiveTransition()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -17,10 +19,12 @@ class CustomFriendsNavigationController: UINavigationController, UINavigationCon
     
     }
     
+    
     func navigationController(_ navigationController: UINavigationController,
                               interactionControllerFor animationController: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
         return interactiveTransition.hasStarted ? interactiveTransition : nil
     }
+    
     
     func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationController.Operation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         
