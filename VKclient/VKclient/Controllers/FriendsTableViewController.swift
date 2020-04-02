@@ -11,73 +11,81 @@ import RealmSwift
 
 class FriendsTableViewController: UITableViewController {
     
-    let dataService: DataServiceProtocol = DataService()
-    let realmService: RealmServiceProtocol = RealmService()
-
-    var friends: [User] = []
+    private let dataService: DataServiceProtocol = DataService()
+    private let realmService: RealmServiceProtocol = RealmService()
     
-    // создаем массив для алфавитного указателя
-    var friendsNamesAlphabet = [Character]()
+    private var sections: [Results<User>] = []
+    private var tokens: [NotificationToken] = []
     
-    //словарь с именами пользователей
-    var friendsNamesArray = [[String]]()
+    private let searchController: UISearchController = .init()
     
-    //словарь с именами пользователей
-    var defaultfriendsNamesArray = [User]()
+    func prepareSections() {
+        
+        do {
+            tokens.removeAll()
+            let realm = try Realm()
+            let friendsAlphabet = Array( Set( realm.objects(User.self).compactMap{ $0.name.first?.uppercased() } ) ).sorted()
+            sections = friendsAlphabet.map { realm.objects(User.self).filter("name BEGINSWITH[c] %@", $0) }
+            sections.enumerated().forEach{ observeChanges(section: $0.offset, results: $0.element) }
+            tableView.reloadData()
+            
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+    
+    
+    func observeChanges(section: Int, results: Results<User>) {
+        tokens.append(
+            results.observe { (changes) in
+                switch changes {
+                case .initial:
+                    self.tableView.reloadSections(IndexSet(integer: section), with: .automatic)
+                    
+                case .update(_, let deletions, let insertions, let modifications):
+                    self.tableView.beginUpdates()
+                    self.tableView.deleteRows(at: deletions.map{ IndexPath(row: $0, section: section) }, with: .automatic)
+                    self.tableView.insertRows(at: insertions.map{ IndexPath(row: $0, section: section) }, with: .automatic)
+                    self.tableView.reloadRows(at: modifications.map{ IndexPath(row: $0, section: section) }, with: .automatic)
+                    self.tableView.endUpdates()
+                
+                case .error(let error):
+                    print(error.localizedDescription)
+                
+                }
+            }
+        )
+    }
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        let apiParameters: [String : Any] = [
-            "user_ids" : "7359889",
-            "fields" : "photo_200_orig",
-            "order" : "name",
-            ]
-
-        dataService.loadUsers(additionalParameters: apiParameters) {
-            self.friends = self.realmService.getUsers()
-            self.friendsNamesAlphabet = self.fillFriendsNamesAlphabet(friendsArray: self.friends)
-            self.defaultfriendsNamesArray = self.friends
-            self.tableView.reloadData()
-        }
         
+        searchController.searchResultsUpdater = self
+        
+        tableView.tableHeaderView = searchController.searchBar
+        
+        dataService.loadUsers()
+        
+        prepareSections()
         
         //регистрируем xib для кастомного отображения header ячеек
         tableView.register(UINib(nibName: "FriendsTableViewCellHeader", bundle: nil), forHeaderFooterViewReuseIdentifier: "cellHeaderView")
     }
     
     
-    func fillFriendsNamesAlphabet(friendsArray: [User]) -> [Character] {
-        var alphabetArray = [Character]()
-        for index in 0..<friendsArray.count {
-            
-            let firstCharacter = friendsArray[index].name.first! //забираем первые символы
-            alphabetArray.append(firstCharacter)
-            
-            }
-        
-        alphabetArray = Array(Set(alphabetArray)).sorted()
-        
-        return alphabetArray
-    }
-    
-    
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return friendsNamesAlphabet.count
+        return sections.count
     }
     
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        //формируем title для header секций
-        let headerTitle = friendsNamesAlphabet[section]
-        return "\(headerTitle)"
+        return sections[section].first?.name.first?.uppercased()
     }
 
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let friendsForSection = friends.filter { $0.name.first == friendsNamesAlphabet[section] }
-        return friendsForSection.count
+        return sections[section].count
     }
     
     
@@ -87,10 +95,18 @@ class FriendsTableViewController: UITableViewController {
     }
     
     
-//    override func sectionIndexTitles(for tableView: UITableView) -> [String]? {
-//        // вывод боковой полоски алфавитного указателя справа экрана
-//        return friendsNamesAlphabet
-//    }
+    override func sectionIndexTitles(for tableView: UITableView) -> [String]? {
+        // делаем массив плоским
+        let sectionsJoined = sections.joined()
+        
+        // трансформируем в массив первых букв
+        let letterArray = sectionsJoined.compactMap{ $0.name.first?.uppercased() }
+        
+        // убираем неуникальные значения
+        let set = Set(letterArray)
+        
+        return Array(set).sorted()
+    }
     
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -98,14 +114,12 @@ class FriendsTableViewController: UITableViewController {
             preconditionFailure("Can't deque FriendCell")
         }
         
-        let friendsForSection = friends.filter { $0.name.first == friendsNamesAlphabet[indexPath.section] }
+        let friend = sections[indexPath.section][indexPath.row]
         
-        let friendName = friendsForSection[indexPath.row].name
-        
-        let url = friendsForSection[indexPath.row].avatar
+        let url = friend.avatar
         
         //заполнение ячейки
-        cell.friendNameLabel.text = friendName
+        cell.friendNameLabel.text = friend.name
         
         DispatchQueue.global().async {
             if let image = self.dataService.getImageByURL(imageURL: url) {
@@ -121,51 +135,59 @@ class FriendsTableViewController: UITableViewController {
     
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        
+        let friend = sections[indexPath.section][indexPath.row]
+        
         // долбавление возможности удаления ячейки
         
         if editingStyle == .delete {
-            // Delete the row from the data source
-            friends.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .fade)
+            
+            do {
+                let realm = try Realm()
+                realm.beginWrite()
+                realm.delete(friend)
+                try realm.commitWrite()
+            } catch {
+                print(error.localizedDescription)
+            }
         }
     }
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        // реализация передачи имени и аватара на view с профилем пользователя
-        
         if segue.identifier == "friendProfileSegue" {
-            guard let friendProfileController = segue.destination as? FriendProfileCollectionViewController,
-                let cell = sender as? FriendCell
-                else { return }
+            guard let friendProfileController = segue.destination as? FriendProfileCollectionViewController else { return }
             
-            friendProfileController.friends = friends
-            friendProfileController.friendName = cell.friendNameLabel.text
-            friendProfileController.friendAvatar = cell.friendAvatarImage.image
+            if let indexPath = tableView.indexPathForSelectedRow {
+                friendProfileController.friend = sections[indexPath.section][indexPath.row]
+            }
+            
+            
         }
     }
 
 }
 
 
-extension FriendsTableViewController: UISearchBarDelegate {
+extension FriendsTableViewController: UISearchResultsUpdating {
     
-    
-    // реализация работы поисковой строки
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+    func updateSearchResults(for searchController: UISearchController) {
         
-        if searchText != "" {
-            
-            friends = friends.filter { $0.name.range(of: searchText, options: .caseInsensitive) != nil }
-            friendsNamesAlphabet = fillFriendsNamesAlphabet(friendsArray: friends)
-            
-        } else {
-            
-            friends = defaultfriendsNamesArray
-            friendsNamesAlphabet = fillFriendsNamesAlphabet(friendsArray: friends)
+        if let text = searchController.searchBar.text {
+            do {
+                tokens.removeAll()
+                let realm = try Realm()
+                let friendsAlphabet = Array( Set( realm.objects(User.self).filter("name contains %@", text).compactMap{ $0.name.first?.uppercased() } ) ).sorted()
+                sections = friendsAlphabet.map { realm.objects(User.self).filter("name BEGINSWITH[c] %@", $0) }
+                sections.enumerated().forEach{ observeChanges(section: $0.offset, results: $0.element) }
+                
+            } catch {
+                print(error.localizedDescription)
+            }
         }
         
         tableView.reloadData()
     }
+    
 }

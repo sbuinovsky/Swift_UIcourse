@@ -27,10 +27,11 @@ private enum apiMethods: String {
     case groups = "groups.get"
     case photos = "photos.get"
     case groupsSearch = "groups.search"
+    case news = "newsfeed.get"
 }
 
 protocol DataServiceProtocol {
-    func loadUsers(additionalParameters: [String : Any], completion: @escaping () -> Void)
+    func loadUsers()
     func loadGroups(additionalParameters: [String : Any], completion: @escaping () -> Void)
     func loadPhotos(additionalParameters: [String : Any], completion: @escaping () -> Void)
     func getImageByURL(imageURL: String) -> UIImage?
@@ -39,9 +40,15 @@ protocol DataServiceProtocol {
 class DataService: DataServiceProtocol {
 
     
-    func loadUsers(additionalParameters: [String : Any], completion: @escaping () -> Void) {
+    func loadUsers() {
         
-        additionalParameters.forEach { (k,v) in parameters[k] = v }
+        let apiParameters: [String : Any] = [
+            "user_ids" : "7359889",
+            "fields" : "photo_200_orig",
+            "order" : "name",
+        ]
+        
+        apiParameters.forEach { (k,v) in parameters[k] = v }
         
         let url = baseUrl + apiMethods.friends.rawValue
         
@@ -53,11 +60,7 @@ class DataService: DataServiceProtocol {
                 
                 let users: [User] = self.usersParser(data: data)
                 
-//                self.saveUsers(users: users)
-                
                 realmService.saveData(objects: users)
-                
-                completion()
 
             }
             
