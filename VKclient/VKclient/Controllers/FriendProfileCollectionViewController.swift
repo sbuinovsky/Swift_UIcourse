@@ -13,6 +13,7 @@ private let reuseIdentifier = "Cell"
 
 class FriendProfileCollectionViewController: UICollectionViewController {
     let dataService: DataServiceProtocol = DataService()
+    let realmService: RealmService = .init()
     
     //словарь для кэшированных аватаров
     var cachedPhotos = [String: UIImage]()
@@ -37,18 +38,8 @@ class FriendProfileCollectionViewController: UICollectionViewController {
             ]
         
         dataService.loadPhotos(additionalParameters: apiParameters) {
-            self.loadData(ownerId: friendId)
+            self.photos = self.realmService.getUserPhotos(ownerId: friendId)
             self.collectionView.reloadData()
-        }
-    }
-    
-    func loadData(ownerId: Int) {
-        do {
-            let realm = try Realm()
-            let photos = realm.objects(Photo.self).filter("ownerId = %@", ownerId)
-            self.photos = Array(photos)
-        } catch {
-            print(error.localizedDescription)
         }
     }
     

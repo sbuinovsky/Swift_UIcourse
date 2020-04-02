@@ -20,6 +20,8 @@ private var parameters: Parameters = [
     "v" : "5.103"
 ]
 
+private let realmService: RealmService = .init()
+
 private enum apiMethods: String {
     case friends = "friends.get"
     case groups = "groups.get"
@@ -31,9 +33,6 @@ protocol DataServiceProtocol {
     func loadUsers(additionalParameters: [String : Any], completion: @escaping () -> Void)
     func loadGroups(additionalParameters: [String : Any], completion: @escaping () -> Void)
     func loadPhotos(additionalParameters: [String : Any], completion: @escaping () -> Void)
-    func saveUsers(users: [User])
-    func saveGroups(groups: [Group])
-    func savePhotos(photos: [Photo])
     func getImageByURL(imageURL: String) -> UIImage?
 }
 
@@ -53,7 +52,9 @@ class DataService: DataServiceProtocol {
                 
                 let users: [User] = self.usersParser(data: data)
                 
-                self.saveUsers(users: users)
+//                self.saveUsers(users: users)
+                
+                realmService.saveData(objects: users)
                 
                 completion()
 
@@ -76,7 +77,7 @@ class DataService: DataServiceProtocol {
                 
                 let groups: [Group] = self.groupsParser(data: data)
                 
-                self.saveGroups(groups: groups)
+                realmService.saveData(objects: groups)
                 
                 completion()
             }
@@ -98,7 +99,7 @@ class DataService: DataServiceProtocol {
                 
                 let photos: [Photo] = self.photosParser(data: data)
                 
-                self.savePhotos(photos: photos)
+                realmService.saveData(objects: photos)
                 
                 completion()
             }
@@ -180,48 +181,6 @@ class DataService: DataServiceProtocol {
         } catch {
             print(error.localizedDescription)
             return []
-        }
-    }
-    
-    func saveUsers(users: [User]) {
-        do {
-            Realm.Configuration.defaultConfiguration = Realm.Configuration(deleteRealmIfMigrationNeeded: true)
-            let realm = try Realm()
-            print(realm.configuration.fileURL)
-            realm.beginWrite()
-            realm.add(users, update: .modified)
-            try realm.commitWrite()
-        }
-        catch {
-            print(error.localizedDescription)
-        }
-    }
-    
-    func saveGroups(groups: [Group]) {
-        do {
-            Realm.Configuration.defaultConfiguration = Realm.Configuration(deleteRealmIfMigrationNeeded: true)
-            let realm = try Realm()
-            print(realm.configuration.fileURL)
-            realm.beginWrite()
-            realm.add(groups, update: .modified)
-            try realm.commitWrite()
-        }
-        catch {
-            print(error.localizedDescription)
-        }
-    }
-    
-    func savePhotos(photos: [Photo]) {
-        do {
-            Realm.Configuration.defaultConfiguration = Realm.Configuration(deleteRealmIfMigrationNeeded: true)
-            let realm = try Realm()
-            print(realm.configuration.fileURL)
-            realm.beginWrite()
-            realm.add(photos, update: .modified)
-            try realm.commitWrite()
-        }
-        catch {
-            print(error.localizedDescription)
         }
     }
 

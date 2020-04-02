@@ -11,6 +11,7 @@ import RealmSwift
 
 class FavoriteGroupsTableViewController: UITableViewController {
     let dataService: DataServiceProtocol = DataService()
+    let realmService: RealmService = .init()
     
     var favoriteGroups: [Group] = []
     
@@ -22,18 +23,8 @@ class FavoriteGroupsTableViewController: UITableViewController {
             ]
 
         dataService.loadGroups(additionalParameters: apiParameters) {
-            self.loadData()
+            self.favoriteGroups = self.realmService.getGroups()
             self.tableView.reloadData()
-        }
-    }
-    
-    func loadData() {
-        do {
-            let realm = try Realm()
-            let groups = realm.objects(Group.self)
-            self.favoriteGroups = Array(groups)
-        } catch {
-            print(error.localizedDescription)
         }
     }
 

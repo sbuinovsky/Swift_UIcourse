@@ -11,6 +11,7 @@ import RealmSwift
 
 class FriendsTableViewController: UITableViewController {
     let dataService: DataServiceProtocol = DataService()
+    let realmService: RealmService = .init()
 
     var friends: [User] = []
     
@@ -33,29 +34,15 @@ class FriendsTableViewController: UITableViewController {
             ]
 
         dataService.loadUsers(additionalParameters: apiParameters) {
-            self.loadData()
+            self.friends = self.realmService.getUsers()
             self.friendsNamesAlphabet = self.fillFriendsNamesAlphabet(friendsArray: self.friends)
             self.defaultfriendsNamesArray = self.friends
             self.tableView.reloadData()
         }
         
         
-
-        
-        
-        
         //регистрируем xib для кастомного отображения header ячеек
         tableView.register(UINib(nibName: "FriendsTableViewCellHeader", bundle: nil), forHeaderFooterViewReuseIdentifier: "cellHeaderView")
-    }
-    
-    func loadData() {
-        do {
-            let realm = try Realm()
-            let friends = realm.objects(User.self)
-            self.friends = Array(friends)
-        } catch {
-            print(error.localizedDescription)
-        }
     }
     
     func fillFriendsNamesAlphabet(friendsArray: [User]) -> [Character] {
