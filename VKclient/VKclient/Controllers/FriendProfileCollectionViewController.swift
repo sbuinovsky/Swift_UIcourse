@@ -13,7 +13,7 @@ private let reuseIdentifier = "Cell"
 
 class FriendProfileCollectionViewController: UICollectionViewController {
     let dataService: DataServiceProtocol = DataService()
-    let realmService: RealmService = .init()
+    let realmService: RealmServiceProtocol = RealmService()
     
     //словарь для кэшированных аватаров
     var cachedPhotos = [String: UIImage]()

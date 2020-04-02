@@ -11,7 +11,7 @@ import RealmSwift
 
 class FriendsTableViewController: UITableViewController {
     let dataService: DataServiceProtocol = DataService()
-    let realmService: RealmService = .init()
+    let realmService: RealmServiceProtocol = RealmService()
 
     var friends: [User] = []
     
