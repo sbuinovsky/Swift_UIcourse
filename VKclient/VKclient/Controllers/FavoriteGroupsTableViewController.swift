@@ -14,7 +14,7 @@ class FavoriteGroupsTableViewController: UITableViewController {
     let dataService: DataServiceProtocol = DataService()
     let realmService: RealmServiceProtocol = RealmService()
     
-    var favoriteGroups: [Group] = []
+    var groups: [Group] = []
     
     
     override func viewDidLoad() {
@@ -25,7 +25,7 @@ class FavoriteGroupsTableViewController: UITableViewController {
             ]
 
         dataService.loadGroups(additionalParameters: apiParameters) {
-            self.favoriteGroups = self.realmService.getGroups()
+            self.groups = self.realmService.getGroups()
             self.tableView.reloadData()
         }
     }
@@ -37,7 +37,7 @@ class FavoriteGroupsTableViewController: UITableViewController {
 
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return favoriteGroups.count
+        return groups.count
     }
     
     
@@ -46,9 +46,9 @@ class FavoriteGroupsTableViewController: UITableViewController {
             preconditionFailure("Can't create GroupCell")
         }
         
-        let url = favoriteGroups[indexPath.row].avatar
+        let url = groups[indexPath.row].avatar
         
-        cell.favoriteGroupNameLabel.text = favoriteGroups[indexPath.row].name
+        cell.favoriteGroupNameLabel.text = groups[indexPath.row].name
         
         DispatchQueue.global().async {
             if let image = self.dataService.getImageByURL(imageURL: url) {
@@ -65,7 +65,7 @@ class FavoriteGroupsTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            favoriteGroups.remove(at: indexPath.row)
+            groups.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
         } else if editingStyle == .insert {
             tableView.insertRows(at: [indexPath], with: .automatic)

@@ -12,12 +12,17 @@ import RealmSwift
 class FriendsTableViewController: UITableViewController {
     
     private let dataService: DataServiceProtocol = DataService()
-    private let realmService: RealmServiceProtocol = RealmService()
     
     private var sections: [Results<User>] = []
     private var tokens: [NotificationToken] = []
+    private var filteredSections: [Results<User>] = []
+    
+    private var activeSections: [Results<User>] {
+        searchController.isActive ? filteredSections : sections
+    }
     
     private let searchController: UISearchController = .init()
+    
     
     func prepareSections() {
         
@@ -62,7 +67,6 @@ class FriendsTableViewController: UITableViewController {
         super.viewDidLoad()
         
         searchController.searchResultsUpdater = self
-        
         tableView.tableHeaderView = searchController.searchBar
         
         dataService.loadUsers()
@@ -75,17 +79,17 @@ class FriendsTableViewController: UITableViewController {
     
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return sections.count
+        return activeSections.count
     }
     
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return sections[section].first?.name.first?.uppercased()
+        return activeSections[section].first?.name.first?.uppercased()
     }
 
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return sections[section].count
+        return activeSections[section].count
     }
     
     
@@ -97,7 +101,7 @@ class FriendsTableViewController: UITableViewController {
     
     override func sectionIndexTitles(for tableView: UITableView) -> [String]? {
         // делаем массив плоским
-        let sectionsJoined = sections.joined()
+        let sectionsJoined = activeSections.joined()
         
         // трансформируем в массив первых букв
         let letterArray = sectionsJoined.compactMap{ $0.name.first?.uppercased() }
@@ -114,7 +118,7 @@ class FriendsTableViewController: UITableViewController {
             preconditionFailure("Can't deque FriendCell")
         }
         
-        let friend = sections[indexPath.section][indexPath.row]
+        let friend = activeSections[indexPath.section][indexPath.row]
         
         let url = friend.avatar
         
@@ -136,7 +140,7 @@ class FriendsTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         
-        let friend = sections[indexPath.section][indexPath.row]
+        let friend = activeSections[indexPath.section][indexPath.row]
         
         // долбавление возможности удаления ячейки
         
@@ -160,7 +164,7 @@ class FriendsTableViewController: UITableViewController {
             guard let friendProfileController = segue.destination as? FriendProfileCollectionViewController else { return }
             
             if let indexPath = tableView.indexPathForSelectedRow {
-                friendProfileController.friend = sections[indexPath.section][indexPath.row]
+                friendProfileController.friend = activeSections[indexPath.section][indexPath.row]
             }
             
             
@@ -178,16 +182,16 @@ extension FriendsTableViewController: UISearchResultsUpdating {
             do {
                 tokens.removeAll()
                 let realm = try Realm()
-                let friendsAlphabet = Array( Set( realm.objects(User.self).filter("name contains %@", text).compactMap{ $0.name.first?.uppercased() } ) ).sorted()
-                sections = friendsAlphabet.map { realm.objects(User.self).filter("name BEGINSWITH[c] %@", $0) }
-                sections.enumerated().forEach{ observeChanges(section: $0.offset, results: $0.element) }
-                
+                let friendsAlphabet = Array( Set( realm.objects(User.self).filter("name CONTAINS[c] %@", text).compactMap{ $0.name.first?.uppercased() } ) ).sorted()
+                filteredSections = friendsAlphabet.map { realm.objects(User.self).filter("name BEGINSWITH[c] %@", $0) }
+                filteredSections.enumerated().forEach{ observeChanges(section: $0.offset, results: $0.element) }
+                tableView.reloadData()
             } catch {
                 print(error.localizedDescription)
             }
         }
         
-        tableView.reloadData()
+        
     }
     
 }
