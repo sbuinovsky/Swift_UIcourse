@@ -74,7 +74,7 @@ class FriendsTableViewController: UITableViewController {
         prepareSections()
         
         //регистрируем xib для кастомного отображения header ячеек
-        tableView.register(UINib(nibName: "FriendsTableViewCellHeader", bundle: nil), forHeaderFooterViewReuseIdentifier: "cellHeaderView")
+        tableView.register(UINib(nibName: "CustomCellHeader", bundle: nil), forHeaderFooterViewReuseIdentifier: "cellHeaderView")
     }
     
     
@@ -175,9 +175,9 @@ class FriendsTableViewController: UITableViewController {
 
 
 extension FriendsTableViewController: UISearchResultsUpdating {
-    
+
     func updateSearchResults(for searchController: UISearchController) {
-        
+
         if let text = searchController.searchBar.text {
             do {
                 tokens.removeAll()
@@ -190,8 +190,7 @@ extension FriendsTableViewController: UISearchResultsUpdating {
                 print(error.localizedDescription)
             }
         }
-        
-        
+
     }
-    
+
 }

@@ -12,32 +12,81 @@ import RealmSwift
 class FavoriteGroupsTableViewController: UITableViewController {
     
     let dataService: DataServiceProtocol = DataService()
-    let realmService: RealmServiceProtocol = RealmService()
     
-    var groups: [Group] = []
+    private var tokens: [NotificationToken] = []
+    
+    var groups: [Results<Group>] = []
+    
+    
+    func prepareGroups() {
+        
+        do {
+            tokens.removeAll()
+            let realm = try Realm()
+            let groupsAlphabet = Array( Set( realm.objects(Group.self).compactMap{ $0.name.first?.uppercased() } ) ).sorted()
+            groups = groupsAlphabet.map { realm.objects(Group.self).filter("name BEGINSWITH[c] %@", $0) }
+            groups.enumerated().forEach{ observeChanges(section: $0.offset, results: $0.element) }
+            tableView.reloadData()
+            
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+    
+    
+    func observeChanges(section: Int, results: Results<Group>) {
+        tokens.append(
+            results.observe { (changes) in
+                switch changes {
+                case .initial:
+                    self.tableView.reloadSections(IndexSet(integer: section), with: .automatic)
+                    
+                case .update(_, let deletions, let insertions, let modifications):
+                    self.tableView.beginUpdates()
+                    self.tableView.deleteRows(at: deletions.map{ IndexPath(row: $0, section: section) }, with: .automatic)
+                    self.tableView.insertRows(at: insertions.map{ IndexPath(row: $0, section: section) }, with: .automatic)
+                    self.tableView.reloadRows(at: modifications.map{ IndexPath(row: $0, section: section) }, with: .automatic)
+                    self.tableView.endUpdates()
+                
+                case .error(let error):
+                    print(error.localizedDescription)
+                
+                }
+            }
+        )
+    }
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let apiParameters: [String : Any] = [
-            "extended" : 1
-            ]
-
-        dataService.loadGroups(additionalParameters: apiParameters) {
-            self.groups = self.realmService.getGroups()
-            self.tableView.reloadData()
-        }
+        dataService.loadGroups()
+        
+        prepareGroups()
+        
+        //регистрируем xib для кастомного отображения header ячеек
+        tableView.register(UINib(nibName: "CustomCellHeader", bundle: nil), forHeaderFooterViewReuseIdentifier: "cellHeaderView")
     }
 
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return groups.count
     }
 
     
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return groups[section].first?.name.first?.uppercased()
+    }
+    
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return groups.count
+        return groups[section].count
+    }
+    
+    
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        // настраиваем отображение кастомного title для header ячеек
+        return tableView.dequeueReusableHeaderFooterView(withIdentifier: "cellHeaderView")
     }
     
     
@@ -46,9 +95,10 @@ class FavoriteGroupsTableViewController: UITableViewController {
             preconditionFailure("Can't create GroupCell")
         }
         
-        let url = groups[indexPath.row].avatar
+        let group = groups[indexPath.section][indexPath.row]
+        let url = group.avatar
         
-        cell.favoriteGroupNameLabel.text = groups[indexPath.row].name
+        cell.favoriteGroupNameLabel.text = group.name
         
         DispatchQueue.global().async {
             if let image = self.dataService.getImageByURL(imageURL: url) {
@@ -64,11 +114,21 @@ class FavoriteGroupsTableViewController: UITableViewController {
     
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        
+        let group = groups[indexPath.section][indexPath.row]
+        
+        // долбавление возможности удаления ячейки
+        
         if editingStyle == .delete {
-            groups.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            tableView.insertRows(at: [indexPath], with: .automatic)
+            
+            do {
+                let realm = try Realm()
+                realm.beginWrite()
+                realm.delete(group)
+                try realm.commitWrite()
+            } catch {
+                print(error.localizedDescription)
+            }
         }
     }
 
