@@ -12,6 +12,7 @@ import RealmSwift
 class FavoriteGroupsTableViewController: UITableViewController {
     
     let dataService: DataServiceProtocol = DataService()
+    let realmService: RealmServiceProtocol = RealmService()
     
     private var tokens: [NotificationToken] = []
     
@@ -60,9 +61,11 @@ class FavoriteGroupsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        dataService.loadGroups()
+        dataService.loadGroups() {
+            self.tableView.reloadData()
+            self.prepareGroups()
+        }
         
-        prepareGroups()
         
         //регистрируем xib для кастомного отображения header ячеек
         tableView.register(UINib(nibName: "CustomCellHeader", bundle: nil), forHeaderFooterViewReuseIdentifier: "cellHeaderView")
@@ -122,13 +125,12 @@ class FavoriteGroupsTableViewController: UITableViewController {
         if editingStyle == .delete {
             
             do {
-                let realm = try Realm()
-                realm.beginWrite()
-                realm.delete(group)
-                try realm.commitWrite()
+                try realmService.deleteObject(object: group)
             } catch {
                 print(error.localizedDescription)
             }
+            
+            prepareGroups()
         }
     }
 
