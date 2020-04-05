@@ -9,7 +9,9 @@
 import UIKit
 
 class LoaderCloudView: UIView {
+    
     let cloud = UIView()
+    
     
     override init(frame:CGRect) {
         super.init(frame:frame)
@@ -17,17 +19,21 @@ class LoaderCloudView: UIView {
         initLoader()
     }
     
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
 
         initLoader()
     }
     
+    
     private func initLoader() {
         addSubview(cloud)
     }
     
+    
     override func layoutSubviews() {
+        
         super.layoutSubviews()
         
         let cloudPath = UIBezierPath()

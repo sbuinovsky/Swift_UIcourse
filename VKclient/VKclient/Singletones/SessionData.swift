@@ -9,8 +9,10 @@
 import UIKit
 
 class SessionData {
+    
     var token: String = .init()
     var userId: Int = .init()
+    
     
     private init() {}
     

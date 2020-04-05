@@ -10,91 +10,124 @@ import UIKit
 import RealmSwift
 
 class FriendsTableViewController: UITableViewController {
-    let dataService: DataServiceProtocol = DataService()
-
-    var friends: [User] = []
     
-    // создаем массив для алфавитного указателя
-    var friendsNamesAlphabet = [Character]()
+    private let dataService: DataServiceProtocol = DataService()
+    let realmService: RealmServiceProtocol = RealmService()
     
-    //словарь с именами пользователей
-    var friendsNamesArray = [[String]]()
+    private var sections: [Results<User>] = []
+    private var tokens: [NotificationToken] = []
+    private var filteredSections: [Results<User>] = []
     
-    //словарь с именами пользователей
-    var defaultfriendsNamesArray = [User]()
+    private var activeSections: [Results<User>] {
+        searchController.isActive ? filteredSections : sections
+    }
+    
+    private let searchController: UISearchController = .init()
+    
+    
+    func prepareSections() {
         
+        do {
+            tokens.removeAll()
+            let realm = try Realm()
+            let friendsAlphabet = Array( Set( realm.objects(User.self).compactMap{ $0.name.first?.uppercased() } ) ).sorted()
+            sections = friendsAlphabet.map { realm.objects(User.self).filter("name BEGINSWITH[c] %@", $0) }
+            sections.enumerated().forEach{ observeChanges(section: $0.offset, results: $0.element) }
+            print("Prepared SECTIONS: \(sections)")
+            tableView.reloadData()
+            
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+    
+    
+    func observeChanges(section: Int, results: Results<User>) {
+        tokens.append(
+            results.observe { (changes) in
+                switch changes {
+                case .initial:
+                    self.tableView.reloadSections(IndexSet(integer: section), with: .automatic)
+                    
+                case .update(_, let deletions, let insertions, let modifications):
+                    self.tableView.beginUpdates()
+                    self.tableView.deleteRows(at: deletions.map{ IndexPath(row: $0, section: section) }, with: .automatic)
+                    self.tableView.insertRows(at: insertions.map{ IndexPath(row: $0, section: section) }, with: .automatic)
+                    self.tableView.reloadRows(at: modifications.map{ IndexPath(row: $0, section: section) }, with: .automatic)
+                    self.tableView.endUpdates()
+                
+                case .error(let error):
+                    print(error.localizedDescription)
+                
+                }
+            }
+        )
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        let apiParameters: [String : Any] = [
-            "user_ids" : "7359889",
-            "fields" : "photo_200_orig",
-            "order" : "name",
-            ]
-
-        dataService.loadUsers(additionalParameters: apiParameters) { (users) in
-            self.friends = users
-            self.friendsNamesAlphabet = self.fillFriendsNamesAlphabet(friendsArray: self.friends)
-            self.defaultfriendsNamesArray = self.friends
+        
+        searchController.searchResultsUpdater = self
+        tableView.tableHeaderView = searchController.searchBar
+        
+        dataService.loadUsers() {
             self.tableView.reloadData()
+            self.prepareSections()
         }
         
+        
         //регистрируем xib для кастомного отображения header ячеек
-        tableView.register(UINib(nibName: "FriendsTableViewCellHeader", bundle: nil), forHeaderFooterViewReuseIdentifier: "cellHeaderView")
+        tableView.register(UINib(nibName: "CustomCellHeader", bundle: nil), forHeaderFooterViewReuseIdentifier: "cellHeaderView")
     }
     
-    func fillFriendsNamesAlphabet(friendsArray: [User]) -> [Character] {
-        var alphabetArray = [Character]()
-        for index in 0..<friendsArray.count {
-            
-            let firstCharacter = friendsArray[index].name.first! //забираем первые символы
-            alphabetArray.append(firstCharacter)
-            
-            }
-        
-        alphabetArray = Array(Set(alphabetArray)).sorted()
-        
-        return alphabetArray
-    }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return friendsNamesAlphabet.count
+        return activeSections.count
     }
     
+    
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        //формируем title для header секций
-        let headerTitle = friendsNamesAlphabet[section]
-        return "\(headerTitle)"
+        return activeSections[section].first?.name.first?.uppercased()
     }
 
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let friendsForSection = friends.filter { $0.name.first == friendsNamesAlphabet[section] }
-        return friendsForSection.count
+        return activeSections[section].count
     }
+    
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         // настраиваем отображение кастомного title для header ячеек
         return tableView.dequeueReusableHeaderFooterView(withIdentifier: "cellHeaderView")
     }
     
-//    override func sectionIndexTitles(for tableView: UITableView) -> [String]? {
-//        // вывод боковой полоски алфавитного указателя справа экрана
-//        return friendsNamesAlphabet
-//    }
+    
+    override func sectionIndexTitles(for tableView: UITableView) -> [String]? {
+        // делаем массив плоским
+        let sectionsJoined = activeSections.joined()
+        
+        // трансформируем в массив первых букв
+        let letterArray = sectionsJoined.compactMap{ $0.name.first?.uppercased() }
+        
+        // убираем неуникальные значения
+        let set = Set(letterArray)
+        
+        return Array(set).sorted()
+    }
+    
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "FriendCell", for: indexPath) as? FriendCell else {
             preconditionFailure("Can't deque FriendCell")
         }
         
-        let friendsForSection = friends.filter { $0.name.first == friendsNamesAlphabet[indexPath.section] }
+        let friend = activeSections[indexPath.section][indexPath.row]
         
-        let friendName = friendsForSection[indexPath.row].name
-        
-        let url = friendsForSection[indexPath.row].avatar
+        let url = friend.avatar
         
         //заполнение ячейки
-        cell.friendNameLabel.text = friendName
+        cell.friendNameLabel.text = friend.name
         
         DispatchQueue.global().async {
             if let image = self.dataService.getImageByURL(imageURL: url) {
@@ -108,50 +141,52 @@ class FriendsTableViewController: UITableViewController {
         return cell
     }
     
+    
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        
+        let friend = activeSections[indexPath.section][indexPath.row]
+        
         // долбавление возможности удаления ячейки
         
         if editingStyle == .delete {
-            // Delete the row from the data source
-            friends.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .fade)
+            
+            do {
+                try realmService.deleteObject(object: friend)
+            } catch {
+                print(error.localizedDescription)
+            }
+            
+            prepareSections()
         }
     }
     
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        // реализация передачи имени и аватара на view с профилем пользователя
-        
         if segue.identifier == "friendProfileSegue" {
-            guard let friendProfileController = segue.destination as? FriendProfileCollectionViewController,
-                let cell = sender as? FriendCell
-                else { return }
+            guard let friendProfileController = segue.destination as? FriendProfileCollectionViewController else { return }
             
-            friendProfileController.friends = friends
-            friendProfileController.friendName = cell.friendNameLabel.text
-            friendProfileController.friendAvatar = cell.friendAvatarImage.image
+            if let indexPath = tableView.indexPathForSelectedRow {
+                friendProfileController.friend = activeSections[indexPath.section][indexPath.row]
+            }
+            
+            
         }
     }
 
 }
 
-extension FriendsTableViewController: UISearchBarDelegate {
-    
-    // реализация работы поисковой строки
-    
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        
-        if searchText != "" {
-            
-            friends = friends.filter { $0.name.range(of: searchText, options: .caseInsensitive) != nil }
-            friendsNamesAlphabet = fillFriendsNamesAlphabet(friendsArray: friends)
-            
-        } else {
-            
-            friends = defaultfriendsNamesArray
-            friendsNamesAlphabet = fillFriendsNamesAlphabet(friendsArray: friends)
+
+extension FriendsTableViewController: UISearchResultsUpdating {
+
+    func updateSearchResults(for searchController: UISearchController) {
+
+        if let text = searchController.searchBar.text {
+            filteredSections = sections.map { $0.filter("name BEGINSWITH[c] %@", text) }
+            tableView.reloadData()
         }
-        
-        tableView.reloadData()
+
     }
+    
+
 }

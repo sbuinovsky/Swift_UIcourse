@@ -10,29 +10,82 @@ import Foundation
 import RealmSwift
 
 protocol RealmServiceProtocol {
-    func save(objects: [Object]) throws
-    func loadUsers() -> [User]
+    
+    func saveObjects(objects: [Object]) throws
+    func getUsers() -> [User]
+    func getGroups() -> [Group]
+    func getUserPhotos(ownerId: Int) -> [Photo]
+    func deleteObject(object: Object) throws
 }
 
-class RealmService: Object, RealmServiceProtocol {
+class RealmService: RealmServiceProtocol {
     
-    func save(objects: [Object]) throws {
-        let realm = try Realm()
+    
+    func saveObjects(objects: [Object]) {
+        do {
+            Realm.Configuration.defaultConfiguration = Realm.Configuration(deleteRealmIfMigrationNeeded: true)
+            let realm = try Realm()
+            print(realm.configuration.fileURL)
+            realm.beginWrite()
+            realm.add(objects, update: .modified)
+            try realm.commitWrite()
+        }
+        catch {
+            print(error.localizedDescription)
+        }
+    }
+    
+    
+    func deleteObject(object: Object) {
+        do {
+            let realm = try Realm()
+            realm.beginWrite()
+            realm.delete(object)
+            try realm.commitWrite()
+        } catch {
+            print(error.localizedDescription)
+        }
         
-        realm.beginWrite()
-        realm.add(objects)
-        try realm.commitWrite()
     }
 
-    func loadUsers() -> [User] {
+    
+    func getUsers() -> [User] {
         do {
             let realm = try Realm()
             let objects = realm.objects(User.self)
             return Array(objects)
             
         } catch {
+            print(error.localizedDescription)
             return []
         }
 
     }
+    
+    
+    func getGroups() -> [Group] {
+        do {
+            let realm = try Realm()
+            let objects = realm.objects(Group.self)
+            return Array(objects)
+            
+        } catch {
+            print(error.localizedDescription)
+            return []
+        }
+
+    }
+    
+    
+    func getUserPhotos(ownerId: Int) -> [Photo] {
+        do {
+            let realm = try Realm()
+            let photos = realm.objects(Photo.self).filter("ownerId = %@", ownerId)
+            return Array(photos)
+        } catch {
+            print(error.localizedDescription)
+            return []
+        }
+    }
+    
 }

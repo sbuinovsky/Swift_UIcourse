@@ -9,10 +9,10 @@
 import UIKit
 
 class GroupCell: UITableViewCell {
+    
     @IBOutlet weak var favoriteGroupAvatarImage: UIImageView!
     @IBOutlet weak var favoriteGroupNameLabel: UILabel!
-    @IBOutlet weak var groupAvatarImage: UIImageView!
-    @IBOutlet weak var groupNameLabel: UILabel!
+    
     
     override func prepareForReuse() {
         super.prepareForReuse()

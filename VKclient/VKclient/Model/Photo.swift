@@ -15,5 +15,9 @@ class Photo: Object {
     @objc dynamic var ownerId: Int = 0
     @objc dynamic var imageUrl: String = ""
     
+    
+    override class func primaryKey() -> String? {
+        return "id"
+    }
+    
 }
-

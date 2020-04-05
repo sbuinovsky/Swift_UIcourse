@@ -9,6 +9,7 @@
 import UIKit
 import Alamofire
 import SwiftyJSON
+import RealmSwift
 
 private let apiKey = SessionData.shared.token
 
@@ -19,49 +20,66 @@ private var parameters: Parameters = [
     "v" : "5.103"
 ]
 
+private let realmService: RealmService = .init()
+
 private enum apiMethods: String {
     case friends = "friends.get"
     case groups = "groups.get"
     case photos = "photos.get"
     case groupsSearch = "groups.search"
+    case news = "newsfeed.get"
 }
 
 protocol DataServiceProtocol {
-    func loadUsers(additionalParameters: [String : Any], completion: @escaping ([User]) -> Void)
-    func loadGroups(additionalParameters: [String : Any], completion: @escaping ([Group]) -> Void)
-    func loadPhotos(additionalParameters: [String : Any], completion: @escaping ([Photo]) -> Void)
+    func loadUsers(completion: @escaping () -> Void)
+    func loadGroups(completion: @escaping () -> Void)
+    func loadPhotos(additionalParameters: [String : Any], completion: @escaping () -> Void)
     func getImageByURL(imageURL: String) -> UIImage?
 }
 
 class DataService: DataServiceProtocol {
 
-    func loadUsers(additionalParameters: [String : Any], completion: @escaping ([User]) -> Void) {
+    
+    func loadUsers(completion: @escaping () -> Void) {
         
-        additionalParameters.forEach { (k,v) in parameters[k] = v }
+        let apiParameters: [String : Any] = [
+            "user_ids" : "7359889",
+            "fields" : "photo_200_orig",
+            "order" : "name",
+        ]
+        
+        apiParameters.forEach { (k,v) in parameters[k] = v }
         
         let url = baseUrl + apiMethods.friends.rawValue
         
-        AF.request(url, parameters: parameters).responseJSON { [completion] (response) in
+        AF.request(url, parameters: parameters).responseJSON { (response) in
             if let error = response.error {
                 print(error)
             } else {
                 guard let data = response.data else { return }
                 
                 let users: [User] = self.usersParser(data: data)
+                
+                realmService.saveObjects(objects: users)
 
-                completion(users)
+                completion()
             }
             
         }
     }
 
-    func loadGroups(additionalParameters: [String : Any], completion: @escaping ([Group]) -> Void) {
+    
+    func loadGroups(completion: @escaping () -> Void) {
 
-        additionalParameters.forEach { (k,v) in parameters[k] = v }
+        let apiParameters: [String : Any] = [
+        "extended" : 1
+        ]
+
+        apiParameters.forEach { (k,v) in parameters[k] = v }
         
         let url = baseUrl + apiMethods.groups.rawValue
         
-        AF.request(url, parameters: parameters).responseJSON { [completion] (response) in
+        AF.request(url, parameters: parameters).responseJSON { (response) in
             if let error = response.error {
                 print(error)
             } else {
@@ -69,13 +87,17 @@ class DataService: DataServiceProtocol {
                 
                 let groups: [Group] = self.groupsParser(data: data)
                 
-                completion(groups)
+                realmService.saveObjects(objects: groups)
+                
+                completion()
+                
             }
             
         }
     }
 
-    func loadPhotos(additionalParameters: [String : Any], completion: @escaping ([Photo]) -> Void) {
+    
+    func loadPhotos(additionalParameters: [String : Any], completion: @escaping () -> Void) {
         
         additionalParameters.forEach { (k,v) in parameters[k] = v }
         
@@ -89,12 +111,15 @@ class DataService: DataServiceProtocol {
                 
                 let photos: [Photo] = self.photosParser(data: data)
                 
-                completion(photos)
+                realmService.saveObjects(objects: photos)
+                
+                completion()
             }
             
         }
     }
 
+    
     private func usersParser(data: Data) -> [User] {
 
         do {
@@ -119,6 +144,7 @@ class DataService: DataServiceProtocol {
         }
     }
 
+    
     private func groupsParser(data: Data) -> [Group] {
 
         do {
@@ -129,10 +155,9 @@ class DataService: DataServiceProtocol {
             
                 let group = Group()
                 
+                group.id = item["id"].intValue
                 group.name = item["name"].stringValue
-                group.avatar = item["photo_200"].stringValue
-                
-                print("MARKER_URL \(group.avatar)")
+                group.avatar = item["photo_200_orig"].stringValue
                 
                 return group
             }
@@ -145,6 +170,7 @@ class DataService: DataServiceProtocol {
         }
     }
 
+    
     private func photosParser(data: Data) -> [Photo] {
     
         do {
@@ -173,6 +199,7 @@ class DataService: DataServiceProtocol {
         }
     }
 
+    
     func getImageByURL(imageURL: String) -> UIImage? {
         let urlString = imageURL
         guard let url = URL(string: urlString) else { return nil }

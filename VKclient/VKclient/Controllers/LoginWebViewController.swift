@@ -30,7 +30,7 @@ class LoginWebViewController: UIViewController {
         URLQueryItem(name: "client_id", value: "7359889"),
         URLQueryItem(name: "display", value: "mobile"),
         URLQueryItem(name: "redirect_uri", value: "https://oauth.vk.com/blank.html"),
-        URLQueryItem(name: "scope", value: "users,friends,groups,photos"),
+        URLQueryItem(name: "scope", value: "users,friends,groups,photos,wall"),
         URLQueryItem(name: "response_type", value: "token"),
         URLQueryItem(name: "v", value: "5.103"),
         ]
@@ -39,6 +39,7 @@ class LoginWebViewController: UIViewController {
         webView.navigationDelegate = self
         webView.load(request)
     }
+    
     
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         
@@ -52,7 +53,10 @@ class LoginWebViewController: UIViewController {
     }
 }
 
+
 extension LoginWebViewController: WKNavigationDelegate {
+    
+    
     func webView(_ webView: WKWebView, decidePolicyFor navigationResponse: WKNavigationResponse, decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {
         guard let url = navigationResponse.response.url, url.path == "/blank.html", let fragment = url.fragment else {
             decisionHandler(.allow)

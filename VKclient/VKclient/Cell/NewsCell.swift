@@ -27,6 +27,7 @@ class NewsCell: UITableViewCell {
     //инициализируем базовый объект Like
     let likeBox = Like()
     
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         
@@ -37,6 +38,7 @@ class NewsCell: UITableViewCell {
         likeImage.isUserInteractionEnabled = true
         
     }
+    
     
     @objc func onTap(_ sender: UIGestureRecognizer) {
         print(#function)
@@ -63,6 +65,7 @@ class NewsCell: UITableViewCell {
         })
         
     }
+    
     
     override func prepareForReuse() {
         super.prepareForReuse()

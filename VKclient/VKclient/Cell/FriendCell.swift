@@ -9,14 +9,17 @@
 import UIKit
 
 class FriendCell: UITableViewCell {
+    
     @IBOutlet weak var friendAvatarImage: UIImageView!
     @IBOutlet weak var friendNameLabel: UILabel!
+    
     
     override func prepareForReuse() {
         super.prepareForReuse()
         friendAvatarImage.image = nil
         friendNameLabel.text = ""
     }
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -36,6 +39,7 @@ class FriendCell: UITableViewCell {
         friendAvatarImage.isUserInteractionEnabled = true
         
     }
+    
     
     @objc func onTap(_ sender: UIGestureRecognizer) {
         print(#function)

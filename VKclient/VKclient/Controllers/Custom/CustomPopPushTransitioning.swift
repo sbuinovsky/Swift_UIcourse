@@ -9,9 +9,12 @@
 import UIKit
 
 class CustomPushAnimator: NSObject, UIViewControllerAnimatedTransitioning {
+    
+    
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
         return 0.8
     }
+    
     
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
         guard let source = transitionContext.viewController(forKey: .from),
@@ -27,8 +30,6 @@ class CustomPushAnimator: NSObject, UIViewControllerAnimatedTransitioning {
                                                        relativeDuration: 0,
                                                        animations: {
                                                         let position = CGAffineTransform(translationX: source.view.frame.width, y: 0)
-//                                                        let rotation = CGAffineTransform(rotationAngle: .pi/2*3)
-//                                                        destination.view.transform = position.concatenating(rotation)
                                                         destination.view.transform = position
                                     })
 
@@ -52,9 +53,12 @@ class CustomPushAnimator: NSObject, UIViewControllerAnimatedTransitioning {
 }
 
 class CustomPopAnimator: NSObject, UIViewControllerAnimatedTransitioning {
+    
+    
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
         return 0.8
     }
+    
     
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
         guard let source = transitionContext.viewController(forKey: .from),
@@ -70,8 +74,6 @@ class CustomPopAnimator: NSObject, UIViewControllerAnimatedTransitioning {
                                                        relativeDuration: 0.3,
                                                        animations: {
                                                         let position = CGAffineTransform(translationX: -source.view.frame.width, y: 0)
-//                                                        let rotation = CGAffineTransform(rotationAngle: .pi/2)
-//                                                        destination.view.transform = position.concatenating(rotation)
                                                         destination.view.transform = position
                                     })
                                     UIView.addKeyframe(withRelativeStartTime: 0,
