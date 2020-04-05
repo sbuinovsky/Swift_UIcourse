@@ -12,6 +12,7 @@ import RealmSwift
 class FriendsTableViewController: UITableViewController {
     
     private let dataService: DataServiceProtocol = DataService()
+    let realmService: RealmServiceProtocol = RealmService()
     
     private var sections: [Results<User>] = []
     private var tokens: [NotificationToken] = []
@@ -32,6 +33,7 @@ class FriendsTableViewController: UITableViewController {
             let friendsAlphabet = Array( Set( realm.objects(User.self).compactMap{ $0.name.first?.uppercased() } ) ).sorted()
             sections = friendsAlphabet.map { realm.objects(User.self).filter("name BEGINSWITH[c] %@", $0) }
             sections.enumerated().forEach{ observeChanges(section: $0.offset, results: $0.element) }
+            print("Prepared SECTIONS: \(sections)")
             tableView.reloadData()
             
         } catch {
@@ -69,9 +71,11 @@ class FriendsTableViewController: UITableViewController {
         searchController.searchResultsUpdater = self
         tableView.tableHeaderView = searchController.searchBar
         
-        dataService.loadUsers()
+        dataService.loadUsers() {
+            self.tableView.reloadData()
+            self.prepareSections()
+        }
         
-        prepareSections()
         
         //регистрируем xib для кастомного отображения header ячеек
         tableView.register(UINib(nibName: "CustomCellHeader", bundle: nil), forHeaderFooterViewReuseIdentifier: "cellHeaderView")
@@ -147,13 +151,12 @@ class FriendsTableViewController: UITableViewController {
         if editingStyle == .delete {
             
             do {
-                let realm = try Realm()
-                realm.beginWrite()
-                realm.delete(friend)
-                try realm.commitWrite()
+                try realmService.deleteObject(object: friend)
             } catch {
                 print(error.localizedDescription)
             }
+            
+            prepareSections()
         }
     }
     
@@ -179,18 +182,11 @@ extension FriendsTableViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
 
         if let text = searchController.searchBar.text {
-            do {
-                tokens.removeAll()
-                let realm = try Realm()
-                let friendsAlphabet = Array( Set( realm.objects(User.self).filter("name CONTAINS[c] %@", text).compactMap{ $0.name.first?.uppercased() } ) ).sorted()
-                filteredSections = friendsAlphabet.map { realm.objects(User.self).filter("name BEGINSWITH[c] %@", $0) }
-                filteredSections.enumerated().forEach{ observeChanges(section: $0.offset, results: $0.element) }
-                tableView.reloadData()
-            } catch {
-                print(error.localizedDescription)
-            }
+            filteredSections = sections.map { $0.filter("name BEGINSWITH[c] %@", text) }
+            tableView.reloadData()
         }
 
     }
+    
 
 }

@@ -11,16 +11,17 @@ import RealmSwift
 
 protocol RealmServiceProtocol {
     
-    func saveData(objects: [Object]) throws
+    func saveObjects(objects: [Object]) throws
     func getUsers() -> [User]
     func getGroups() -> [Group]
     func getUserPhotos(ownerId: Int) -> [Photo]
+    func deleteObject(object: Object) throws
 }
 
 class RealmService: RealmServiceProtocol {
     
     
-    func saveData(objects: [Object]) {
+    func saveObjects(objects: [Object]) {
         do {
             Realm.Configuration.defaultConfiguration = Realm.Configuration(deleteRealmIfMigrationNeeded: true)
             let realm = try Realm()
@@ -32,6 +33,19 @@ class RealmService: RealmServiceProtocol {
         catch {
             print(error.localizedDescription)
         }
+    }
+    
+    
+    func deleteObject(object: Object) {
+        do {
+            let realm = try Realm()
+            realm.beginWrite()
+            realm.delete(object)
+            try realm.commitWrite()
+        } catch {
+            print(error.localizedDescription)
+        }
+        
     }
 
     
@@ -73,6 +87,5 @@ class RealmService: RealmServiceProtocol {
             return []
         }
     }
-    
     
 }
