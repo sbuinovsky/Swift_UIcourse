@@ -544,10 +544,10 @@
             </objects>
             <point key="canvasLocation" x="1226" y="-1765"/>
         </scene>
-        <!--View Controller-->
+        <!--StartVC-->
         <scene sceneID="MIL-Qu-gFm">
             <objects>
-                <viewController id="EZy-Gr-bl1" sceneMemberID="viewController">
+                <viewController id="EZy-Gr-bl1" customClass="StartVC" customModule="VKclient" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="F42-jZ-bBC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
