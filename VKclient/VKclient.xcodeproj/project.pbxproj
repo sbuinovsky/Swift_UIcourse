@@ -22,6 +22,7 @@
 		C25A0F7523EC8CDE00CAD84B /* FriendsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C25A0F7423EC8CDE00CAD84B /* FriendsTableViewController.swift */; };
 		C25A0F7823EC8D3A00CAD84B /* FavoriteGroupsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C25A0F7723EC8D3A00CAD84B /* FavoriteGroupsTableViewController.swift */; };
 		C25A0F7A23EC8D8B00CAD84B /* FriendProfileCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C25A0F7923EC8D8B00CAD84B /* FriendProfileCollectionViewController.swift */; };
+		C260709F243BC2E500598082 /* StartVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C260709E243BC2E500598082 /* StartVC.swift */; };
 		C2654891241EAF6300D2681A /* LoginWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2654890241EAF6300D2681A /* LoginWebViewController.swift */; };
 		C270648E2418DDEC00A17245 /* SessionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C270648D2418DDEC00A17245 /* SessionData.swift */; };
 		C27CEC1B23F1534A0011115C /* FriendCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C27CEC1A23F1534A0011115C /* FriendCell.swift */; };
@@ -30,6 +31,7 @@
 		C27CEC2523F158F50011115C /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C27CEC2423F158F50011115C /* User.swift */; };
 		C27CEC2723F169080011115C /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = C27CEC2623F169080011115C /* Group.swift */; };
 		C2805CBE240E2C15000CD87B /* CustomInteractiveTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2805CBD240E2C15000CD87B /* CustomInteractiveTransition.swift */; };
+		C289728E243BB27400476E40 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C289728D243BB27400476E40 /* GoogleService-Info.plist */; };
 		C299CA4B2425EEE400376545 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C299CA4A2425EEE400376545 /* Photo.swift */; };
 		C2BB8CB72436691F0058C62D /* News.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2BB8CB62436691F0058C62D /* News.swift */; };
 		C2BCEDEC23FB2609009D981F /* NewsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2BCEDEB23FB2609009D981F /* NewsTableViewController.swift */; };
@@ -61,6 +63,7 @@
 		C25A0F7423EC8CDE00CAD84B /* FriendsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsTableViewController.swift; sourceTree = "<group>"; };
 		C25A0F7723EC8D3A00CAD84B /* FavoriteGroupsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteGroupsTableViewController.swift; sourceTree = "<group>"; };
 		C25A0F7923EC8D8B00CAD84B /* FriendProfileCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendProfileCollectionViewController.swift; sourceTree = "<group>"; };
+		C260709E243BC2E500598082 /* StartVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartVC.swift; sourceTree = "<group>"; };
 		C2654890241EAF6300D2681A /* LoginWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginWebViewController.swift; sourceTree = "<group>"; };
 		C270648D2418DDEC00A17245 /* SessionData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionData.swift; sourceTree = "<group>"; };
 		C27CEC1A23F1534A0011115C /* FriendCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendCell.swift; sourceTree = "<group>"; };
@@ -69,6 +72,7 @@
 		C27CEC2423F158F50011115C /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		C27CEC2623F169080011115C /* Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
 		C2805CBD240E2C15000CD87B /* CustomInteractiveTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomInteractiveTransition.swift; sourceTree = "<group>"; };
+		C289728D243BB27400476E40 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		C299CA4A2425EEE400376545 /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
 		C2BB8CB62436691F0058C62D /* News.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = News.swift; sourceTree = "<group>"; };
 		C2BCEDEB23FB2609009D981F /* NewsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsTableViewController.swift; sourceTree = "<group>"; };
@@ -133,6 +137,7 @@
 				C27CEC1923F153050011115C /* Model */,
 				C270648C2418DD5700A17245 /* Singletones */,
 				C2119BD323E0081500EC528E /* Assets.xcassets */,
+				C289728D243BB27400476E40 /* GoogleService-Info.plist */,
 				C2119BD823E0081500EC528E /* Info.plist */,
 			);
 			path = VKclient;
@@ -142,6 +147,7 @@
 			isa = PBXGroup;
 			children = (
 				C2DCDEA8240C3B8A00DF7780 /* Custom */,
+				C260709E243BC2E500598082 /* StartVC.swift */,
 				C2119BCE23E0081500EC528E /* ViewController.swift */,
 				C25A0F7423EC8CDE00CAD84B /* FriendsTableViewController.swift */,
 				C25A0F7923EC8D8B00CAD84B /* FriendProfileCollectionViewController.swift */,
@@ -230,6 +236,7 @@
 				C2119BC423E0081500EC528E /* Frameworks */,
 				C2119BC523E0081500EC528E /* Resources */,
 				CF601F84997AC09F3833FA2D /* [CP] Embed Pods Frameworks */,
+				C26070A0243BC57100598082 /* Crashlytics */,
 			);
 			buildRules = (
 			);
@@ -280,6 +287,7 @@
 			files = (
 				C2119BD723E0081500EC528E /* LaunchScreen.storyboard in Resources */,
 				C2119BD423E0081500EC528E /* Assets.xcassets in Resources */,
+				C289728E243BB27400476E40 /* GoogleService-Info.plist in Resources */,
 				C22E087924006ECE00354324 /* CustomCellHeader.xib in Resources */,
 				C2119BD223E0081500EC528E /* Main.storyboard in Resources */,
 			);
@@ -288,6 +296,25 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		C26070A0243BC57100598082 /* Crashlytics */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${TARGET_NAME}",
+			);
+			name = Crashlytics;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${PODS_ROOT}/FirebaseCrashlytics/run\"\n";
+		};
 		CD2909030BA80E72F30A562C /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -345,6 +372,7 @@
 				C27CEC2723F169080011115C /* Group.swift in Sources */,
 				C230B0AA23F6943A0041FD0A /* Like.swift in Sources */,
 				C25A0F7823EC8D3A00CAD84B /* FavoriteGroupsTableViewController.swift in Sources */,
+				C260709F243BC2E500598082 /* StartVC.swift in Sources */,
 				C216A57B2407E11A00679FC5 /* ImageShadow.swift in Sources */,
 				C2CD5EA7242A0BB900CB2285 /* RealmService.swift in Sources */,
 				C27CEC1B23F1534A0011115C /* FriendCell.swift in Sources */,
@@ -507,6 +535,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = L4VQRX6KUP;
+				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = VKclient/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -526,6 +555,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = L4VQRX6KUP;
+				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = VKclient/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
