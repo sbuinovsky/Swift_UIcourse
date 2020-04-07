@@ -32,6 +32,7 @@
 		C27CEC2723F169080011115C /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = C27CEC2623F169080011115C /* Group.swift */; };
 		C2805CBE240E2C15000CD87B /* CustomInteractiveTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2805CBD240E2C15000CD87B /* CustomInteractiveTransition.swift */; };
 		C289728E243BB27400476E40 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C289728D243BB27400476E40 /* GoogleService-Info.plist */; };
+		C28B0B8D243C6F7300DDD8BD /* FirebaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C28B0B8C243C6F7300DDD8BD /* FirebaseService.swift */; };
 		C299CA4B2425EEE400376545 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C299CA4A2425EEE400376545 /* Photo.swift */; };
 		C2BB8CB72436691F0058C62D /* News.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2BB8CB62436691F0058C62D /* News.swift */; };
 		C2BCEDEC23FB2609009D981F /* NewsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2BCEDEB23FB2609009D981F /* NewsTableViewController.swift */; };
@@ -73,6 +74,7 @@
 		C27CEC2623F169080011115C /* Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
 		C2805CBD240E2C15000CD87B /* CustomInteractiveTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomInteractiveTransition.swift; sourceTree = "<group>"; };
 		C289728D243BB27400476E40 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
+		C28B0B8C243C6F7300DDD8BD /* FirebaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseService.swift; sourceTree = "<group>"; };
 		C299CA4A2425EEE400376545 /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
 		C2BB8CB62436691F0058C62D /* News.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = News.swift; sourceTree = "<group>"; };
 		C2BCEDEB23FB2609009D981F /* NewsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsTableViewController.swift; sourceTree = "<group>"; };
@@ -201,6 +203,7 @@
 				C216A57A2407E11A00679FC5 /* ImageShadow.swift */,
 				C208CBF12420EC7400EF0A10 /* DataService.swift */,
 				C2CD5EA6242A0BB900CB2285 /* RealmService.swift */,
+				C28B0B8C243C6F7300DDD8BD /* FirebaseService.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -375,6 +378,7 @@
 				C260709F243BC2E500598082 /* StartVC.swift in Sources */,
 				C216A57B2407E11A00679FC5 /* ImageShadow.swift in Sources */,
 				C2CD5EA7242A0BB900CB2285 /* RealmService.swift in Sources */,
+				C28B0B8D243C6F7300DDD8BD /* FirebaseService.swift in Sources */,
 				C27CEC1B23F1534A0011115C /* FriendCell.swift in Sources */,
 				C2BCEDEC23FB2609009D981F /* NewsTableViewController.swift in Sources */,
 				C2654891241EAF6300D2681A /* LoginWebViewController.swift in Sources */,

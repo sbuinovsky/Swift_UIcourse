@@ -15,6 +15,8 @@ private let apiKey = SessionData.shared.token
 
 private let baseUrl = "https://api.vk.com/method/"
 
+private let firebaseService: FirebaseServiceProtocol = FirebaseService()
+
 private var parameters: Parameters = [
     "access_token" : apiKey,
     "v" : "5.103"
@@ -133,6 +135,8 @@ class DataService: DataServiceProtocol {
                 user.name = item["first_name"].stringValue + " " + item["last_name"].stringValue
                 user.avatar = item["photo_200_orig"].stringValue
                 
+                firebaseService.updateFriends(object: user)
+                
                 return user
             }
             
@@ -158,6 +162,8 @@ class DataService: DataServiceProtocol {
                 group.id = item["id"].intValue
                 group.name = item["name"].stringValue
                 group.avatar = item["photo_200_orig"].stringValue
+                
+                firebaseService.updateGroups(object: group)
                 
                 return group
             }
