@@ -49,7 +49,7 @@
 		37CAF2A37CAAD829DB62770F /* Pods-VKclient.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VKclient.release.xcconfig"; path = "Target Support Files/Pods-VKclient/Pods-VKclient.release.xcconfig"; sourceTree = "<group>"; };
 		450D928CF4DF0BB8CA31E1C4 /* Pods-VKclient.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VKclient.debug.xcconfig"; path = "Target Support Files/Pods-VKclient/Pods-VKclient.debug.xcconfig"; sourceTree = "<group>"; };
 		C208CBF12420EC7400EF0A10 /* DataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
-		C2119BC723E0081500EC528E /* VKclient.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VKclient.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C2119BC723E0081500EC528E /* simple VK.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "simple VK.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C2119BCA23E0081500EC528E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C2119BCC23E0081500EC528E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		C2119BCE23E0081500EC528E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -123,7 +123,7 @@
 		C2119BC823E0081500EC528E /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				C2119BC723E0081500EC528E /* VKclient.app */,
+				C2119BC723E0081500EC528E /* simple VK.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -247,7 +247,7 @@
 			);
 			name = VKclient;
 			productName = VKclient;
-			productReference = C2119BC723E0081500EC528E /* VKclient.app */;
+			productReference = C2119BC723E0081500EC528E /* simple VK.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -537,6 +537,7 @@
 			baseConfigurationReference = 450D928CF4DF0BB8CA31E1C4 /* Pods-VKclient.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = L4VQRX6KUP;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -545,8 +546,9 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.sbuinovskiy.VKclient;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.sbuinovskiy.simplevk;
+				PRODUCT_NAME = "simple VK";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -557,6 +559,7 @@
 			baseConfigurationReference = 37CAF2A37CAAD829DB62770F /* Pods-VKclient.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = L4VQRX6KUP;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -565,8 +568,9 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.sbuinovskiy.VKclient;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.sbuinovskiy.simplevk;
+				PRODUCT_NAME = "simple VK";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
