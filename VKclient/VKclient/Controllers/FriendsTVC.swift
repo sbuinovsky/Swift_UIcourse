@@ -10,7 +10,7 @@
 import UIKit
 import RealmSwift
 
-class FriendsTableViewController: UITableViewController {
+class FriendsTVC: UITableViewController {
     
     private let dataService: DataServiceProtocol = DataService()
     let realmService: RealmServiceProtocol = RealmService()
@@ -73,7 +73,6 @@ class FriendsTableViewController: UITableViewController {
         tableView.tableHeaderView = searchController.searchBar
         
         refreshControl = UIRefreshControl()
-        
         refreshControl?.addTarget(self, action: #selector(updateFriends), for: .valueChanged)
         
         dataService.loadUsers() {
@@ -169,7 +168,7 @@ class FriendsTableViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if segue.identifier == "friendProfileSegue" {
-            guard let friendProfileController = segue.destination as? FriendProfileCollectionViewController else { return }
+            guard let friendProfileController = segue.destination as? FriendProfileCVC else { return }
             
             if let indexPath = tableView.indexPathForSelectedRow {
                 friendProfileController.friend = activeSections[indexPath.section][indexPath.row]
@@ -192,7 +191,7 @@ class FriendsTableViewController: UITableViewController {
 }
 
 
-extension FriendsTableViewController: UISearchResultsUpdating {
+extension FriendsTVC: UISearchResultsUpdating {
 
     func updateSearchResults(for searchController: UISearchController) {
 

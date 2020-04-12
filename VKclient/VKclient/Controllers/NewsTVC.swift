@@ -8,7 +8,7 @@
 
 import UIKit
 
-class NewsTableViewController: UITableViewController {
+class NewsTVC: UITableViewController {
 
 //    Нужно исправить полностью этот контроллер!!!
     

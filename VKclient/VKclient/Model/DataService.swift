@@ -35,7 +35,7 @@ private enum apiMethods: String {
 protocol DataServiceProtocol {
     func loadUsers(completion: @escaping () -> Void)
     func loadGroups(completion: @escaping () -> Void)
-    func loadPhotos(additionalParameters: [String : Any], completion: @escaping () -> Void)
+    func loadPhotos(targetId: Int, completion: @escaping () -> Void)
     func getImageByURL(imageURL: String) -> UIImage?
 }
 
@@ -99,9 +99,14 @@ class DataService: DataServiceProtocol {
     }
 
     
-    func loadPhotos(additionalParameters: [String : Any], completion: @escaping () -> Void) {
+    func loadPhotos(targetId: Int, completion: @escaping () -> Void) {
         
-        additionalParameters.forEach { (k,v) in parameters[k] = v }
+        let apiParameters: [String : Any] = [
+        "owner_id" :  targetId,
+        "album_id" : "profile",
+        ]
+        
+        apiParameters.forEach { (k,v) in parameters[k] = v }
         
         let url = baseUrl + apiMethods.photos.rawValue
         

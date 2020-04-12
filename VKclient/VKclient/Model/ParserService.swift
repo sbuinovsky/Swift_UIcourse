@@ -20,6 +20,7 @@ class ParserService: ParserServiceProtocol {
     
     private let firebaseService: FirebaseServiceProtocol = FirebaseService()
     
+    
     func usersParser(data: Data) -> [User] {
 
         do {

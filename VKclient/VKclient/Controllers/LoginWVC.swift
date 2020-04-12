@@ -9,7 +9,7 @@
 import UIKit
 import WebKit
 
-class LoginWebViewController: UIViewController {
+class LoginWVC: UIViewController {
 
     @IBOutlet private weak var webView: WKWebView!
     
@@ -54,7 +54,7 @@ class LoginWebViewController: UIViewController {
 }
 
 
-extension LoginWebViewController: WKNavigationDelegate {
+extension LoginWVC: WKNavigationDelegate {
     
     
     func webView(_ webView: WKWebView, decidePolicyFor navigationResponse: WKNavigationResponse, decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {

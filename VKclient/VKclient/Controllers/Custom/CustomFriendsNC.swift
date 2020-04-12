@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CustomFriendsNavigationController: UINavigationController, UINavigationControllerDelegate {
+class CustomFriendsNC: UINavigationController, UINavigationControllerDelegate {
     
     private let interactiveTransition = CustomInteractiveTransition()
     
