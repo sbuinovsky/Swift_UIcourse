@@ -1,3 +1,4 @@
+
 //
 //  FriendsController.swift
 //  VKclient
@@ -23,7 +24,6 @@ class FriendsTableViewController: UITableViewController {
     }
     
     private let searchController: UISearchController = .init()
-    
     
     func prepareSections() {
         
@@ -69,7 +69,12 @@ class FriendsTableViewController: UITableViewController {
         super.viewDidLoad()
         
         searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
         tableView.tableHeaderView = searchController.searchBar
+        
+        refreshControl = UIRefreshControl()
+        
+        refreshControl?.addTarget(self, action: #selector(updateFriends), for: .valueChanged)
         
         dataService.loadUsers() {
             self.tableView.reloadData()
@@ -172,6 +177,16 @@ class FriendsTableViewController: UITableViewController {
             
             
         }
+    }
+    
+    @objc func updateFriends() {
+        
+        dataService.loadUsers() {
+            self.tableView.reloadData()
+            self.prepareSections()
+            self.refreshControl?.endRefreshing()
+        }
+
     }
 
 }

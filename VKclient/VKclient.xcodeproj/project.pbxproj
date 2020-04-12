@@ -16,6 +16,7 @@
 		C2119BD423E0081500EC528E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C2119BD323E0081500EC528E /* Assets.xcassets */; };
 		C2119BD723E0081500EC528E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C2119BD523E0081500EC528E /* LaunchScreen.storyboard */; };
 		C216A57B2407E11A00679FC5 /* ImageShadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C216A57A2407E11A00679FC5 /* ImageShadow.swift */; };
+		C228EC332442F9490094D847 /* ParserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C228EC322442F9490094D847 /* ParserService.swift */; };
 		C22E087924006ECE00354324 /* CustomCellHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = C22E087824006ECE00354324 /* CustomCellHeader.xib */; };
 		C22E087B240070A600354324 /* CustomCellHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C22E087A240070A600354324 /* CustomCellHeader.swift */; };
 		C230B0AA23F6943A0041FD0A /* Like.swift in Sources */ = {isa = PBXBuildFile; fileRef = C230B0A923F6943A0041FD0A /* Like.swift */; };
@@ -58,6 +59,7 @@
 		C2119BD623E0081500EC528E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C2119BD823E0081500EC528E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C216A57A2407E11A00679FC5 /* ImageShadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageShadow.swift; sourceTree = "<group>"; };
+		C228EC322442F9490094D847 /* ParserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParserService.swift; sourceTree = "<group>"; };
 		C22E087824006ECE00354324 /* CustomCellHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomCellHeader.xib; sourceTree = "<group>"; };
 		C22E087A240070A600354324 /* CustomCellHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCellHeader.swift; sourceTree = "<group>"; };
 		C230B0A923F6943A0041FD0A /* Like.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Like.swift; sourceTree = "<group>"; };
@@ -202,6 +204,7 @@
 				C2BEBC7C240928B10073C498 /* LoaderCloudView.swift */,
 				C216A57A2407E11A00679FC5 /* ImageShadow.swift */,
 				C208CBF12420EC7400EF0A10 /* DataService.swift */,
+				C228EC322442F9490094D847 /* ParserService.swift */,
 				C2CD5EA6242A0BB900CB2285 /* RealmService.swift */,
 				C28B0B8C243C6F7300DDD8BD /* FirebaseService.swift */,
 			);
@@ -265,7 +268,7 @@
 					};
 				};
 			};
-			buildConfigurationList = C2119BC223E0081500EC528E /* Build configuration list for PBXProject "simpleVK" */;
+			buildConfigurationList = C2119BC223E0081500EC528E /* Build configuration list for PBXProject "VKclient" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -366,6 +369,7 @@
 			files = (
 				C27CEC1D23F153690011115C /* FriendProfileCell.swift in Sources */,
 				C208CBF22420EC7400EF0A10 /* DataService.swift in Sources */,
+				C228EC332442F9490094D847 /* ParserService.swift in Sources */,
 				C2BCEDEE23FB2639009D981F /* NewsCell.swift in Sources */,
 				C2EE21FB24052C3600F9979D /* LoaderCirclesView.swift in Sources */,
 				C2DCDEAA240C3BB400DF7780 /* CustomFriendsNavigationController.swift in Sources */,
@@ -579,7 +583,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		C2119BC223E0081500EC528E /* Build configuration list for PBXProject "simpleVK" */ = {
+		C2119BC223E0081500EC528E /* Build configuration list for PBXProject "VKclient" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C2119BD923E0081500EC528E /* Debug */,

@@ -13,16 +13,16 @@ import RealmSwift
 
 private let apiKey = SessionData.shared.token
 
-private let baseUrl = "https://api.vk.com/method/"
-
+private let realmService: RealmService = .init()
 private let firebaseService: FirebaseServiceProtocol = FirebaseService()
+private let parser: ParserServiceProtocol = ParserService()
+
+private let baseUrl = "https://api.vk.com/method/"
 
 private var parameters: Parameters = [
     "access_token" : apiKey,
     "v" : "5.103"
 ]
-
-private let realmService: RealmService = .init()
 
 private enum apiMethods: String {
     case friends = "friends.get"
@@ -60,7 +60,7 @@ class DataService: DataServiceProtocol {
             } else {
                 guard let data = response.data else { return }
                 
-                let users: [User] = self.usersParser(data: data)
+                let users: [User] = parser.usersParser(data: data)
                 
                 realmService.saveObjects(objects: users)
 
@@ -87,7 +87,7 @@ class DataService: DataServiceProtocol {
             } else {
                 guard let data = response.data else { return }
                 
-                let groups: [Group] = self.groupsParser(data: data)
+                let groups: [Group] = parser.groupsParser(data: data)
                 
                 realmService.saveObjects(objects: groups)
                 
@@ -111,97 +111,13 @@ class DataService: DataServiceProtocol {
             } else {
                 guard let data = response.data else { return }
                 
-                let photos: [Photo] = self.photosParser(data: data)
+                let photos: [Photo] = parser.photosParser(data: data)
                 
                 realmService.saveObjects(objects: photos)
                 
                 completion()
             }
             
-        }
-    }
-
-    
-    private func usersParser(data: Data) -> [User] {
-
-        do {
-            let json = try JSON(data: data)
-            let array = json["response"]["items"].arrayValue
-            
-            let result = array.map { item -> User in
-                
-                let user = User()
-                user.id = item["id"].intValue
-                user.name = item["first_name"].stringValue + " " + item["last_name"].stringValue
-                user.avatar = item["photo_200_orig"].stringValue
-                
-                firebaseService.updateFriends(object: user)
-                
-                return user
-            }
-            
-            return result
-            
-        } catch {
-            print(error.localizedDescription)
-            return []
-        }
-    }
-
-    
-    private func groupsParser(data: Data) -> [Group] {
-
-        do {
-            let json = try JSON(data: data)
-            let array = json["response"]["items"].arrayValue
-            
-            let result = array.map { item -> Group in
-            
-                let group = Group()
-                
-                group.id = item["id"].intValue
-                group.name = item["name"].stringValue
-                group.avatar = item["photo_200_orig"].stringValue
-                
-                firebaseService.updateGroups(object: group)
-                
-                return group
-            }
-            
-            return result
-            
-        } catch {
-            print(error.localizedDescription)
-            return []
-        }
-    }
-
-    
-    private func photosParser(data: Data) -> [Photo] {
-    
-        do {
-            let json = try JSON(data: data)
-            let array = json["response"]["items"].arrayValue
-            
-            let result = array.map { item -> Photo in
-                
-                let photo = Photo()
-                photo.id = item["id"].intValue
-                photo.ownerId = item["owner_id"].intValue
-                
-                let sizeValues = item["sizes"].arrayValue
-                if let last = sizeValues.last {
-                    photo.imageUrl = last["url"].stringValue
-                }
-                
-                return photo
-            }
-            
-            return result
-            
-        } catch {
-            print(error.localizedDescription)
-            return []
         }
     }
 
