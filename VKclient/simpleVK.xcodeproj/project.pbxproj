@@ -265,7 +265,7 @@
 					};
 				};
 			};
-			buildConfigurationList = C2119BC223E0081500EC528E /* Build configuration list for PBXProject "VKclient" */;
+			buildConfigurationList = C2119BC223E0081500EC528E /* Build configuration list for PBXProject "simpleVK" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -579,7 +579,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		C2119BC223E0081500EC528E /* Build configuration list for PBXProject "VKclient" */ = {
+		C2119BC223E0081500EC528E /* Build configuration list for PBXProject "simpleVK" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C2119BD923E0081500EC528E /* Debug */,
