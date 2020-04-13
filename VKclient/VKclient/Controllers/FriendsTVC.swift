@@ -13,7 +13,7 @@ import RealmSwift
 class FriendsTVC: UITableViewController {
     
     private let dataService: DataServiceProtocol = DataService()
-    let realmService: RealmServiceProtocol = RealmService()
+    private let realmService: RealmServiceProtocol = RealmService()
     
     private var sections: [Results<User>] = []
     private var tokens: [NotificationToken] = []
@@ -33,7 +33,6 @@ class FriendsTVC: UITableViewController {
             let friendsAlphabet = Array( Set( realm.objects(User.self).compactMap{ $0.name.first?.uppercased() } ) ).sorted()
             sections = friendsAlphabet.map { realm.objects(User.self).filter("name BEGINSWITH[c] %@", $0) }
             sections.enumerated().forEach{ observeChanges(section: $0.offset, results: $0.element) }
-            print("Prepared SECTIONS: \(sections)")
             tableView.reloadData()
             
         } catch {
@@ -84,7 +83,6 @@ class FriendsTVC: UITableViewController {
         //регистрируем xib для кастомного отображения header ячеек
         tableView.register(UINib(nibName: "CustomCellHeader", bundle: nil), forHeaderFooterViewReuseIdentifier: "cellHeaderView")
     }
-    
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         return activeSections.count

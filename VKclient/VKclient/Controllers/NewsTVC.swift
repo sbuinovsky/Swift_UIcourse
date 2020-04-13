@@ -7,39 +7,75 @@
 //
 
 import UIKit
+import RealmSwift
 
 class NewsTVC: UITableViewController {
+    
+    private let dataService: DataServiceProtocol = DataService()
+    private let realmService: RealmServiceProtocol = RealmService()
+    
+    private var sections: [Results<News>] = []
+    private var tokens: [NotificationToken] = []
 
-//    Нужно исправить полностью этот контроллер!!!
+    private var likeBox = Like()
     
-    let groups: [Group] = []
+    func prepareSections() {
+        
+        do {
+            tokens.removeAll()
+            let realm = try Realm()
+            sections = Array( arrayLiteral: realm.objects(News.self) )
+            sections.enumerated().forEach{ observeChanges(section: $0.offset, results: $0.element) }
+            tableView.reloadData()
+            
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
     
-    let newsText = ["Далеко-далеко за словесными горами в стране гласных и согласных живут рыбные тексты. Вдали от всех живут они в буквенных домах на берегу Семантика большого языкового океана. Маленький ручеек Даль журчит по всей стране и обеспечивает ее всеми необходимыми правилами. Эта парадигматическая страна, в которой жаренные члены предложения залетают прямо в рот. Даже всемогущая пунктуация не имеет власти над рыбными текстами, ведущими безорфографичный образ жизни. Однажды одна маленькая строчка рыбного текста по имени Lorem ipsum решила выйти в большой мир грамматики.",
-        "Далеко-далеко за словесными горами в стране гласных и согласных живут рыбные тексты. Вдали от всех живут они в буквенных домах на берегу Семантика большого языкового океана.",
-        "Далеко-далеко за словесными горами в стране гласных и согласных живут рыбные тексты. Вдали от всех живут они в буквенных домах на берегу Семантика большого языкового океана. Маленький ручеек Даль журчит по всей стране и обеспечивает ее всеми необходимыми правилами.",
-        "UITextView supports the display of text using custom style information and also supports text editing. You typically use a text view to display multiple lines of text, such as when displaying the body of a large text document. This class supports multiple text styles through use of the attributedText property. (Styled text is not supported in versions of iOS earlier than iOS 6.) Setting a value for this property causes the text view to use the style information provided in the attributed string. You can still use the font, textColor, and textAlignment properties to set style attributes, but those properties apply to all of the text in the text view. It’s recommended that you use a text view—and not a UIWebView object—to display both plain and rich text in your app."
-    ]
     
-    var likeBox = Like()
-    let date: Date = Date()
+    func observeChanges(section: Int, results: Results<News>) {
+        tokens.append(
+            results.observe { (changes) in
+                switch changes {
+                case .initial:
+                    self.tableView.reloadSections(IndexSet(integer: section), with: .automatic)
+                    
+                case .update(_, let deletions, let insertions, let modifications):
+                    self.tableView.beginUpdates()
+                    self.tableView.deleteRows(at: deletions.map{ IndexPath(row: $0, section: section) }, with: .automatic)
+                    self.tableView.insertRows(at: insertions.map{ IndexPath(row: $0, section: section) }, with: .automatic)
+                    self.tableView.reloadRows(at: modifications.map{ IndexPath(row: $0, section: section) }, with: .automatic)
+                    self.tableView.endUpdates()
+                
+                case .error(let error):
+                    print(error.localizedDescription)
+                
+                }
+            }
+        )
+    }
+    
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        dataService.loadNews {
+            self.tableView.reloadData()
+            self.prepareSections()
+        }
+        
     }
-
-    // MARK: - Table view data source
 
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return sections.count
     }
 
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return newsText.count
+        return sections[section].count
     }
 
     
@@ -50,32 +86,43 @@ class NewsTVC: UITableViewController {
             
         }
         
-        //рабочая константа выбора элемента групп
-        let group = groups[indexPath.row]
-        
-        //рабочая константа выбора текстов новостей
-        let newsSingleText = newsText[indexPath.row]
+        let news = sections[indexPath.section][indexPath.row]
         
         //обработка даты в String формат
         let dateFormatter = DateFormatter()
+        let date = NSDate(timeIntervalSince1970: news.date)
         dateFormatter.dateFormat = "dd.MM.yyyy" // тут может быть любой нужный вам формат, гуглите как писать форматы
-        let convertedDate = dateFormatter.string(from: date)
-        
-        
-        
+        let convertedDate = dateFormatter.string(from: date as Date)
+ 
         //заполняем начальными значениями
-//        cell.groupImage.image = group.avatar
-        cell.groupName.text = group.name
+        
+        if news.sourceId < 0 {
+            
+            if let group = self.realmService.getGroupById(id: news.sourceId) {
+                cell.groupName.text = group.name
+                cell.groupImage.image = self.dataService.getImageByURL(imageURL: group.avatar)
+            } else {
+                dataService.loadGroupById( id: abs(news.sourceId) ) {
+                    if let group = self.realmService.getGroupById(id: news.sourceId) {
+                        cell.groupName.text = group.name
+                        cell.groupImage.image = self.dataService.getImageByURL(imageURL: group.avatar)
+                    }
+                }
+                
+            }
+            
+        }
+        
+        
         cell.date.text = convertedDate
-        cell.textField.text = newsSingleText
-        cell.textField.translatesAutoresizingMaskIntoConstraints = true
-        cell.textField.sizeToFit()
+        cell.textField.text = news.text
         cell.likeImage.image = likeBox.image
-        cell.likeCounter.text = "\(likeBox.counter)"
+        cell.likeCounter.text = "\(news.likes)"
         cell.shareButton.image = UIImage(imageLiteralResourceName: "shareImage")
         cell.commentsButton.image = UIImage(imageLiteralResourceName: "commentsImage")
-        cell.newsImage.image = UIImage(imageLiteralResourceName: "newsImage")
+        cell.newsImage.image = dataService.getImageByURL(imageURL: news.imageURL)
         cell.viewsImage.image = UIImage(imageLiteralResourceName: "viewsImage")
+        cell.viewsCounter.text = "\(news.views)"
         
         return cell
     }
