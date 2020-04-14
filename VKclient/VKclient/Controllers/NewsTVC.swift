@@ -19,6 +19,8 @@ class NewsTVC: UITableViewController {
 
     private var likeBox = Like()
     
+    private var group: Group?
+    
     func prepareSections() {
         
         do {
@@ -57,9 +59,11 @@ class NewsTVC: UITableViewController {
     }
     
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        refreshControl = UIRefreshControl()
+        refreshControl?.addTarget(self, action: #selector(updateNews), for: .valueChanged)
 
         dataService.loadNews {
             self.tableView.reloadData()
@@ -80,9 +84,9 @@ class NewsTVC: UITableViewController {
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
+        
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "NewsCell", for: indexPath) as? NewsCell else {
-               preconditionFailure("Can't deque NewsCell")
+            preconditionFailure("Can't deque NewsCell")
             
         }
         
@@ -93,38 +97,41 @@ class NewsTVC: UITableViewController {
         let date = NSDate(timeIntervalSince1970: news.date)
         dateFormatter.dateFormat = "dd.MM.yyyy" // тут может быть любой нужный вам формат, гуглите как писать форматы
         let convertedDate = dateFormatter.string(from: date as Date)
- 
-        //заполняем начальными значениями
         
-        if news.sourceId < 0 {
-            
-            if let group = self.realmService.getGroupById(id: news.sourceId) {
-                cell.groupName.text = group.name
-                cell.groupImage.image = self.dataService.getImageByURL(imageURL: group.avatar)
-            } else {
-                dataService.loadGroupById( id: abs(news.sourceId) ) {
-                    if let group = self.realmService.getGroupById(id: news.sourceId) {
-                        cell.groupName.text = group.name
-                        cell.groupImage.image = self.dataService.getImageByURL(imageURL: group.avatar)
-                    }
-                }
-                
-            }
-            
+        dataService.loadGroups {
+            self.group = self.realmService.getGroupById(id: news.sourceId)
         }
         
+        let groupImage = self.dataService.getImageByURL(imageURL: self.group?.avatar ?? "")
         
+        cell.groupImage.image = groupImage ?? nil
+        cell.groupName.text = group?.name ?? ""
         cell.date.text = convertedDate
         cell.textField.text = news.text
         cell.likeImage.image = likeBox.image
         cell.likeCounter.text = "\(news.likes)"
         cell.shareButton.image = UIImage(imageLiteralResourceName: "shareImage")
         cell.commentsButton.image = UIImage(imageLiteralResourceName: "commentsImage")
-        cell.newsImage.image = dataService.getImageByURL(imageURL: news.imageURL)
         cell.viewsImage.image = UIImage(imageLiteralResourceName: "viewsImage")
         cell.viewsCounter.text = "\(news.views)"
+        cell.newsImage.image = dataService.getImageByURL(imageURL: news.imageURL)
         
         return cell
     }
+    
+    @objc func updateNews() {
+        
+        dataService.loadGroups() {
+            self.tableView.reloadData()
+            self.prepareSections()
+            self.refreshControl?.endRefreshing()
+        }
+
+    }
 
 }
+
+
+//if let indexPath = tableView.indexPathForSelectedRow {
+//    friendProfileController.friend = activeSections[indexPath.section][indexPath.row]
+//}

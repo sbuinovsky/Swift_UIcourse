@@ -9,7 +9,7 @@
 import UIKit
 import RealmSwift
 
-class FavoriteGroupsTVC: UITableViewController {
+class GroupsTVC: UITableViewController {
     
     let dataService: DataServiceProtocol = DataService()
     let realmService: RealmServiceProtocol = RealmService()
@@ -48,6 +48,7 @@ class FavoriteGroupsTVC: UITableViewController {
                     self.tableView.insertRows(at: insertions.map{ IndexPath(row: $0, section: section) }, with: .automatic)
                     self.tableView.reloadRows(at: modifications.map{ IndexPath(row: $0, section: section) }, with: .automatic)
                     self.tableView.endUpdates()
+
                 
                 case .error(let error):
                     print(error.localizedDescription)

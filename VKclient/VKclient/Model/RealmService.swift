@@ -16,6 +16,7 @@ protocol RealmServiceProtocol {
     func getUsers() -> [User]
     func getGroups() -> [Group]
     func getGroupById(id: Int) -> Group?
+    func getUserById(id: Int) -> User?
     func getUserPhotos(ownerId: Int) -> [Photo]
     func deleteObject(object: Object) throws
 }
@@ -103,6 +104,21 @@ class RealmService: RealmServiceProtocol {
         }
 
     }
+    
+    
+    func getUserById(id: Int) -> User? {
+        do {
+            let realm = try Realm()
+            let user = realm.objects(User.self).filter("id = %@", abs(id)).first
+            return user
+            
+        } catch {
+            print(error.localizedDescription)
+            return User()
+        }
+
+    }
+    
     
     func getUserPhotos(ownerId: Int) -> [Photo] {
         do {
