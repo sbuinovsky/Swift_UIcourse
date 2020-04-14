@@ -9,7 +9,7 @@
 import UIKit
 import RealmSwift
 
-class FavoriteGroupsTableViewController: UITableViewController {
+class FavoriteGroupsTVC: UITableViewController {
     
     let dataService: DataServiceProtocol = DataService()
     let realmService: RealmServiceProtocol = RealmService()
@@ -60,6 +60,9 @@ class FavoriteGroupsTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        refreshControl = UIRefreshControl()
+        refreshControl?.addTarget(self, action: #selector(updateGroups), for: .valueChanged)
         
         dataService.loadGroups() {
             self.tableView.reloadData()
@@ -132,6 +135,16 @@ class FavoriteGroupsTableViewController: UITableViewController {
             
             prepareGroups()
         }
+    }
+    
+    @objc func updateGroups() {
+        
+        dataService.loadGroups() {
+            self.tableView.reloadData()
+            self.prepareGroups()
+            self.refreshControl?.endRefreshing()
+        }
+
     }
 
 }

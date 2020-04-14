@@ -1,3 +1,4 @@
+
 //
 //  FriendsController.swift
 //  VKclient
@@ -9,10 +10,10 @@
 import UIKit
 import RealmSwift
 
-class FriendsTableViewController: UITableViewController {
+class FriendsTVC: UITableViewController {
     
     private let dataService: DataServiceProtocol = DataService()
-    let realmService: RealmServiceProtocol = RealmService()
+    private let realmService: RealmServiceProtocol = RealmService()
     
     private var sections: [Results<User>] = []
     private var tokens: [NotificationToken] = []
@@ -24,7 +25,6 @@ class FriendsTableViewController: UITableViewController {
     
     private let searchController: UISearchController = .init()
     
-    
     func prepareSections() {
         
         do {
@@ -33,7 +33,6 @@ class FriendsTableViewController: UITableViewController {
             let friendsAlphabet = Array( Set( realm.objects(User.self).compactMap{ $0.name.first?.uppercased() } ) ).sorted()
             sections = friendsAlphabet.map { realm.objects(User.self).filter("name BEGINSWITH[c] %@", $0) }
             sections.enumerated().forEach{ observeChanges(section: $0.offset, results: $0.element) }
-            print("Prepared SECTIONS: \(sections)")
             tableView.reloadData()
             
         } catch {
@@ -69,7 +68,11 @@ class FriendsTableViewController: UITableViewController {
         super.viewDidLoad()
         
         searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
         tableView.tableHeaderView = searchController.searchBar
+        
+        refreshControl = UIRefreshControl()
+        refreshControl?.addTarget(self, action: #selector(updateFriends), for: .valueChanged)
         
         dataService.loadUsers() {
             self.tableView.reloadData()
@@ -80,7 +83,6 @@ class FriendsTableViewController: UITableViewController {
         //регистрируем xib для кастомного отображения header ячеек
         tableView.register(UINib(nibName: "CustomCellHeader", bundle: nil), forHeaderFooterViewReuseIdentifier: "cellHeaderView")
     }
-    
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         return activeSections.count
@@ -137,7 +139,7 @@ class FriendsTableViewController: UITableViewController {
                 }
             }
         }
-
+        
         return cell
     }
     
@@ -164,7 +166,7 @@ class FriendsTableViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if segue.identifier == "friendProfileSegue" {
-            guard let friendProfileController = segue.destination as? FriendProfileCollectionViewController else { return }
+            guard let friendProfileController = segue.destination as? FriendProfileCVC else { return }
             
             if let indexPath = tableView.indexPathForSelectedRow {
                 friendProfileController.friend = activeSections[indexPath.section][indexPath.row]
@@ -173,11 +175,21 @@ class FriendsTableViewController: UITableViewController {
             
         }
     }
+    
+    @objc func updateFriends() {
+        
+        dataService.loadUsers() {
+            self.tableView.reloadData()
+            self.prepareSections()
+            self.refreshControl?.endRefreshing()
+        }
+
+    }
 
 }
 
 
-extension FriendsTableViewController: UISearchResultsUpdating {
+extension FriendsTVC: UISearchResultsUpdating {
 
     func updateSearchResults(for searchController: UISearchController) {
 

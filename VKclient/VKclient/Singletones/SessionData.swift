@@ -12,6 +12,7 @@ class SessionData {
     
     var token: String = .init()
     var userId: Int = .init()
+    var userUID: String = .init()
     
     
     private init() {}

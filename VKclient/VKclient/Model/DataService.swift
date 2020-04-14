@@ -13,6 +13,10 @@ import RealmSwift
 
 private let apiKey = SessionData.shared.token
 
+private let realmService: RealmService = .init()
+private let firebaseService: FirebaseServiceProtocol = FirebaseService()
+private let parser: ParserServiceProtocol = ParserService()
+
 private let baseUrl = "https://api.vk.com/method/"
 
 private var parameters: Parameters = [
@@ -20,25 +24,26 @@ private var parameters: Parameters = [
     "v" : "5.103"
 ]
 
-private let realmService: RealmService = .init()
-
 private enum apiMethods: String {
     case friends = "friends.get"
     case groups = "groups.get"
     case photos = "photos.get"
     case groupsSearch = "groups.search"
+    case groupsById = "groups.getById"
     case news = "newsfeed.get"
 }
 
 protocol DataServiceProtocol {
     func loadUsers(completion: @escaping () -> Void)
     func loadGroups(completion: @escaping () -> Void)
-    func loadPhotos(additionalParameters: [String : Any], completion: @escaping () -> Void)
+    func loadGroupById(id: Int, completion: @escaping () -> Void)
+    func loadPhotos(targetId: Int, completion: @escaping () -> Void)
+    func loadNews(completion: @escaping () -> Void)
     func getImageByURL(imageURL: String) -> UIImage?
 }
 
 class DataService: DataServiceProtocol {
-
+    
     
     func loadUsers(completion: @escaping () -> Void) {
         
@@ -58,7 +63,7 @@ class DataService: DataServiceProtocol {
             } else {
                 guard let data = response.data else { return }
                 
-                let users: [User] = self.usersParser(data: data)
+                let users: [User] = parser.usersParser(data: data)
                 
                 realmService.saveObjects(objects: users)
 
@@ -72,7 +77,7 @@ class DataService: DataServiceProtocol {
     func loadGroups(completion: @escaping () -> Void) {
 
         let apiParameters: [String : Any] = [
-        "extended" : 1
+            "extended" : 1
         ]
 
         apiParameters.forEach { (k,v) in parameters[k] = v }
@@ -85,7 +90,7 @@ class DataService: DataServiceProtocol {
             } else {
                 guard let data = response.data else { return }
                 
-                let groups: [Group] = self.groupsParser(data: data)
+                let groups: [Group] = parser.groupsParser(data: data)
                 
                 realmService.saveObjects(objects: groups)
                 
@@ -95,11 +100,44 @@ class DataService: DataServiceProtocol {
             
         }
     }
+    
+    func loadGroupById(id: Int, completion: @escaping () -> Void) {
+        
+        let apiParameters: [String : Any] = [
+            "group_id" : id
+        ]
+
+        apiParameters.forEach { (k,v) in parameters[k] = v }
+        
+        let url = baseUrl + apiMethods.groups.rawValue
+        
+        AF.request(url, parameters: parameters).responseJSON { (response) in
+            if let error = response.error {
+                print(error)
+            } else {
+                guard let data = response.data else { return }
+                
+                let group: Group = parser.groupParser(data: data)
+                
+                realmService.saveObject(object: group)
+                
+                completion()
+                
+            }
+             
+        }
+
+    }
 
     
-    func loadPhotos(additionalParameters: [String : Any], completion: @escaping () -> Void) {
+    func loadPhotos(targetId: Int, completion: @escaping () -> Void) {
         
-        additionalParameters.forEach { (k,v) in parameters[k] = v }
+        let apiParameters: [String : Any] = [
+            "owner_id" :  targetId,
+            "album_id" : "profile",
+        ]
+        
+        apiParameters.forEach { (k,v) in parameters[k] = v }
         
         let url = baseUrl + apiMethods.photos.rawValue
         
@@ -109,7 +147,7 @@ class DataService: DataServiceProtocol {
             } else {
                 guard let data = response.data else { return }
                 
-                let photos: [Photo] = self.photosParser(data: data)
+                let photos: [Photo] = parser.photosParser(data: data)
                 
                 realmService.saveObjects(objects: photos)
                 
@@ -118,84 +156,32 @@ class DataService: DataServiceProtocol {
             
         }
     }
-
     
-    private func usersParser(data: Data) -> [User] {
+    
+    func loadNews(completion: @escaping () -> Void) {
+        
+        let apiParameters: [String : Any] = [
+            "filters" : "post"
+        ]
 
-        do {
-            let json = try JSON(data: data)
-            let array = json["response"]["items"].arrayValue
-            
-            let result = array.map { item -> User in
+        apiParameters.forEach { (k,v) in parameters[k] = v }
+        
+        let url = baseUrl + apiMethods.news.rawValue
+        
+        AF.request(url, parameters: parameters).responseJSON { (response) in
+            if let error = response.error {
+                print(error)
+            } else {
+                guard let data = response.data else { return }
                 
-                let user = User()
-                user.id = item["id"].intValue
-                user.name = item["first_name"].stringValue + " " + item["last_name"].stringValue
-                user.avatar = item["photo_200_orig"].stringValue
+                let news: [News] = parser.newsParser(data: data)
                 
-                return user
+                realmService.saveObjects(objects: news)
+                
+                completion()
+                
             }
             
-            return result
-            
-        } catch {
-            print(error.localizedDescription)
-            return []
-        }
-    }
-
-    
-    private func groupsParser(data: Data) -> [Group] {
-
-        do {
-            let json = try JSON(data: data)
-            let array = json["response"]["items"].arrayValue
-            
-            let result = array.map { item -> Group in
-            
-                let group = Group()
-                
-                group.id = item["id"].intValue
-                group.name = item["name"].stringValue
-                group.avatar = item["photo_200_orig"].stringValue
-                
-                return group
-            }
-            
-            return result
-            
-        } catch {
-            print(error.localizedDescription)
-            return []
-        }
-    }
-
-    
-    private func photosParser(data: Data) -> [Photo] {
-    
-        do {
-            let json = try JSON(data: data)
-            let array = json["response"]["items"].arrayValue
-            
-            let result = array.map { item -> Photo in
-                
-                let photo = Photo()
-                photo.id = item["id"].intValue
-                photo.ownerId = item["owner_id"].intValue
-                
-                let sizeValues = item["sizes"].arrayValue
-                if let last = sizeValues.last {
-                    photo.imageUrl = last["url"].stringValue
-                }
-                
-                return photo
-            }
-            
-            return result
-            
-        } catch {
-            print(error.localizedDescription)
-            return []
         }
     }
 

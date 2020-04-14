@@ -12,8 +12,10 @@ import RealmSwift
 protocol RealmServiceProtocol {
     
     func saveObjects(objects: [Object]) throws
+    func saveObject(object: Object) throws
     func getUsers() -> [User]
     func getGroups() -> [Group]
+    func getGroupById(id: Int) -> Group?
     func getUserPhotos(ownerId: Int) -> [Photo]
     func deleteObject(object: Object) throws
 }
@@ -28,6 +30,19 @@ class RealmService: RealmServiceProtocol {
             print(realm.configuration.fileURL)
             realm.beginWrite()
             realm.add(objects, update: .modified)
+            try realm.commitWrite()
+        }
+        catch {
+            print(error.localizedDescription)
+        }
+    }
+    
+    func saveObject(object: Object) {
+        do {
+            Realm.Configuration.defaultConfiguration = Realm.Configuration(deleteRealmIfMigrationNeeded: true)
+            let realm = try Realm()
+            realm.beginWrite()
+            realm.add(object, update: .modified)
             try realm.commitWrite()
         }
         catch {
@@ -76,6 +91,18 @@ class RealmService: RealmServiceProtocol {
 
     }
     
+    func getGroupById(id: Int) -> Group? {
+        do {
+            let realm = try Realm()
+            let group = realm.objects(Group.self).filter("id = %@", abs(id)).first
+            return group
+            
+        } catch {
+            print(error.localizedDescription)
+            return Group()
+        }
+
+    }
     
     func getUserPhotos(ownerId: Int) -> [Photo] {
         do {
