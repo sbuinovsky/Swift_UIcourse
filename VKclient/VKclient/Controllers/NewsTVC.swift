@@ -16,10 +16,10 @@ class NewsTVC: UITableViewController {
     
     private var sections: [Results<News>] = []
     private var tokens: [NotificationToken] = []
-
+    
     private var likeBox = Like()
     
-    private var group: Group?
+    private var source: Object?
     
     func prepareSections() {
         
@@ -98,23 +98,32 @@ class NewsTVC: UITableViewController {
         dateFormatter.dateFormat = "dd.MM.yyyy" // тут может быть любой нужный вам формат, гуглите как писать форматы
         let convertedDate = dateFormatter.string(from: date as Date)
         
-        dataService.loadGroups {
-            self.group = self.realmService.getGroupById(id: news.sourceId)
+        if news.sourceId < 0 {
+            let group = self.realmService.getGroupById(id: news.sourceId)
+            cell.sourceImage.image = dataService.getImageByURL(imageURL: group?.avatar ?? "")
+            cell.sourceName.text = group?.name
+            
+        } else {
+            let user = self.realmService.getUserById(id: news.sourceId)
+            cell.sourceImage.image = dataService.getImageByURL(imageURL: user?.avatar ?? "")
+            cell.sourceName.text = user?.name
         }
         
-        let groupImage = self.dataService.getImageByURL(imageURL: self.group?.avatar ?? "")
+        likeBox.counter = news.likes
         
-        cell.groupImage.image = groupImage ?? nil
-        cell.groupName.text = group?.name ?? ""
         cell.date.text = convertedDate
-        cell.textField.text = news.text
+        cell.newsText.text = news.text
+        cell.newsImage.image = dataService.getImageByURL(imageURL: news.imageURL)
+        
+        cell.viewsImage.image = UIImage(imageLiteralResourceName: "viewsImage")
+        cell.viewsCounter.text = "\(news.views)"
+        cell.commentsButton.image = UIImage(imageLiteralResourceName: "commentsImage")
+        cell.commentsCounter.text = "\(news.comments)"
+        cell.repostImage.image = UIImage(imageLiteralResourceName: "repostImage")
+        cell.repostCounter.text = "\(news.reposts)"
         cell.likeImage.image = likeBox.image
         cell.likeCounter.text = "\(news.likes)"
         cell.shareButton.image = UIImage(imageLiteralResourceName: "shareImage")
-        cell.commentsButton.image = UIImage(imageLiteralResourceName: "commentsImage")
-        cell.viewsImage.image = UIImage(imageLiteralResourceName: "viewsImage")
-        cell.viewsCounter.text = "\(news.views)"
-        cell.newsImage.image = dataService.getImageByURL(imageURL: news.imageURL)
         
         return cell
     }

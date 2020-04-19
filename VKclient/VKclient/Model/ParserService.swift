@@ -129,6 +129,7 @@ class ParserService: ParserServiceProtocol {
                 news.views = item["views"]["count"].intValue
                 news.likes = item["likes"]["count"].intValue
                 news.comments = item["comments"]["count"].intValue
+                news.reposts = item["reposts"]["count"].intValue
                 
                 return news
             }

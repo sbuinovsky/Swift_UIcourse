@@ -19,6 +19,7 @@ class News: Object {
     @objc dynamic var views: Int = 0
     @objc dynamic var likes: Int = 0
     @objc dynamic var comments: Int = 0
+    @objc dynamic var reposts: Int = 0
     
     override class func primaryKey() -> String? {
         return "postId"
