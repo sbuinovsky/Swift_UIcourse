@@ -26,7 +26,7 @@ class NewsTVC: UITableViewController {
         do {
             tokens.removeAll()
             let realm = try Realm()
-            sections = Array( arrayLiteral: realm.objects(News.self) )
+            sections = Array( arrayLiteral: realm.objects(News.self).sorted(byKeyPath: "date", ascending: false) )
             sections.enumerated().forEach{ observeChanges(section: $0.offset, results: $0.element) }
             tableView.reloadData()
             
@@ -127,7 +127,7 @@ class NewsTVC: UITableViewController {
     
     @objc func updateNews() {
         
-        dataService.loadGroups() {
+        dataService.loadNews {
             self.tableView.reloadData()
             self.prepareSections()
             self.refreshControl?.endRefreshing()
