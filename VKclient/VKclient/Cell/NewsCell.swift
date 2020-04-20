@@ -69,20 +69,20 @@ class NewsCell: UITableViewCell {
     }
     
     
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        sourceImage.image = nil
-        sourceName.text = ""
-        date.text = ""
-        newsText.text = ""
-        likeImage.image = nil
-        likeCounter.text = ""
-        newsImage.image = nil
-        shareButton.image = nil
-        commentsButton.image = nil
-        viewsImage.image = nil
-        viewsCounter.text = ""
-        
-    }
+//    override func prepareForReuse() {
+//        super.prepareForReuse()
+//        sourceImage.image = nil
+//        sourceName.text = ""
+//        date.text = ""
+//        newsText.text = ""
+//        likeImage.image = nil
+//        likeCounter.text = ""
+//        newsImage.image = nil
+//        shareButton.image = nil
+//        commentsButton.image = nil
+//        viewsImage.image = nil
+//        viewsCounter.text = ""
+//        
+//    }
 
 }

@@ -85,11 +85,6 @@ class NewsTVC: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "NewsCell", for: indexPath) as? NewsCell else {
-            preconditionFailure("Can't deque NewsCell")
-            
-        }
-        
         let news = sections[indexPath.section][indexPath.row]
         
         //обработка даты в String формат
@@ -98,6 +93,10 @@ class NewsTVC: UITableViewController {
         dateFormatter.dateFormat = "dd.MM.yyyy" // тут может быть любой нужный вам формат, гуглите как писать форматы
         let convertedDate = dateFormatter.string(from: date as Date)
         
+        let cell = getCellPrototype(news: news, indexPath: indexPath)
+        
+        
+        // Source
         if news.sourceId < 0 {
             let group = self.realmService.getGroupById(id: news.sourceId)
             cell.sourceImage.image = dataService.getImageByURL(imageURL: group?.avatar ?? "")
@@ -109,12 +108,10 @@ class NewsTVC: UITableViewController {
             cell.sourceName.text = user?.name
         }
         
-        likeBox.counter = news.likes
-        
+        // Date
         cell.date.text = convertedDate
-        cell.newsText.text = news.text
-        cell.newsImage.image = dataService.getImageByURL(imageURL: news.imageURL)
         
+        // Actions
         cell.viewsImage.image = UIImage(imageLiteralResourceName: "viewsImage")
         cell.viewsCounter.text = "\(news.views)"
         cell.commentsButton.image = UIImage(imageLiteralResourceName: "commentsImage")
@@ -137,10 +134,33 @@ class NewsTVC: UITableViewController {
         }
 
     }
+    
+    func getCellPrototype(news: News, indexPath: IndexPath) -> NewsCell {
+        
+        var cell: NewsCell = .init()
+        
+        if news.imageURL == "" {
+            
+            cell = tableView.dequeueReusableCell(withIdentifier: "NewsCellTextOnly", for: indexPath) as! NewsCell
+            
+            cell.newsText.text = news.text
+            
+        } else if news.text == "" {
+            
+            cell = tableView.dequeueReusableCell(withIdentifier: "NewsCellImageOnly", for: indexPath) as! NewsCell
+            
+            cell.newsImage.image = dataService.getImageByURL(imageURL: news.imageURL)
+
+        } else {
+            
+            cell = tableView.dequeueReusableCell(withIdentifier: "NewsCell", for: indexPath) as! NewsCell
+            
+            cell.newsText.text = news.text
+            cell.newsImage.image = dataService.getImageByURL(imageURL: news.imageURL)
+            
+        }
+        
+        return cell
+    }
 
 }
-
-
-//if let indexPath = tableView.indexPathForSelectedRow {
-//    friendProfileController.friend = activeSections[indexPath.section][indexPath.row]
-//}
