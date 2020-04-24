@@ -88,6 +88,7 @@ class NewsTVC: UITableViewController {
         
         let cell = getCellPrototype(news: news, indexPath: indexPath)
         
+        
         if let source = self.realmService.getNewsSourceById(id: news.sourceId) {
             
             cell.sourceName.text = source.name
@@ -103,6 +104,7 @@ class NewsTVC: UITableViewController {
                 }
             }
         }
+        
         
         // Date
         cell.date.text = dateFormatter(inputDate: news.date)
@@ -121,6 +123,7 @@ class NewsTVC: UITableViewController {
         return cell
     }
     
+    
     @objc func updateNews() {
         
         dataService.loadNews {
@@ -131,9 +134,12 @@ class NewsTVC: UITableViewController {
 
     }
     
+    
     func getCellPrototype(news: News, indexPath: IndexPath) -> NewsCell {
         
         var cell: NewsCell = .init()
+        
+        let imageURL = news.imageURL
         
         if news.imageURL == "" {
             
@@ -144,10 +150,6 @@ class NewsTVC: UITableViewController {
         } else if news.text == "" {
             
             cell = tableView.dequeueReusableCell(withIdentifier: "NewsCellImageOnly", for: indexPath) as! NewsCell
-            
-//            cell.newsImage.image = self.dataService.getImageByURL(imageURL: news.imageURL)
-            
-            let imageURL = news.imageURL
             
             queue.async {
                 if let image = self.dataService.getImageByURL(imageURL: imageURL) {
@@ -164,8 +166,6 @@ class NewsTVC: UITableViewController {
             
             cell.newsText.text = news.text
             
-            let imageURL = news.imageURL
-            
             queue.async {
                 if let image = self.dataService.getImageByURL(imageURL: imageURL) {
                     
@@ -179,6 +179,7 @@ class NewsTVC: UITableViewController {
         
         return cell
     }
+    
     
     private func dateFormatter(inputDate: Double) -> String {
         let dateFormatter = DateFormatter()
