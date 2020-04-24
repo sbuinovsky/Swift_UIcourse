@@ -14,6 +14,7 @@ protocol FirebaseServiceProtocol {
     func anonymousAuth()
     func updateFriends(object: User)
     func updateGroups(object: Group)
+    func updateNewsSource(object: NewsSource)
 }
 
 private let queue = DispatchQueue(label: "FirebaseService_queue")
@@ -71,6 +72,21 @@ class FirebaseService: FirebaseServiceProtocol {
                 self.db.child("appusers/\(self.userUID)/groups/\(object.id)").updateChildValues([ "id" : "\(object.id)" ])
                 self.db.child("appusers/\(self.userUID)/groups/\(object.id)").updateChildValues([ "name" : "\(object.name)" ])
 
+            }
+        }
+        
+    }
+    
+    func updateNewsSource(object: NewsSource) {
+        
+        queue.async {
+            let newsSourcesPath = self.db.queryOrdered(byChild: "appusers/\(self.userUID)/newsSources")
+            
+            if newsSourcesPath.isEqual("\(object.id)") == false {
+                
+                self.db.child("appusers/\(self.userUID)/newsSources/\(object.id)").updateChildValues([ "id" : "\(object.id)" ])
+                self.db.child("appusers/\(self.userUID)/newsSources/\(object.id)").updateChildValues([ "name" : "\(object.name)" ])
+                
             }
         }
         

@@ -77,8 +77,6 @@ class DataService: DataServiceProtocol {
             }
         }
         
-        
-        
     }
 
     
@@ -152,12 +150,12 @@ class DataService: DataServiceProtocol {
         let apiParameters: [String : Any] = [
             "filters" : "post"
         ]
-
+        
         apiParameters.forEach { (k,v) in parameters[k] = v }
         
         let url = baseUrl + apiMethods.news.rawValue
         
-       queue.async {
+        queue.async {
             AF.request(url, parameters: parameters).responseJSON { (response) in
                 if let error = response.error {
                     print(error)
@@ -165,9 +163,13 @@ class DataService: DataServiceProtocol {
                     guard let data = response.data else { return }
                     
                     let news: [News] = parser.newsParser(data: data)
+                    let sourceGroups: [NewsSource] = parser.sourceGroupsParser(data: data)
+                    let sourceProfiles: [NewsSource] = parser.sourceUsersParser(data: data)
                     
                     DispatchQueue.main.async {
                         realmService.saveObjects(objects: news)
+                        realmService.saveObjects(objects: sourceGroups)
+                        realmService.saveObjects(objects: sourceProfiles)
                     }
                     
                     completion()

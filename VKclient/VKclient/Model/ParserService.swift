@@ -15,6 +15,8 @@ protocol ParserServiceProtocol {
     func groupsParser(data: Data) -> [Group]
     func photosParser(data: Data) -> [Photo]
     func newsParser(data: Data) -> [News]
+    func sourceGroupsParser(data: Data) -> [NewsSource]
+    func sourceUsersParser(data: Data) -> [NewsSource]
 }
 
 class ParserService: ParserServiceProtocol {
@@ -105,6 +107,7 @@ class ParserService: ParserServiceProtocol {
         }
     }
     
+    
     func newsParser(data: Data) -> [News] {
 
         do {
@@ -132,6 +135,59 @@ class ParserService: ParserServiceProtocol {
                 news.reposts = item["reposts"]["count"].intValue
                 
                 return news
+            }
+            
+            return result
+            
+        } catch {
+            print(error.localizedDescription)
+            return []
+        }
+    }
+    
+    func sourceGroupsParser(data: Data) -> [NewsSource] {
+
+        do {
+            let json = try JSON(data: data)
+            let array = json["response"]["groups"].arrayValue
+            
+            let result = array.map { item -> NewsSource in
+            
+                let sourceGroup = NewsSource()
+                
+                sourceGroup.id = item["id"].intValue
+                sourceGroup.name = item["name"].stringValue
+                sourceGroup.avatar = item["photo_200"].stringValue
+                
+                firebaseService.updateNewsSource(object: sourceGroup)
+                
+                return sourceGroup
+            }
+            
+            return result
+            
+        } catch {
+            print(error.localizedDescription)
+            return []
+        }
+    }
+    
+    func sourceUsersParser(data: Data) -> [NewsSource] {
+
+        do {
+            let json = try JSON(data: data)
+            let array = json["response"]["profiles"].arrayValue
+            
+            let result = array.map { item -> NewsSource in
+                
+                let sourceUser = NewsSource()
+                sourceUser.id = item["id"].intValue
+                sourceUser.name = item["first_name"].stringValue + " " + item["last_name"].stringValue
+                sourceUser.avatar = item["photo_100"].stringValue
+                
+                firebaseService.updateNewsSource(object: sourceUser)
+                
+                return sourceUser
             }
             
             return result

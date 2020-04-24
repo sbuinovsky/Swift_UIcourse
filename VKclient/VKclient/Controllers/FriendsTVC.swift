@@ -127,13 +127,13 @@ class FriendsTVC: UITableViewController {
         
         let friend = activeSections[indexPath.section][indexPath.row]
         
-        let url = friend.avatar
+        let imageURL = friend.avatar
         
         //заполнение ячейки
         cell.friendNameLabel.text = friend.name
         
         queue.async {
-            if let image = self.dataService.getImageByURL(imageURL: url) {
+            if let image = self.dataService.getImageByURL(imageURL: imageURL) {
                 
                 DispatchQueue.main.async {
                    cell.friendAvatarImage.image = image

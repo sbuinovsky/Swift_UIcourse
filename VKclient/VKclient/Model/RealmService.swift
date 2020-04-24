@@ -6,7 +6,7 @@
 //  Copyright © 2020 Станислав Буйновский. All rights reserved.
 //
 
-import Foundation
+import UIKit
 import RealmSwift
 
 protocol RealmServiceProtocol {
@@ -18,6 +18,7 @@ protocol RealmServiceProtocol {
     func getGroupById(id: Int) -> Group?
     func getUserById(id: Int) -> User?
     func getUserPhotos(ownerId: Int) -> [Photo]
+    func getNewsSourceById(id: Int) -> NewsSource?
     func deleteObject(object: Object) throws
 }
 
@@ -119,6 +120,18 @@ class RealmService: RealmServiceProtocol {
 
     }
     
+    func getNewsSourceById(id: Int) -> NewsSource? {
+        do {
+            let realm = try Realm()
+            let newsSource = realm.objects(NewsSource.self).filter("id = %@", abs(id)).first
+            return newsSource
+            
+        } catch {
+            print(error.localizedDescription)
+            return NewsSource()
+        }
+
+    }
     
     func getUserPhotos(ownerId: Int) -> [Photo] {
         do {

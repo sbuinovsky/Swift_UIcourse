@@ -6,4 +6,16 @@
 //  Copyright © 2020 Станислав Буйновский. All rights reserved.
 //
 
-import Foundation
+import UIKit
+import RealmSwift
+
+class NewsSource: Object {
+    
+    @objc dynamic var id: Int = 0
+    @objc dynamic var name: String = ""
+    @objc dynamic var avatar: String = ""
+    
+    override class func primaryKey() -> String? {
+        return "id"
+    }
+}
