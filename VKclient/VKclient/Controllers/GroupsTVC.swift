@@ -111,7 +111,7 @@ class GroupsTVC: UITableViewController {
         queue.async {
             if let image = self.dataService.getImageByURL(imageURL: url) {
                 
-                DispatchQueue.main.async {
+                DispatchQueue.main.sync {
                     cell.favoriteGroupAvatarImage.image = image
                 }
             }
