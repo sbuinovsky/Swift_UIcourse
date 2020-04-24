@@ -36,7 +36,6 @@ private enum apiMethods: String {
 protocol DataServiceProtocol {
     func loadUsers(completion: @escaping () -> Void)
     func loadGroups(completion: @escaping () -> Void)
-    func loadGroupById(id: Int, completion: @escaping () -> Void)
     func loadPhotos(targetId: Int, completion: @escaping () -> Void)
     func loadNews(completion: @escaping () -> Void)
     func getImageByURL(imageURL: String) -> UIImage?
@@ -99,34 +98,6 @@ class DataService: DataServiceProtocol {
             }
             
         }
-    }
-    
-    func loadGroupById(id: Int, completion: @escaping () -> Void) {
-        
-        let apiParameters: [String : Any] = [
-            "group_id" : id
-        ]
-
-        apiParameters.forEach { (k,v) in parameters[k] = v }
-        
-        let url = baseUrl + apiMethods.groups.rawValue
-        
-        AF.request(url, parameters: parameters).responseJSON { (response) in
-            if let error = response.error {
-                print(error)
-            } else {
-                guard let data = response.data else { return }
-                
-                let group: Group = parser.groupParser(data: data)
-                
-                realmService.saveObject(object: group)
-                
-                completion()
-                
-            }
-             
-        }
-
     }
 
     

@@ -13,7 +13,6 @@ import SwiftyJSON
 protocol ParserServiceProtocol {
     func usersParser(data: Data) -> [User]
     func groupsParser(data: Data) -> [Group]
-    func groupParser(data: Data) -> Group
     func photosParser(data: Data) -> [Photo]
     func newsParser(data: Data) -> [News]
 }
@@ -77,38 +76,6 @@ class ParserService: ParserServiceProtocol {
         }
     }
     
-    func groupParser(data: Data) -> Group {
-
-        do {
-            let json = try JSON(data: data)
-            let array = json["response"].arrayValue
-            
-            
-            let result = array.map { item -> Group in
-                
-                let group = Group()
-                
-                group.id = item["id"].intValue
-                group.name = item["name"].stringValue
-                group.avatar = item["photo_200_orig"].stringValue
-                
-                firebaseService.updateGroups(object: group)
-                
-                print("PARSED GROUP: \(group)")
-                
-                return group
-            }
-            
-            guard let group = result.first else { return Group() }
-            
-            return group
-            
-        } catch {
-            print(error.localizedDescription)
-            return Group()
-        }
-    }
-
     
     func photosParser(data: Data) -> [Photo] {
     
@@ -162,6 +129,7 @@ class ParserService: ParserServiceProtocol {
                 news.views = item["views"]["count"].intValue
                 news.likes = item["likes"]["count"].intValue
                 news.comments = item["comments"]["count"].intValue
+                news.reposts = item["reposts"]["count"].intValue
                 
                 return news
             }

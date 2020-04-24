@@ -16,15 +16,17 @@ class NewsTVC: UITableViewController {
     
     private var sections: [Results<News>] = []
     private var tokens: [NotificationToken] = []
-
+    
     private var likeBox = Like()
+    
+    private var source: Object?
     
     func prepareSections() {
         
         do {
             tokens.removeAll()
             let realm = try Realm()
-            sections = Array( arrayLiteral: realm.objects(News.self) )
+            sections = Array( arrayLiteral: realm.objects(News.self).sorted(byKeyPath: "date", ascending: false) )
             sections.enumerated().forEach{ observeChanges(section: $0.offset, results: $0.element) }
             tableView.reloadData()
             
@@ -57,9 +59,11 @@ class NewsTVC: UITableViewController {
     }
     
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        refreshControl = UIRefreshControl()
+        refreshControl?.addTarget(self, action: #selector(updateNews), for: .valueChanged)
 
         dataService.loadNews {
             self.tableView.reloadData()
@@ -80,11 +84,6 @@ class NewsTVC: UITableViewController {
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "NewsCell", for: indexPath) as? NewsCell else {
-               preconditionFailure("Can't deque NewsCell")
-            
-        }
         
         let news = sections[indexPath.section][indexPath.row]
         
@@ -93,36 +92,73 @@ class NewsTVC: UITableViewController {
         let date = NSDate(timeIntervalSince1970: news.date)
         dateFormatter.dateFormat = "dd.MM.yyyy" // тут может быть любой нужный вам формат, гуглите как писать форматы
         let convertedDate = dateFormatter.string(from: date as Date)
- 
-        //заполняем начальными значениями
         
+        let cell = getCellPrototype(news: news, indexPath: indexPath)
+        
+        
+        // Source
         if news.sourceId < 0 {
+            let group = self.realmService.getGroupById(id: news.sourceId)
+            cell.sourceImage.image = dataService.getImageByURL(imageURL: group?.avatar ?? "")
+            cell.sourceName.text = group?.name
             
-            if let group = self.realmService.getGroupById(id: news.sourceId) {
-                cell.groupName.text = group.name
-                cell.groupImage.image = self.dataService.getImageByURL(imageURL: group.avatar)
-            } else {
-                dataService.loadGroupById( id: abs(news.sourceId) ) {
-                    if let group = self.realmService.getGroupById(id: news.sourceId) {
-                        cell.groupName.text = group.name
-                        cell.groupImage.image = self.dataService.getImageByURL(imageURL: group.avatar)
-                    }
-                }
-                
-            }
-            
+        } else {
+            let user = self.realmService.getUserById(id: news.sourceId)
+            cell.sourceImage.image = dataService.getImageByURL(imageURL: user?.avatar ?? "")
+            cell.sourceName.text = user?.name
         }
         
-        
+        // Date
         cell.date.text = convertedDate
-        cell.textField.text = news.text
+        
+        // Actions
+        cell.viewsImage.image = UIImage(imageLiteralResourceName: "viewsImage")
+        cell.viewsCounter.text = "\(news.views)"
+        cell.commentsButton.image = UIImage(imageLiteralResourceName: "commentsImage")
+        cell.commentsCounter.text = "\(news.comments)"
+        cell.repostImage.image = UIImage(imageLiteralResourceName: "repostImage")
+        cell.repostCounter.text = "\(news.reposts)"
         cell.likeImage.image = likeBox.image
         cell.likeCounter.text = "\(news.likes)"
         cell.shareButton.image = UIImage(imageLiteralResourceName: "shareImage")
-        cell.commentsButton.image = UIImage(imageLiteralResourceName: "commentsImage")
-        cell.newsImage.image = dataService.getImageByURL(imageURL: news.imageURL)
-        cell.viewsImage.image = UIImage(imageLiteralResourceName: "viewsImage")
-        cell.viewsCounter.text = "\(news.views)"
+        
+        return cell
+    }
+    
+    @objc func updateNews() {
+        
+        dataService.loadNews {
+            self.tableView.reloadData()
+            self.prepareSections()
+            self.refreshControl?.endRefreshing()
+        }
+
+    }
+    
+    func getCellPrototype(news: News, indexPath: IndexPath) -> NewsCell {
+        
+        var cell: NewsCell = .init()
+        
+        if news.imageURL == "" {
+            
+            cell = tableView.dequeueReusableCell(withIdentifier: "NewsCellTextOnly", for: indexPath) as! NewsCell
+            
+            cell.newsText.text = news.text
+            
+        } else if news.text == "" {
+            
+            cell = tableView.dequeueReusableCell(withIdentifier: "NewsCellImageOnly", for: indexPath) as! NewsCell
+            
+            cell.newsImage.image = dataService.getImageByURL(imageURL: news.imageURL)
+
+        } else {
+            
+            cell = tableView.dequeueReusableCell(withIdentifier: "NewsCell", for: indexPath) as! NewsCell
+            
+            cell.newsText.text = news.text
+            cell.newsImage.image = dataService.getImageByURL(imageURL: news.imageURL)
+            
+        }
         
         return cell
     }

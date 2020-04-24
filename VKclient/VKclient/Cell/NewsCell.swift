@@ -10,22 +10,24 @@ import UIKit
 
 class NewsCell: UITableViewCell {
     
-    @IBOutlet weak var groupImage: UIImageView!
-    @IBOutlet weak var groupName: UILabel!
+    @IBOutlet weak var sourceImage: UIImageView!
+    @IBOutlet weak var sourceName: UILabel!
     @IBOutlet weak var date: UILabel!
-    @IBOutlet weak var textField: UITextView!
+    @IBOutlet weak var newsText: UITextView!
     @IBOutlet weak var likeImage: UIImageView!
     @IBOutlet weak var likeCounter: UILabel!
     @IBOutlet weak var newsImage: UIImageView!
     @IBOutlet weak var shareButton: UIImageView!
     @IBOutlet weak var commentsButton: UIImageView!
+    @IBOutlet weak var commentsCounter: UILabel!
     @IBOutlet weak var viewsImage: UIImageView!
     @IBOutlet weak var viewsCounter: UILabel!
-    
+    @IBOutlet weak var repostImage: UIImageView!
+    @IBOutlet weak var repostCounter: UILabel!
     
     
     //инициализируем базовый объект Like
-    let likeBox = Like()
+    let likeBox: Like = .init()
     
     
     override func awakeFromNib() {
@@ -67,20 +69,20 @@ class NewsCell: UITableViewCell {
     }
     
     
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        groupImage.image = nil
-        groupName.text = ""
-        date.text = ""
-        textField.text = ""
-        likeImage.image = nil
-        likeCounter.text = ""
-        newsImage.image = nil
-        shareButton.image = nil
-        commentsButton.image = nil
-        viewsImage.image = nil
-        viewsCounter.text = ""
-        
-    }
+//    override func prepareForReuse() {
+//        super.prepareForReuse()
+//        sourceImage.image = nil
+//        sourceName.text = ""
+//        date.text = ""
+//        newsText.text = ""
+//        likeImage.image = nil
+//        likeCounter.text = ""
+//        newsImage.image = nil
+//        shareButton.image = nil
+//        commentsButton.image = nil
+//        viewsImage.image = nil
+//        viewsCounter.text = ""
+//        
+//    }
 
 }
