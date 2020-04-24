@@ -56,9 +56,9 @@
                         <color key="tintColor" red="0.457951571" green="0.6124853831" blue="1" alpha="1" colorSpace="custom" customColorSpace="deviceRGB"/>
                     </tabBar>
                     <connections>
+                        <segue destination="Sct-Cg-S6x" kind="relationship" relationship="viewControllers" id="CeK-GQ-i8z"/>
                         <segue destination="LO4-fw-s9u" kind="relationship" relationship="viewControllers" id="ITH-n5-rHe"/>
                         <segue destination="xtS-1H-oSY" kind="relationship" relationship="viewControllers" id="kPr-3Q-QNb"/>
-                        <segue destination="Sct-Cg-S6x" kind="relationship" relationship="viewControllers" id="CeK-GQ-i8z"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TMa-GM-hvF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
