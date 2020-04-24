@@ -16,6 +16,8 @@ protocol FirebaseServiceProtocol {
     func updateGroups(object: Group)
 }
 
+private let queue = DispatchQueue(label: "FirebaseService_queue")
+
 class FirebaseService: FirebaseServiceProtocol {
     
     private let db = Database.database().reference()
@@ -45,27 +47,33 @@ class FirebaseService: FirebaseServiceProtocol {
     
     func updateFriends(object: User) {
         
-        let friendsPath = self.db.queryOrdered(byChild: "appusers/\(userUID)/friends")
-        
-        if friendsPath.isEqual("\(object.id)") == false {
+        queue.async {
+            let friendsPath = self.db.queryOrdered(byChild: "appusers/\(self.userUID)/friends")
             
-            db.child("appusers/\(userUID)/friends/\(object.id)").updateChildValues([ "id" : "\(object.id)" ])
-            db.child("appusers/\(userUID)/friends/\(object.id)").updateChildValues([ "name" : "\(object.name)" ])
-
+            if friendsPath.isEqual("\(object.id)") == false {
+                
+                self.db.child("appusers/\(self.userUID)/friends/\(object.id)").updateChildValues([ "id" : "\(object.id)" ])
+                self.db.child("appusers/\(self.userUID)/friends/\(object.id)").updateChildValues([ "name" : "\(object.name)" ])
+                
+            }
         }
+        
     }
     
     
     func updateGroups(object: Group) {
         
-        let groupsPath = self.db.queryOrdered(byChild: "appusers/\(userUID)/groups")
-        
-        if groupsPath.isEqual("\(object.id)") == false {
+        queue.async {
+            let groupsPath = self.db.queryOrdered(byChild: "appusers/\(self.userUID)/groups")
             
-            db.child("appusers/\(userUID)/groups/\(object.id)").updateChildValues([ "id" : "\(object.id)" ])
-            db.child("appusers/\(userUID)/groups/\(object.id)").updateChildValues([ "name" : "\(object.name)" ])
+            if groupsPath.isEqual("\(object.id)") == false {
+                
+                self.db.child("appusers/\(self.userUID)/groups/\(object.id)").updateChildValues([ "id" : "\(object.id)" ])
+                self.db.child("appusers/\(self.userUID)/groups/\(object.id)").updateChildValues([ "name" : "\(object.name)" ])
 
+            }
         }
+        
     }
     
 }

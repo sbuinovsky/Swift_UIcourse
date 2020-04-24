@@ -19,4 +19,17 @@ class GroupCell: UITableViewCell {
         favoriteGroupAvatarImage.image = nil
         favoriteGroupNameLabel.text = ""
     }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        //скругление аватара группы
+        let path = UIBezierPath()
+        path.addArc(withCenter: CGPoint(x: favoriteGroupAvatarImage.bounds.width/2, y: favoriteGroupAvatarImage.bounds.height/2), radius: favoriteGroupAvatarImage.bounds.width/2, startAngle: 0, endAngle: 360, clockwise: true)
+        let maskLayer = CAShapeLayer()
+        maskLayer.path = path.cgPath
+        
+        favoriteGroupAvatarImage.layer.mask = maskLayer
+    }
+    
 }

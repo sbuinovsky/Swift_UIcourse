@@ -11,8 +11,9 @@ import RealmSwift
 
 class GroupsTVC: UITableViewController {
     
-    let dataService: DataServiceProtocol = DataService()
-    let realmService: RealmServiceProtocol = RealmService()
+    private let dataService: DataServiceProtocol = DataService()
+    private let realmService: RealmServiceProtocol = RealmService()
+    private let queue: DispatchQueue = DispatchQueue(label: "GroupsTVC_queue")
     
     private var tokens: [NotificationToken] = []
     
@@ -107,7 +108,7 @@ class GroupsTVC: UITableViewController {
         
         cell.favoriteGroupNameLabel.text = group.name
         
-        DispatchQueue.global().async {
+        queue.async {
             if let image = self.dataService.getImageByURL(imageURL: url) {
                 
                 DispatchQueue.main.async {

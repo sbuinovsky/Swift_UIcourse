@@ -24,6 +24,8 @@ private var parameters: Parameters = [
     "v" : "5.103"
 ]
 
+private let queue = DispatchQueue(label: "dataService_queue")
+
 private enum apiMethods: String {
     case friends = "friends.get"
     case groups = "groups.get"
@@ -56,20 +58,27 @@ class DataService: DataServiceProtocol {
         
         let url = baseUrl + apiMethods.friends.rawValue
         
-        AF.request(url, parameters: parameters).responseJSON { (response) in
-            if let error = response.error {
-                print(error)
-            } else {
-                guard let data = response.data else { return }
-                
-                let users: [User] = parser.usersParser(data: data)
-                
-                realmService.saveObjects(objects: users)
+        queue.async {
+            AF.request(url, parameters: parameters).responseJSON { (response) in
+                if let error = response.error {
+                    print(error)
+                } else {
+                    guard let data = response.data else { return }
+                    
+                    let users: [User] = parser.usersParser(data: data)
+                    
+                    DispatchQueue.main.async {
+                        realmService.saveObjects(objects: users)
+                    }
 
-                completion()
+                    completion()
+                }
+                
             }
-            
         }
+        
+        
+        
     }
 
     
@@ -83,20 +92,24 @@ class DataService: DataServiceProtocol {
         
         let url = baseUrl + apiMethods.groups.rawValue
         
-        AF.request(url, parameters: parameters).responseJSON { (response) in
-            if let error = response.error {
-                print(error)
-            } else {
-                guard let data = response.data else { return }
-                
-                let groups: [Group] = parser.groupsParser(data: data)
-                
-                realmService.saveObjects(objects: groups)
-                
-                completion()
+        queue.async {
+            AF.request(url, parameters: parameters).responseJSON { (response) in
+                if let error = response.error {
+                    print(error)
+                } else {
+                    guard let data = response.data else { return }
+                    
+                    let groups: [Group] = parser.groupsParser(data: data)
+                    
+                    DispatchQueue.main.async {
+                        realmService.saveObjects(objects: groups)
+                    }
+                    
+                    completion()
+                    
+                }
                 
             }
-            
         }
     }
 
@@ -112,19 +125,24 @@ class DataService: DataServiceProtocol {
         
         let url = baseUrl + apiMethods.photos.rawValue
         
-        AF.request(url, parameters: parameters).responseJSON { [completion] (response) in
-            if let error = response.error {
-                print(error)
-            } else {
-                guard let data = response.data else { return }
+        queue.async {
+            AF.request(url, parameters: parameters).responseJSON { [completion] (response) in
+                if let error = response.error {
+                    print(error)
+                } else {
+                    guard let data = response.data else { return }
+                    
+                    let photos: [Photo] = parser.photosParser(data: data)
+                    
+                    DispatchQueue.main.async {
+                        realmService.saveObjects(objects: photos)
+                        
+                    }
+                    
+                    completion()
+                }
                 
-                let photos: [Photo] = parser.photosParser(data: data)
-                
-                realmService.saveObjects(objects: photos)
-                
-                completion()
             }
-            
         }
     }
     
@@ -139,25 +157,32 @@ class DataService: DataServiceProtocol {
         
         let url = baseUrl + apiMethods.news.rawValue
         
-        AF.request(url, parameters: parameters).responseJSON { (response) in
-            if let error = response.error {
-                print(error)
-            } else {
-                guard let data = response.data else { return }
-                
-                let news: [News] = parser.newsParser(data: data)
-                
-                realmService.saveObjects(objects: news)
-                
-                completion()
+       queue.async {
+            AF.request(url, parameters: parameters).responseJSON { (response) in
+                if let error = response.error {
+                    print(error)
+                } else {
+                    guard let data = response.data else { return }
+                    
+                    let news: [News] = parser.newsParser(data: data)
+                    
+                    DispatchQueue.main.async {
+                        realmService.saveObjects(objects: news)
+                    }
+                    
+                    completion()
+                    
+                }
                 
             }
-            
         }
+        
+        
     }
 
     
     func getImageByURL(imageURL: String) -> UIImage? {
+        
         let urlString = imageURL
         guard let url = URL(string: urlString) else { return nil }
         

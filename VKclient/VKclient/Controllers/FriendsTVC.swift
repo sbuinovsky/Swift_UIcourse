@@ -14,6 +14,7 @@ class FriendsTVC: UITableViewController {
     
     private let dataService: DataServiceProtocol = DataService()
     private let realmService: RealmServiceProtocol = RealmService()
+    private let queue: DispatchQueue = DispatchQueue(label: "FriendsTVC_queue")
     
     private var sections: [Results<User>] = []
     private var tokens: [NotificationToken] = []
@@ -131,7 +132,7 @@ class FriendsTVC: UITableViewController {
         //заполнение ячейки
         cell.friendNameLabel.text = friend.name
         
-        DispatchQueue.global().async {
+        queue.async {
             if let image = self.dataService.getImageByURL(imageURL: url) {
                 
                 DispatchQueue.main.async {

@@ -13,6 +13,7 @@ class NewsTVC: UITableViewController {
     
     private let dataService: DataServiceProtocol = DataService()
     private let realmService: RealmServiceProtocol = RealmService()
+    private let queue: DispatchQueue = DispatchQueue(label: "NewsTVC_queue")
     
     private var sections: [Results<News>] = []
     private var tokens: [NotificationToken] = []
@@ -108,6 +109,7 @@ class NewsTVC: UITableViewController {
             cell.sourceName.text = user?.name
         }
         
+        
         // Date
         cell.date.text = convertedDate
         
@@ -149,11 +151,39 @@ class NewsTVC: UITableViewController {
             
             cell = tableView.dequeueReusableCell(withIdentifier: "NewsCellImageOnly", for: indexPath) as! NewsCell
             
-            cell.newsImage.image = dataService.getImageByURL(imageURL: news.imageURL)
+            queue.async {
+                if let image = self.dataService.getImageByURL(imageURL: news.imageURL) {
+                    
+                    DispatchQueue.main.async {
+                        cell.newsImage.image = image
+                        self.tableView.reloadRows(at: [indexPath], with: .automatic)
+                    }
+                } else {
+                    DispatchQueue.main.async {
+                        self.tableView.reloadRows(at: [indexPath], with: .automatic)
+                    }
+                }
+            }
+            
 
         } else {
             
             cell = tableView.dequeueReusableCell(withIdentifier: "NewsCell", for: indexPath) as! NewsCell
+            
+//            queue.async {
+//                if let image = self.dataService.getImageByURL(imageURL: news.imageURL) {
+//                    
+//                    DispatchQueue.main.async {
+//                        cell.newsText.text = news.text
+//                        cell.newsImage.image = image
+//                        self.tableView.reloadRows(at: [indexPath], with: .automatic)
+//                    }
+//                } else {
+//                    DispatchQueue.main.async {
+//                        self.tableView.reloadRows(at: [indexPath], with: .automatic)
+//                    }
+//                }
+//            }
             
             cell.newsText.text = news.text
             cell.newsImage.image = dataService.getImageByURL(imageURL: news.imageURL)
