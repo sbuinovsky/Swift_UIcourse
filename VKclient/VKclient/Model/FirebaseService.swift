@@ -6,7 +6,7 @@
 //  Copyright © 2020 Станислав Буйновский. All rights reserved.
 //
 
-import Foundation
+import UIKit
 import FirebaseAuth
 import FirebaseDatabase
 
@@ -48,46 +48,44 @@ class FirebaseService: FirebaseServiceProtocol {
     
     func updateFriends(object: User) {
         
-        queue.async {
-            let friendsPath = self.db.queryOrdered(byChild: "appusers/\(self.userUID)/friends")
+        let friendsPath = self.db.queryOrdered(byChild: "appusers/\(self.userUID)/friends")
+        
+        if friendsPath.isEqual("\(object.id)") == false {
             
-            if friendsPath.isEqual("\(object.id)") == false {
-                
-                self.db.child("appusers/\(self.userUID)/friends/\(object.id)").updateChildValues([ "id" : "\(object.id)" ])
-                self.db.child("appusers/\(self.userUID)/friends/\(object.id)").updateChildValues([ "name" : "\(object.name)" ])
-                
-            }
+            self.db.child("appusers/\(self.userUID)/friends/\(object.id)").updateChildValues([ "id" : "\(object.id)" ])
+            self.db.child("appusers/\(self.userUID)/friends/\(object.id)").updateChildValues([ "name" : "\(object.name)" ])
+            
         }
+        
         
     }
     
     
     func updateGroups(object: Group) {
         
-        queue.async {
-            let groupsPath = self.db.queryOrdered(byChild: "appusers/\(self.userUID)/groups")
+        
+        let groupsPath = self.db.queryOrdered(byChild: "appusers/\(self.userUID)/groups")
+        
+        if groupsPath.isEqual("\(object.id)") == false {
             
-            if groupsPath.isEqual("\(object.id)") == false {
-                
-                self.db.child("appusers/\(self.userUID)/groups/\(object.id)").updateChildValues([ "id" : "\(object.id)" ])
-                self.db.child("appusers/\(self.userUID)/groups/\(object.id)").updateChildValues([ "name" : "\(object.name)" ])
-
-            }
+            self.db.child("appusers/\(self.userUID)/groups/\(object.id)").updateChildValues([ "id" : "\(object.id)" ])
+            self.db.child("appusers/\(self.userUID)/groups/\(object.id)").updateChildValues([ "name" : "\(object.name)" ])
+            
         }
+        
         
     }
     
     func updateNewsSource(object: NewsSource) {
         
-        queue.async {
-            let newsSourcesPath = self.db.queryOrdered(byChild: "appusers/\(self.userUID)/newsSources")
+        
+        let newsSourcesPath = self.db.queryOrdered(byChild: "appusers/\(self.userUID)/newsSources")
+        
+        if newsSourcesPath.isEqual("\(object.id)") == false {
             
-            if newsSourcesPath.isEqual("\(object.id)") == false {
-                
-                self.db.child("appusers/\(self.userUID)/newsSources/\(object.id)").updateChildValues([ "id" : "\(object.id)" ])
-                self.db.child("appusers/\(self.userUID)/newsSources/\(object.id)").updateChildValues([ "name" : "\(object.name)" ])
-                
-            }
+            self.db.child("appusers/\(self.userUID)/newsSources/\(object.id)").updateChildValues([ "id" : "\(object.id)" ])
+            self.db.child("appusers/\(self.userUID)/newsSources/\(object.id)").updateChildValues([ "name" : "\(object.name)" ])
+            
         }
         
     }

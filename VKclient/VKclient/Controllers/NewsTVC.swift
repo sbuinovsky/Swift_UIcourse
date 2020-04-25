@@ -65,8 +65,11 @@ class NewsTVC: UITableViewController {
         refreshControl?.addTarget(self, action: #selector(updateNews), for: .valueChanged)
 
         dataService.loadNews {
-            self.tableView.reloadData()
-            self.prepareSections()
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+                self.prepareSections()
+            }
+            
         }
         
     }
@@ -127,11 +130,14 @@ class NewsTVC: UITableViewController {
     @objc func updateNews() {
         
         dataService.loadNews {
-            self.tableView.reloadData()
-            self.prepareSections()
-            self.refreshControl?.endRefreshing()
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+                self.prepareSections()
+                self.refreshControl?.endRefreshing()
+            }
+            
         }
-
+        
     }
     
     

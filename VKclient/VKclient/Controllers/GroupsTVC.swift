@@ -17,8 +17,8 @@ class GroupsTVC: UITableViewController {
     
     private var tokens: [NotificationToken] = []
     
-    var groups: [Results<Group>] = []
-    
+    private var groups: [Results<Group>] = []
+    private var cachedAvatars: [String: UIImage] = .init()
     
     func prepareGroups() {
         
@@ -60,6 +60,27 @@ class GroupsTVC: UITableViewController {
     }
     
     
+    private func downloadImage( for url: String, indexPath: IndexPath ) {
+        queue.async {
+            if self.cachedAvatars[url] == nil {
+                if let image = self.dataService.getImageByURL(imageURL: url) {
+                    self.cachedAvatars[url] = image
+
+                    DispatchQueue.main.async {
+                        self.tableView.reloadRows(at: [indexPath], with: .automatic)
+                        self.tableView.reloadData()
+                    }
+                }
+            }
+            else {
+                DispatchQueue.main.async {
+                    self.tableView.reloadRows(at: [indexPath], with: .automatic)
+                }
+            }
+        }
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -67,8 +88,11 @@ class GroupsTVC: UITableViewController {
         refreshControl?.addTarget(self, action: #selector(updateGroups), for: .valueChanged)
         
         dataService.loadGroups() {
-            self.tableView.reloadData()
-            self.prepareGroups()
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+                self.prepareGroups()
+            }
+            
         }
         
         
@@ -104,18 +128,27 @@ class GroupsTVC: UITableViewController {
         }
         
         let group = groups[indexPath.section][indexPath.row]
-        let url = group.avatar
+        let imageURL = group.avatar
         
         cell.favoriteGroupNameLabel.text = group.name
         
-        queue.async {
-            if let image = self.dataService.getImageByURL(imageURL: url) {
-                
-                DispatchQueue.main.sync {
-                    cell.favoriteGroupAvatarImage.image = image
-                }
-            }
+//        queue.async {
+//            if let image = self.dataService.getImageByURL(imageURL: imageURL) {
+//                
+//                DispatchQueue.main.sync {
+//                    cell.favoriteGroupAvatarImage.image = image
+//                }
+//            }
+//        }
+        
+        if let avatar = cachedAvatars[imageURL] {
+            cell.favoriteGroupAvatarImage.image = avatar
         }
+        else {
+            downloadImage(for: imageURL, indexPath: indexPath)
+        }
+        
+        cell.favoriteGroupAvatarImage.image = self.dataService.getImageByURL(imageURL: imageURL)
         
         return cell
     }
@@ -142,11 +175,14 @@ class GroupsTVC: UITableViewController {
     @objc func updateGroups() {
         
         dataService.loadGroups() {
-            self.tableView.reloadData()
-            self.prepareGroups()
-            self.refreshControl?.endRefreshing()
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+                self.prepareGroups()
+                self.refreshControl?.endRefreshing()
+            }
+            
         }
-
+        
     }
 
 }

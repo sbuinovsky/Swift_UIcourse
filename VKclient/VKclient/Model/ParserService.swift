@@ -63,7 +63,7 @@ class ParserService: ParserServiceProtocol {
                 
                 group.id = item["id"].intValue
                 group.name = item["name"].stringValue
-                group.avatar = item["photo_200_orig"].stringValue
+                group.avatar = item["photo_200"].stringValue
                 
                 firebaseService.updateGroups(object: group)
                 
