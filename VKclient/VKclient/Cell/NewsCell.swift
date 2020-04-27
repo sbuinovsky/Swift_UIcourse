@@ -33,6 +33,15 @@ class NewsCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
+        //скругление аватара пользователя
+        let path = UIBezierPath()
+        path.addArc(withCenter: CGPoint(x: sourceImage.bounds.width/2, y: sourceImage.bounds.height/2), radius: sourceImage.bounds.width/2, startAngle: 0, endAngle: 360, clockwise: true)
+        let maskLayer = CAShapeLayer()
+        maskLayer.path = path.cgPath
+        
+       sourceImage.layer.mask = maskLayer
+        
+        
         //добавляем обработку нажатия на элемент
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(onTap(_:)))
         

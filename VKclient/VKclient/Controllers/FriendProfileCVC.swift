@@ -13,8 +13,9 @@ private let reuseIdentifier = "Cell"
 
 class FriendProfileCVC: UICollectionViewController {
    
-    let dataService: DataServiceProtocol = DataService()
-    let realmService: RealmServiceProtocol = RealmService()
+    private let dataService: DataServiceProtocol = DataService()
+    private let realmService: RealmServiceProtocol = RealmService()
+    private let queue: DispatchQueue = DispatchQueue(label: "FriendsProfileCVC_queue")
     
     //словарь для кэшированных аватаров
     var cachedPhotos = [String: UIImage]()
@@ -57,7 +58,7 @@ class FriendProfileCVC: UICollectionViewController {
         //задаем имя пользователя
         cell.friendNameLabel.text = " \(photos[indexPath.row].id)"
 
-        DispatchQueue.global().async {
+        queue.async {
             if let image = self.dataService.getImageByURL(imageURL: url) {
                 
                 DispatchQueue.main.async {

@@ -26,7 +26,7 @@ class FriendCell: UITableViewCell {
         
         //скругление аватара пользователя
         let path = UIBezierPath()
-        path.addArc(withCenter: CGPoint(x: 30, y:30), radius: 20, startAngle: 0, endAngle: 360, clockwise: true)
+        path.addArc(withCenter: CGPoint(x: friendAvatarImage.bounds.width/2, y: friendAvatarImage.bounds.height/2), radius: friendAvatarImage.bounds.width/2, startAngle: 0, endAngle: 360, clockwise: true)
         let maskLayer = CAShapeLayer()
         maskLayer.path = path.cgPath
         

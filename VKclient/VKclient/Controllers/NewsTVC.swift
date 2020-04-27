@@ -13,13 +13,12 @@ class NewsTVC: UITableViewController {
     
     private let dataService: DataServiceProtocol = DataService()
     private let realmService: RealmServiceProtocol = RealmService()
+    private let queue: DispatchQueue = DispatchQueue(label: "NewsTVC_queue")
     
     private var sections: [Results<News>] = []
     private var tokens: [NotificationToken] = []
     
     private var likeBox = Like()
-    
-    private var source: Object?
     
     func prepareSections() {
         
@@ -66,8 +65,11 @@ class NewsTVC: UITableViewController {
         refreshControl?.addTarget(self, action: #selector(updateNews), for: .valueChanged)
 
         dataService.loadNews {
-            self.tableView.reloadData()
-            self.prepareSections()
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+                self.prepareSections()
+            }
+            
         }
         
     }
@@ -87,29 +89,28 @@ class NewsTVC: UITableViewController {
         
         let news = sections[indexPath.section][indexPath.row]
         
-        //обработка даты в String формат
-        let dateFormatter = DateFormatter()
-        let date = NSDate(timeIntervalSince1970: news.date)
-        dateFormatter.dateFormat = "dd.MM.yyyy" // тут может быть любой нужный вам формат, гуглите как писать форматы
-        let convertedDate = dateFormatter.string(from: date as Date)
-        
         let cell = getCellPrototype(news: news, indexPath: indexPath)
         
         
-        // Source
-        if news.sourceId < 0 {
-            let group = self.realmService.getGroupById(id: news.sourceId)
-            cell.sourceImage.image = dataService.getImageByURL(imageURL: group?.avatar ?? "")
-            cell.sourceName.text = group?.name
+        if let source = self.realmService.getNewsSourceById(id: news.sourceId) {
             
-        } else {
-            let user = self.realmService.getUserById(id: news.sourceId)
-            cell.sourceImage.image = dataService.getImageByURL(imageURL: user?.avatar ?? "")
-            cell.sourceName.text = user?.name
+            cell.sourceName.text = source.name
+            
+            let imageURL = source.avatar
+            
+            queue.async {
+                if let image = self.dataService.getImageByURL(imageURL: imageURL) {
+                    
+                    DispatchQueue.main.async {
+                        cell.sourceImage.image = image
+                    }
+                }
+            }
         }
         
+        
         // Date
-        cell.date.text = convertedDate
+        cell.date.text = dateFormatter(inputDate: news.date)
         
         // Actions
         cell.viewsImage.image = UIImage(imageLiteralResourceName: "viewsImage")
@@ -125,19 +126,26 @@ class NewsTVC: UITableViewController {
         return cell
     }
     
+    
     @objc func updateNews() {
         
         dataService.loadNews {
-            self.tableView.reloadData()
-            self.prepareSections()
-            self.refreshControl?.endRefreshing()
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+                self.prepareSections()
+                self.refreshControl?.endRefreshing()
+            }
+            
         }
-
+        
     }
+    
     
     func getCellPrototype(news: News, indexPath: IndexPath) -> NewsCell {
         
         var cell: NewsCell = .init()
+        
+        let imageURL = news.imageURL
         
         if news.imageURL == "" {
             
@@ -149,18 +157,42 @@ class NewsTVC: UITableViewController {
             
             cell = tableView.dequeueReusableCell(withIdentifier: "NewsCellImageOnly", for: indexPath) as! NewsCell
             
-            cell.newsImage.image = dataService.getImageByURL(imageURL: news.imageURL)
-
+            queue.async {
+                if let image = self.dataService.getImageByURL(imageURL: imageURL) {
+                    
+                    DispatchQueue.main.async {
+                        cell.newsImage.image = image
+                    }
+                }
+            }
+            
         } else {
             
             cell = tableView.dequeueReusableCell(withIdentifier: "NewsCell", for: indexPath) as! NewsCell
             
             cell.newsText.text = news.text
-            cell.newsImage.image = dataService.getImageByURL(imageURL: news.imageURL)
+            
+            queue.async {
+                if let image = self.dataService.getImageByURL(imageURL: imageURL) {
+                    
+                    DispatchQueue.main.async {
+                        cell.newsImage.image = image
+                    }
+                }
+            }
             
         }
         
         return cell
+    }
+    
+    
+    private func dateFormatter(inputDate: Double) -> String {
+        let dateFormatter = DateFormatter()
+        let date = NSDate(timeIntervalSince1970: inputDate)
+        dateFormatter.dateFormat = "dd.MM.yyyy" // тут может быть любой нужный вам формат, гуглите как писать форматы
+        let convertedDate = dateFormatter.string(from: date as Date)
+        return convertedDate
     }
 
 }

@@ -14,11 +14,12 @@ class FriendsTVC: UITableViewController {
     
     private let dataService: DataServiceProtocol = DataService()
     private let realmService: RealmServiceProtocol = RealmService()
+    private let queue: DispatchQueue = DispatchQueue(label: "FriendsTVC_queue")
     
     private var sections: [Results<User>] = []
     private var tokens: [NotificationToken] = []
     private var filteredSections: [Results<User>] = []
-    
+    private var cachedAvatars: [String: UIImage] = .init()
     private var activeSections: [Results<User>] {
         searchController.isActive ? filteredSections : sections
     }
@@ -64,6 +65,26 @@ class FriendsTVC: UITableViewController {
     }
     
     
+    private func downloadImage( for url: String, indexPath: IndexPath ) {
+        queue.async {
+            if self.cachedAvatars[url] == nil {
+                if let image = self.dataService.getImageByURL(imageURL: url) {
+                    self.cachedAvatars[url] = image
+
+                    DispatchQueue.main.async {
+                        self.tableView.reloadRows(at: [indexPath], with: .automatic)
+                    }
+                }
+            }
+            else {
+                DispatchQueue.main.async {
+                    self.tableView.reloadRows(at: [indexPath], with: .automatic)
+                }
+            }
+        }
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -75,8 +96,11 @@ class FriendsTVC: UITableViewController {
         refreshControl?.addTarget(self, action: #selector(updateFriends), for: .valueChanged)
         
         dataService.loadUsers() {
-            self.tableView.reloadData()
-            self.prepareSections()
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+                self.prepareSections()
+            }
+            
         }
         
         
@@ -126,18 +150,16 @@ class FriendsTVC: UITableViewController {
         
         let friend = activeSections[indexPath.section][indexPath.row]
         
-        let url = friend.avatar
-        
         //заполнение ячейки
         cell.friendNameLabel.text = friend.name
         
-        DispatchQueue.global().async {
-            if let image = self.dataService.getImageByURL(imageURL: url) {
-                
-                DispatchQueue.main.async {
-                   cell.friendAvatarImage.image = image
-                }
-            }
+        let imageURL = friend.avatar
+        
+        if let avatar = cachedAvatars[imageURL] {
+            cell.friendAvatarImage.image = avatar
+        }
+        else {
+            downloadImage(for: imageURL, indexPath: indexPath)
         }
         
         return cell
@@ -179,11 +201,14 @@ class FriendsTVC: UITableViewController {
     @objc func updateFriends() {
         
         dataService.loadUsers() {
-            self.tableView.reloadData()
-            self.prepareSections()
-            self.refreshControl?.endRefreshing()
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+                self.prepareSections()
+                self.refreshControl?.endRefreshing()
+            }
+            
         }
-
+        
     }
 
 }
