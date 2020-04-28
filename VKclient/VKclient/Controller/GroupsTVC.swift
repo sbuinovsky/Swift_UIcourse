@@ -8,6 +8,9 @@
 
 import UIKit
 import RealmSwift
+import Alamofire
+
+
 
 class GroupsTVC: UITableViewController {
     
@@ -19,6 +22,16 @@ class GroupsTVC: UITableViewController {
     
     private var groups: [Results<Group>] = []
     private var cachedAvatars: [String: UIImage] = .init()
+
+
+    private let requestUrl = "https://api.vk.com/method/groups.get"
+    private let parameters: Parameters = [
+        "access_token" : SessionData.shared.token,
+        "v" : "5.103",
+        "extended" : 1
+    ]
+    
+    private let opq = OperationQueue()
     
     func prepareGroups() {
         
@@ -87,13 +100,31 @@ class GroupsTVC: UITableViewController {
         refreshControl = UIRefreshControl()
         refreshControl?.addTarget(self, action: #selector(updateGroups), for: .valueChanged)
         
-        dataService.loadGroups() {
-            DispatchQueue.main.async {
+        let request = AF.request(requestUrl, parameters: parameters)
+        
+        let getDataOperation = GetDataOperation(request: request)
+        opq.addOperation(getDataOperation)
+        
+        let parseGroups = ParseGroupsOperation()
+        parseGroups.addDependency(getDataOperation)
+        opq.addOperation(parseGroups)
+        
+        opq.waitUntilAllOperationsAreFinished()
+        
+        opq.addOperation {
+            OperationQueue.main.addOperation {
                 self.tableView.reloadData()
                 self.prepareGroups()
             }
-            
         }
+        
+//        dataService.loadGroups() {
+//            DispatchQueue.main.async {
+//                self.tableView.reloadData()
+//                self.prepareGroups()
+//            }
+//
+//        }
         
         
         //регистрируем xib для кастомного отображения header ячеек

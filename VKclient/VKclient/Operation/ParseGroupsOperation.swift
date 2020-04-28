@@ -11,6 +11,8 @@ import SwiftyJSON
 
 class ParseGroupsOperation: Operation {
     
+    private let realmService: RealmServiceProtocol = RealmService()
+    
     var outputData: [Group] = []
     
     override func main() {
@@ -19,14 +21,17 @@ class ParseGroupsOperation: Operation {
         
         do {
             let json = try JSON(data: data)
-            let groups: [Group] = json.map { item -> Group in
-                let group: Group = .init()
-                group.id = item.1["id"].intValue
-                group.name = item.1["name"].stringValue
-                group.avatar = item.1["photo_200"].stringValue
+            let groups: [Group] = json["response"]["items"].compactMap {
+                let group = Group()
+                group.id = $0.1["id"].intValue
+                group.name = $0.1["name"].stringValue
+                group.avatar = $0.1["photo_100"].stringValue
                 return group
             }
             outputData = groups
+            
+            try realmService.saveObjects(objects: outputData)
+            
         } catch {
             print(error.localizedDescription)
         }

@@ -35,7 +35,7 @@ class ParserService: ParserServiceProtocol {
                 let user = User()
                 user.id = item["id"].intValue
                 user.name = item["first_name"].stringValue + " " + item["last_name"].stringValue
-                user.avatar = item["photo_200_orig"].stringValue
+                user.avatar = item["photo_100"].stringValue
                 
                 firebaseService.updateFriends(object: user)
                 
@@ -63,7 +63,7 @@ class ParserService: ParserServiceProtocol {
                 
                 group.id = item["id"].intValue
                 group.name = item["name"].stringValue
-                group.avatar = item["photo_200"].stringValue
+                group.avatar = item["photo_100"].stringValue
                 
                 firebaseService.updateGroups(object: group)
                 
@@ -157,7 +157,7 @@ class ParserService: ParserServiceProtocol {
                 
                 sourceGroup.id = item["id"].intValue
                 sourceGroup.name = item["name"].stringValue
-                sourceGroup.avatar = item["photo_200"].stringValue
+                sourceGroup.avatar = item["photo_100"].stringValue
                 
                 firebaseService.updateNewsSource(object: sourceGroup)
                 
