@@ -16,7 +16,7 @@ class GroupsTVC: UITableViewController {
     
     private let dataService: DataServiceProtocol = DataService()
     private let realmService: RealmServiceProtocol = RealmService()
-    private let queue: DispatchQueue = DispatchQueue(label: "GroupsTVC_queue")
+    private let queue: DispatchQueue = DispatchQueue(label: "GroupsTVC_queue", qos: .userInteractive, attributes: [.concurrent])
     
     private var tokens: [NotificationToken] = []
     

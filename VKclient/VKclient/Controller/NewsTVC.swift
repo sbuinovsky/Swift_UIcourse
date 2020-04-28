@@ -13,7 +13,7 @@ class NewsTVC: UITableViewController {
     
     private let dataService: DataServiceProtocol = DataService()
     private let realmService: RealmServiceProtocol = RealmService()
-    private let queue: DispatchQueue = DispatchQueue(label: "NewsTVC_queue")
+    private let queue: DispatchQueue = DispatchQueue(label: "NewsTVC_queue", qos: .userInteractive, attributes: [.concurrent])
     
     private var sections: [Results<News>] = []
     private var tokens: [NotificationToken] = []
