@@ -118,15 +118,6 @@ class GroupsTVC: UITableViewController {
             }
         }
         
-//        dataService.loadGroups() {
-//            DispatchQueue.main.async {
-//                self.tableView.reloadData()
-//                self.prepareGroups()
-//            }
-//
-//        }
-        
-        
         //регистрируем xib для кастомного отображения header ячеек
         tableView.register(UINib(nibName: "CustomCellHeader", bundle: nil), forHeaderFooterViewReuseIdentifier: "cellHeaderView")
     }
@@ -162,15 +153,6 @@ class GroupsTVC: UITableViewController {
         let imageURL = group.avatar
         
         cell.favoriteGroupNameLabel.text = group.name
-        
-//        queue.async {
-//            if let image = self.dataService.getImageByURL(imageURL: imageURL) {
-//                
-//                DispatchQueue.main.sync {
-//                    cell.favoriteGroupAvatarImage.image = image
-//                }
-//            }
-//        }
         
         if let avatar = cachedAvatars[imageURL] {
             cell.favoriteGroupAvatarImage.image = avatar
