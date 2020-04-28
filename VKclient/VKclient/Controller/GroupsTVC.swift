@@ -81,7 +81,6 @@ class GroupsTVC: UITableViewController {
 
                     DispatchQueue.main.async {
                         self.tableView.reloadRows(at: [indexPath], with: .automatic)
-                        self.tableView.reloadData()
                     }
                 }
             }
@@ -100,6 +99,8 @@ class GroupsTVC: UITableViewController {
         refreshControl = UIRefreshControl()
         refreshControl?.addTarget(self, action: #selector(updateGroups), for: .valueChanged)
         
+        opq.qualityOfService = .userInteractive
+        
         let request = AF.request(requestUrl, parameters: parameters)
         
         let getDataOperation = GetDataOperation(request: request)
@@ -113,7 +114,6 @@ class GroupsTVC: UITableViewController {
         
         opq.addOperation {
             OperationQueue.main.addOperation {
-                self.tableView.reloadData()
                 self.prepareGroups()
             }
         }
@@ -160,8 +160,6 @@ class GroupsTVC: UITableViewController {
         else {
             downloadImage(for: imageURL, indexPath: indexPath)
         }
-        
-        cell.favoriteGroupAvatarImage.image = self.dataService.getImageByURL(imageURL: imageURL)
         
         return cell
     }
