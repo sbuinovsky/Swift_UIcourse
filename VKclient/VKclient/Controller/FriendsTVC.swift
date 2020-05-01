@@ -14,7 +14,7 @@ class FriendsTVC: UITableViewController {
     
     private let dataService: DataServiceProtocol = DataService()
     private let realmService: RealmServiceProtocol = RealmService()
-    private let queue: DispatchQueue = DispatchQueue(label: "FriendsTVC_queue", qos: .userInteractive, attributes: [.concurrent])
+    private let queue: DispatchQueue = DispatchQueue(label: "FriendsTVC_queue", qos: .userInteractive)
     
     private var sections: [Results<User>] = []
     private var tokens: [NotificationToken] = []
@@ -31,6 +31,7 @@ class FriendsTVC: UITableViewController {
         do {
             tokens.removeAll()
             let realm = try Realm()
+            realm.refresh()
             let friendsAlphabet = Array( Set( realm.objects(User.self).compactMap{ $0.name.first?.uppercased() } ) ).sorted()
             sections = friendsAlphabet.map { realm.objects(User.self).filter("name BEGINSWITH[c] %@", $0) }
             sections.enumerated().forEach{ observeChanges(section: $0.offset, results: $0.element) }

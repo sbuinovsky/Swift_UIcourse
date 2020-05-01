@@ -16,7 +16,7 @@ class GroupsTVC: UITableViewController {
     
     private let dataService: DataServiceProtocol = DataService()
     private let realmService: RealmServiceProtocol = RealmService()
-    private let queue: DispatchQueue = DispatchQueue(label: "GroupsTVC_queue", qos: .userInteractive, attributes: [.concurrent])
+    private let queue: DispatchQueue = DispatchQueue(label: "GroupsTVC_queue", qos: .userInteractive)
     
     private var tokens: [NotificationToken] = []
     
@@ -38,6 +38,7 @@ class GroupsTVC: UITableViewController {
         do {
             tokens.removeAll()
             let realm = try Realm()
+            realm.refresh()
             let groupsAlphabet = Array( Set( realm.objects(Group.self).compactMap{ $0.name.first?.uppercased() } ) ).sorted()
             groups = groupsAlphabet.map { realm.objects(Group.self).filter("name BEGINSWITH[c] %@", $0) }
             groups.enumerated().forEach{ observeChanges(section: $0.offset, results: $0.element) }
@@ -110,9 +111,7 @@ class GroupsTVC: UITableViewController {
         parseGroups.addDependency(getDataOperation)
         opq.addOperation(parseGroups)
         
-        opq.waitUntilAllOperationsAreFinished()
-        
-        opq.addOperation {
+        parseGroups.completionBlock = {
             OperationQueue.main.addOperation {
                 self.prepareGroups()
             }
