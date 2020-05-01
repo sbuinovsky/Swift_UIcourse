@@ -8,23 +8,37 @@
 
 import UIKit
 import RealmSwift
+import Alamofire
+
+
 
 class GroupsTVC: UITableViewController {
     
     private let dataService: DataServiceProtocol = DataService()
     private let realmService: RealmServiceProtocol = RealmService()
-    private let queue: DispatchQueue = DispatchQueue(label: "GroupsTVC_queue")
+    private let queue: DispatchQueue = DispatchQueue(label: "GroupsTVC_queue", qos: .userInteractive)
     
     private var tokens: [NotificationToken] = []
     
     private var groups: [Results<Group>] = []
     private var cachedAvatars: [String: UIImage] = .init()
+
+
+    private let requestUrl = "https://api.vk.com/method/groups.get"
+    private let parameters: Parameters = [
+        "access_token" : SessionData.shared.token,
+        "v" : "5.103",
+        "extended" : 1
+    ]
+    
+    private let opq = OperationQueue()
     
     func prepareGroups() {
         
         do {
             tokens.removeAll()
             let realm = try Realm()
+            realm.refresh()
             let groupsAlphabet = Array( Set( realm.objects(Group.self).compactMap{ $0.name.first?.uppercased() } ) ).sorted()
             groups = groupsAlphabet.map { realm.objects(Group.self).filter("name BEGINSWITH[c] %@", $0) }
             groups.enumerated().forEach{ observeChanges(section: $0.offset, results: $0.element) }
@@ -68,7 +82,6 @@ class GroupsTVC: UITableViewController {
 
                     DispatchQueue.main.async {
                         self.tableView.reloadRows(at: [indexPath], with: .automatic)
-                        self.tableView.reloadData()
                     }
                 }
             }
@@ -87,14 +100,22 @@ class GroupsTVC: UITableViewController {
         refreshControl = UIRefreshControl()
         refreshControl?.addTarget(self, action: #selector(updateGroups), for: .valueChanged)
         
-        dataService.loadGroups() {
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
+        opq.qualityOfService = .userInteractive
+        
+        let request = AF.request(requestUrl, parameters: parameters)
+        
+        let getDataOperation = GetDataOperation(request: request)
+        opq.addOperation(getDataOperation)
+        
+        let parseGroups = ParseGroupsOperation()
+        parseGroups.addDependency(getDataOperation)
+        opq.addOperation(parseGroups)
+        
+        parseGroups.completionBlock = {
+            OperationQueue.main.addOperation {
                 self.prepareGroups()
             }
-            
         }
-        
         
         //регистрируем xib для кастомного отображения header ячеек
         tableView.register(UINib(nibName: "CustomCellHeader", bundle: nil), forHeaderFooterViewReuseIdentifier: "cellHeaderView")
@@ -132,23 +153,12 @@ class GroupsTVC: UITableViewController {
         
         cell.favoriteGroupNameLabel.text = group.name
         
-//        queue.async {
-//            if let image = self.dataService.getImageByURL(imageURL: imageURL) {
-//                
-//                DispatchQueue.main.sync {
-//                    cell.favoriteGroupAvatarImage.image = image
-//                }
-//            }
-//        }
-        
         if let avatar = cachedAvatars[imageURL] {
             cell.favoriteGroupAvatarImage.image = avatar
         }
         else {
             downloadImage(for: imageURL, indexPath: indexPath)
         }
-        
-        cell.favoriteGroupAvatarImage.image = self.dataService.getImageByURL(imageURL: imageURL)
         
         return cell
     }

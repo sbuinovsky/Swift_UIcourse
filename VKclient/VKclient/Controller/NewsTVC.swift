@@ -13,7 +13,7 @@ class NewsTVC: UITableViewController {
     
     private let dataService: DataServiceProtocol = DataService()
     private let realmService: RealmServiceProtocol = RealmService()
-    private let queue: DispatchQueue = DispatchQueue(label: "NewsTVC_queue")
+    private let queue: DispatchQueue = DispatchQueue(label: "NewsTVC_queue", qos: .userInteractive)
     
     private var sections: [Results<News>] = []
     private var tokens: [NotificationToken] = []
@@ -25,6 +25,7 @@ class NewsTVC: UITableViewController {
         do {
             tokens.removeAll()
             let realm = try Realm()
+            realm.refresh()
             sections = Array( arrayLiteral: realm.objects(News.self).sorted(byKeyPath: "date", ascending: false) )
             sections.enumerated().forEach{ observeChanges(section: $0.offset, results: $0.element) }
             tableView.reloadData()

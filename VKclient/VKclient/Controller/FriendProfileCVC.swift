@@ -15,7 +15,7 @@ class FriendProfileCVC: UICollectionViewController {
    
     private let dataService: DataServiceProtocol = DataService()
     private let realmService: RealmServiceProtocol = RealmService()
-    private let queue: DispatchQueue = DispatchQueue(label: "FriendsProfileCVC_queue")
+    private let queue: DispatchQueue = DispatchQueue(label: "FriendsProfileCVC_queue", qos: .userInteractive, attributes: [.concurrent])
     
     //словарь для кэшированных аватаров
     var cachedPhotos = [String: UIImage]()
@@ -32,8 +32,10 @@ class FriendProfileCVC: UICollectionViewController {
         guard let friendId = friend?.id else { return }
         
         dataService.loadPhotos(targetId: friendId) {
-            self.photos = self.realmService.getUserPhotos(ownerId: friendId)
-            self.collectionView.reloadData()
+            DispatchQueue.main.async {
+                self.photos = self.realmService.getUserPhotos(ownerId: friendId)
+                self.collectionView.reloadData()
+            }
         }
     }
     

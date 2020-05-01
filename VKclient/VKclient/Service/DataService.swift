@@ -11,8 +11,6 @@ import Alamofire
 import SwiftyJSON
 import RealmSwift
 
-private let apiKey = SessionData.shared.token
-
 protocol DataServiceProtocol {
     func loadUsers(completion: @escaping () -> Void)
     func loadGroups(completion: @escaping () -> Void)
@@ -23,8 +21,6 @@ protocol DataServiceProtocol {
 
 class DataService: DataServiceProtocol {
     
-   
-
     private let realmService: RealmService = .init()
     private let firebaseService: FirebaseServiceProtocol = FirebaseService()
     private let parser: ParserServiceProtocol = ParserService()
@@ -32,11 +28,11 @@ class DataService: DataServiceProtocol {
     private let baseUrl = "https://api.vk.com/method/"
 
     private var parameters: Parameters = [
-        "access_token" : apiKey,
+        "access_token" : SessionData.shared.token,
         "v" : "5.103"
     ]
 
-    private let queue = DispatchQueue(label: "dataService_queue")
+    private let queue = DispatchQueue(label: "dataService_queue", qos: .userInteractive, attributes: [.concurrent])
 
     private enum apiMethods: String {
         case friends = "friends.get"
@@ -52,7 +48,7 @@ class DataService: DataServiceProtocol {
         
         let apiParameters: [String : Any] = [
             "user_ids" : "7359889",
-            "fields" : "photo_200_orig",
+            "fields" : "photo_100",
             "order" : "name",
         ]
         
