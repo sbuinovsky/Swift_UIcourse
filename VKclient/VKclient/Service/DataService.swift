@@ -10,13 +10,15 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 import RealmSwift
+import PromiseKit
 
 protocol DataServiceProtocol {
-    func loadUsers(completion: @escaping () -> Void)
+    func loadUsers() -> Promise<User>
     func loadGroups(completion: @escaping () -> Void)
-    func loadPhotos(targetId: Int, completion: @escaping () -> Void)
+    func loadUserPhotos(targetId: Int) -> Promise<Photo>
     func loadNews(completion: @escaping () -> Void)
-    func getImageByURL(imageURL: String) -> UIImage?
+    func loadImage(imageURL: String) -> Promise<UIImage>
+    func loadImageByURL(imageURL: String) -> UIImage?
 }
 
 class DataService: DataServiceProtocol {
@@ -42,39 +44,43 @@ class DataService: DataServiceProtocol {
         case groupsById = "groups.getById"
         case news = "newsfeed.get"
     }
-
     
-    func loadUsers(completion: @escaping () -> Void) {
-        
-        let apiParameters: [String : Any] = [
-            "user_ids" : "7359889",
-            "fields" : "photo_100",
-            "order" : "name",
-        ]
-        
-        apiParameters.forEach { (k,v) in parameters[k] = v }
-        
-        let url = baseUrl + apiMethods.friends.rawValue
-        
-       
-        AF.request(url, parameters: self.parameters).responseJSON(queue: queue) { (response) in
-            if let error = response.error {
-                print(error)
-            } else {
-                guard let data = response.data else { return }
-                
-                let users: [User] = self.parser.usersParser(data: data)
-                
-                
-                self.realmService.saveObjects(objects: users)
-                
-                
-                completion()
-            }
+    enum DataServiceError: Error {
+        case noData, noAPIkey, notFound
+    }
+    
+    
+    func loadUsers() -> Promise<User> {
+        return Promise { (resolver) in
             
+            let apiParameters: [String : Any] = [
+                "user_ids" : "7359889",
+                "fields" : "photo_100",
+                "order" : "name",
+            ]
+            
+            apiParameters.forEach { (k,v) in parameters[k] = v }
+            
+            let url = baseUrl + apiMethods.friends.rawValue
+            
+            
+            Alamofire.request(url, parameters: self.parameters).responseJSON(queue: queue) { (response) in
+                if let error = response.error {
+                    print(error)
+                } else {
+                    guard let data = response.data else { resolver.reject(DataServiceError.noData); return }
+                    
+                    let users: [User] = self.parser.usersParser(data: data)
+                    
+                    self.realmService.saveObjects(objects: users)
+                    
+                    guard let user = users.first else {resolver.reject(DataServiceError.noData); return}
+                    
+                    resolver.fulfill(user)
+                }
+                
+            }
         }
-        
-        
     }
 
     
@@ -89,7 +95,7 @@ class DataService: DataServiceProtocol {
         let url = baseUrl + apiMethods.groups.rawValue
         
         
-        AF.request(url, parameters: self.parameters).responseJSON(queue: queue) { (response) in
+        Alamofire.request(url, parameters: self.parameters).responseJSON(queue: queue) { (response) in
             if let error = response.error {
                 print(error)
             } else {
@@ -107,38 +113,39 @@ class DataService: DataServiceProtocol {
         }
         
     }
-
     
-    func loadPhotos(targetId: Int, completion: @escaping () -> Void) {
-        
-        let apiParameters: [String : Any] = [
-            "owner_id" :  targetId,
-            "album_id" : "profile",
-        ]
-        
-        apiParameters.forEach { (k,v) in parameters[k] = v }
-        
-        let url = baseUrl + apiMethods.photos.rawValue
-        
-        
-        AF.request(url, parameters: self.parameters).responseJSON(queue: queue) { [completion] (response) in
-            if let error = response.error {
-                print(error)
-            } else {
-                guard let data = response.data else { return }
-                
-                let photos: [Photo] = self.parser.photosParser(data: data)
-                
-                DispatchQueue.main.async {
+    
+    func loadUserPhotos(targetId: Int) -> Promise<Photo> {
+        return Promise { (resolver) in
+            
+            let apiParameters: [String : Any] = [
+                "owner_id" :  targetId,
+                "album_id" : "profile",
+            ]
+            
+            apiParameters.forEach { (k,v) in parameters[k] = v }
+            
+            let url = baseUrl + apiMethods.photos.rawValue
+            
+            
+            Alamofire.request(url, parameters: self.parameters).responseJSON(queue: queue) { (response) in
+                if let error = response.error {
+                    print(error)
+                } else {
+                    guard let data = response.data else { resolver.reject(DataServiceError.noData); return }
+                    
+                    let photos: [Photo] = self.parser.photosParser(data: data)
+                    
                     self.realmService.saveObjects(objects: photos)
                     
+                    guard let photo = photos.first else { resolver.reject(DataServiceError.noData); return}
+                    
+                    resolver.fulfill(photo)
                 }
                 
-                completion()
             }
             
         }
-        
     }
     
     
@@ -153,7 +160,7 @@ class DataService: DataServiceProtocol {
         let url = baseUrl + apiMethods.news.rawValue
         
         
-        AF.request(url, parameters: self.parameters).responseJSON(queue: queue) { (response) in
+        Alamofire.request(url, parameters: self.parameters).responseJSON(queue: queue) { (response) in
             if let error = response.error {
                 print(error)
             } else {
@@ -177,8 +184,22 @@ class DataService: DataServiceProtocol {
         
     }
 
+    func loadImage(imageURL: String) -> Promise<UIImage> {
+        guard let url = URL(string: imageURL) else { return Promise(error: DataServiceError.notFound)}
+        
+        return URLSession.shared.dataTask(.promise, with: url)
+            .then(on: DispatchQueue.global()) { (data, response) -> Promise<UIImage> in
+                if let image = UIImage(data: data) {
+                    return Promise.value(image)
+                } else {
+                    return Promise(error: DataServiceError.notFound)
+                }
+                
+        }
+    }
     
-    func getImageByURL(imageURL: String) -> UIImage? {
+    
+    func loadImageByURL(imageURL: String) -> UIImage? {
         
         let urlString = imageURL
         guard let url = URL(string: urlString) else { return nil }

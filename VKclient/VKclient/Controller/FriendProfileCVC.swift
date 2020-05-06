@@ -17,9 +17,6 @@ class FriendProfileCVC: UICollectionViewController {
     private let realmService: RealmServiceProtocol = RealmService()
     private let queue: DispatchQueue = DispatchQueue(label: "FriendsProfileCVC_queue", qos: .userInteractive, attributes: [.concurrent])
     
-    //словарь для кэшированных аватаров
-    var cachedPhotos = [String: UIImage]()
-    
     var photos: [Photo] = []
     var friend: User?
     
@@ -31,11 +28,10 @@ class FriendProfileCVC: UICollectionViewController {
         
         guard let friendId = friend?.id else { return }
         
-        dataService.loadPhotos(targetId: friendId) {
-            DispatchQueue.main.async {
+        dataService.loadUserPhotos(targetId: friendId)
+            .done(on: DispatchQueue.main) { (photo) in
                 self.photos = self.realmService.getUserPhotos(ownerId: friendId)
                 self.collectionView.reloadData()
-            }
         }
     }
     
@@ -55,19 +51,12 @@ class FriendProfileCVC: UICollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FriendProfileCell", for: indexPath) as! FriendProfileCell
         
-        let url = photos[indexPath.row].imageUrl
+        let imageURL = photos[indexPath.row].imageUrl
         
         //задаем имя пользователя
         cell.friendNameLabel.text = " \(photos[indexPath.row].id)"
 
-        queue.async {
-            if let image = self.dataService.getImageByURL(imageURL: url) {
-                
-                DispatchQueue.main.async {
-                   cell.friendProfileImage.image = image
-                }
-            }
-        }
+        cell.friendProfileImagePromise = dataService.loadImage(imageURL: imageURL)
         
         return cell
     }

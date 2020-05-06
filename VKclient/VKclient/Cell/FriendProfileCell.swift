@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import PromiseKit
 
 class FriendProfileCell: UICollectionViewCell {
     
@@ -19,6 +20,13 @@ class FriendProfileCell: UICollectionViewCell {
     //Имя пользователя под аватаром
     @IBOutlet weak var friendNameLabel: UILabel!
     
+    var friendProfileImagePromise: Promise<UIImage>? {
+        didSet {
+            friendProfileImagePromise?.done(on: DispatchQueue.main, { (image) in
+                self.friendProfileImage.image = image
+            })
+        }
+    }
     
     override func prepareForReuse() {
         super.prepareForReuse()
