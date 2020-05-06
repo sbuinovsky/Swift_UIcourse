@@ -15,7 +15,6 @@ class FriendsTVC: UITableViewController {
     
     private let dataService: DataServiceProtocol = DataService()
     private let realmService: RealmServiceProtocol = RealmService()
-    private let queue: DispatchQueue = DispatchQueue(label: "FriendsTVC_queue", qos: .userInteractive)
     
     private var sections: [Results<User>] = []
     private var tokens: [NotificationToken] = []

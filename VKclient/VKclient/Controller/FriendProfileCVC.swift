@@ -15,7 +15,6 @@ class FriendProfileCVC: UICollectionViewController {
    
     private let dataService: DataServiceProtocol = DataService()
     private let realmService: RealmServiceProtocol = RealmService()
-    private let queue: DispatchQueue = DispatchQueue(label: "FriendsProfileCVC_queue", qos: .userInteractive, attributes: [.concurrent])
     
     var photos: [Photo] = []
     var friend: User?
