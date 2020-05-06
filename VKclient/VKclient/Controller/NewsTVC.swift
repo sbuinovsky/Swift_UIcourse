@@ -100,7 +100,7 @@ class NewsTVC: UITableViewController {
             let imageURL = source.avatar
             
             queue.async {
-                if let image = self.dataService.getImageByURL(imageURL: imageURL) {
+                if let image = self.dataService.loadImageByURL(imageURL: imageURL) {
                     
                     DispatchQueue.main.async {
                         cell.sourceImage.image = image
@@ -159,7 +159,7 @@ class NewsTVC: UITableViewController {
             cell = tableView.dequeueReusableCell(withIdentifier: "NewsCellImageOnly", for: indexPath) as! NewsCell
             
             queue.async {
-                if let image = self.dataService.getImageByURL(imageURL: imageURL) {
+                if let image = self.dataService.loadImageByURL(imageURL: imageURL) {
                     
                     DispatchQueue.main.async {
                         cell.newsImage.image = image
@@ -174,7 +174,7 @@ class NewsTVC: UITableViewController {
             cell.newsText.text = news.text
             
             queue.async {
-                if let image = self.dataService.getImageByURL(imageURL: imageURL) {
+                if let image = self.dataService.loadImageByURL(imageURL: imageURL) {
                     
                     DispatchQueue.main.async {
                         cell.newsImage.image = image
