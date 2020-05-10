@@ -31,9 +31,6 @@ class UserProfileCell: UITableViewCell {
     @IBOutlet weak var userBooks: UITextView!
     @IBOutlet weak var userGames: UITextView!
     
-    @IBAction func userAvatarTap() {
-        
-    }
     
     var userAvatarPromise: Promise<UIImage>? {
         didSet {
