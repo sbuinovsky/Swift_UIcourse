@@ -55,7 +55,7 @@ class DataService: DataServiceProtocol {
             
             let apiParameters: [String : Any] = [
                 "user_ids" : "7359889",
-                "fields" : "photo_100",
+                "fields" : "photo_100, sex, bdate, city, country, home_town, online, domain, contacts, universities, schools, status, nickname, relatives, activities, interests, music, movies, tv, books, games, about, quotes, career",
                 "order" : "name",
             ]
             

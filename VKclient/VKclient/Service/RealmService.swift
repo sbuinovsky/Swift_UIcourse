@@ -136,6 +136,7 @@ class RealmService: RealmServiceProtocol {
     func getUserPhotos(ownerId: Int) -> [Photo] {
         do {
             let realm = try Realm()
+            realm.refresh()
             let photos = realm.objects(Photo.self).filter("ownerId = %@", ownerId)
             return Array(photos)
         } catch {

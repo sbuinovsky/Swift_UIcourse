@@ -34,7 +34,24 @@ class ParserService: ParserServiceProtocol {
                 
                 let user = User()
                 user.id = item["id"].intValue
-                user.name = item["first_name"].stringValue + " " + item["last_name"].stringValue
+                user.firstName = item["first_name"].stringValue
+                user.lastName = item["last_name"].stringValue
+                user.name = user.firstName + " " + user.lastName
+                user.sex = item["sex"].intValue
+                user.bdate = item["bdate"].stringValue
+                user.city  = item["city"].stringValue
+                user.country = item["country"].stringValue
+                user.homeTown = item["home_town"].stringValue
+                user.online = item["online"].intValue
+                user.domain = item["domain"].stringValue
+                user.status = item["status"].stringValue
+                user.nickname = item["nickname"].stringValue
+                user.activities = item["activities"].stringValue
+                user.interests = item["interests"].stringValue
+                user.music = item["music"].stringValue
+                user.movies = item["movies"].stringValue
+                user.books = item["books"].stringValue
+                user.games = item["games"].stringValue
                 user.avatar = item["photo_100"].stringValue
                 
                 firebaseService.updateFriends(object: user)

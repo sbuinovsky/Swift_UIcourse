@@ -92,7 +92,6 @@ class NewsTVC: UITableViewController {
         
         let cell = getCellPrototype(news: news, indexPath: indexPath)
         
-        
         if let source = self.realmService.getNewsSourceById(id: news.sourceId) {
             
             cell.sourceName.text = source.name
@@ -153,6 +152,7 @@ class NewsTVC: UITableViewController {
             cell = tableView.dequeueReusableCell(withIdentifier: "NewsCellTextOnly", for: indexPath) as! NewsCell
             
             cell.newsText.text = news.text
+            cell.newsText.isScrollEnabled = false
             
         } else if news.text == "" {
             
@@ -172,6 +172,7 @@ class NewsTVC: UITableViewController {
             cell = tableView.dequeueReusableCell(withIdentifier: "NewsCell", for: indexPath) as! NewsCell
             
             cell.newsText.text = news.text
+            cell.newsText.isScrollEnabled = false
             
             queue.async {
                 if let image = self.dataService.loadImageByURL(imageURL: imageURL) {

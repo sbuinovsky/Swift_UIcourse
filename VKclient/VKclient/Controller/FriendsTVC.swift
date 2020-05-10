@@ -159,13 +159,12 @@ class FriendsTVC: UITableViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        if segue.identifier == "friendProfileSegue" {
-            guard let friendProfileController = segue.destination as? FriendProfileCVC else { return }
+        if segue.identifier == "UserProfileSeague" {
+            guard let userProfileTVC = segue.destination as? UserProfileTVC else { return }
             
             if let indexPath = tableView.indexPathForSelectedRow {
-                friendProfileController.friend = activeSections[indexPath.section][indexPath.row]
+                userProfileTVC.user = activeSections[indexPath.section][indexPath.row]
             }
-            
             
         }
     }
