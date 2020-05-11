@@ -31,15 +31,17 @@ class User: Object, Comparable {
     @objc dynamic var movies: String = ""
     @objc dynamic var books: String = ""
     @objc dynamic var games: String = ""
-    @objc dynamic var universities: String = ""
-    @objc dynamic var schools: String = ""
-    @objc dynamic var career: String = ""
+    var education: Education = .init()
+    var career: String = ""
     
     
     override class func primaryKey() -> String? {
         return "id"
     }
     
+    override class func ignoredProperties() -> [String] {
+        return ["education","career"]
+    }
     
     static func < (lhs: User, rhs: User) -> Bool {
      if lhs.name.startIndex < rhs.name.startIndex {

@@ -38,7 +38,7 @@ class UserProfileTVC: UITableViewController {
         if let userId = user?.id {
             dataService.loadEducation(userIds: userId)
                 .done(on: DispatchQueue.main) { (education) in
-                    print("EDUCATION:\(education.universities)")
+                    self.user?.education = education
             }
         }
         
