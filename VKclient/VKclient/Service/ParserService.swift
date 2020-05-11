@@ -122,7 +122,9 @@ class ParserService: ParserServiceProtocol {
                 return education
             }
             
-            return result.first!
+            guard let resultEducation = result.first else { return Education() }
+            
+            return resultEducation
             
         } catch {
             print(error.localizedDescription)
