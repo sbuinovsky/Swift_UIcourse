@@ -47,7 +47,7 @@ class UserProfileTVC: UITableViewController {
             preconditionFailure("Can't deque FriendCell")
         }
         
-        let unknownString: String = "Unknown"
+        let unknownString: String = "unknown"
         
         switch user?.online {
         case 1:
@@ -70,7 +70,7 @@ class UserProfileTVC: UITableViewController {
         if user?.bdate != "" {
             cell.userBdate.text = user?.bdate
         } else {
-            cell.userBdate.text = unknownString
+            cell.userBdate.isHidden = true
         }
        
         
@@ -129,48 +129,36 @@ class UserProfileTVC: UITableViewController {
         if user?.activities != "" {
             cell.userActivities.text = user?.activities
             cell.userActivities.isScrollEnabled = false
-        } else {
-            cell.userActivities.text = unknownString
         }
         
         
         if user?.interests != "" {
             cell.userInterests.text = user?.interests
             cell.userInterests.isScrollEnabled = false
-        } else {
-            cell.userInterests.text = unknownString
         }
         
         
         if user?.music != "" {
             cell.userMusic.text = user?.music
             cell.userMusic.isScrollEnabled = false
-        } else {
-            cell.userMusic.text = unknownString
         }
         
         
         if user?.movies != "" {
             cell.userMovies.text = user?.movies
             cell.userMovies.isScrollEnabled = false
-        } else {
-            cell.userMovies.text = unknownString
         }
         
         
         if user?.books != "" {
             cell.userBooks.text = user?.books
             cell.userBooks.isScrollEnabled = false
-        } else {
-            cell.userBooks.text = unknownString
         }
         
         
         if user?.games != "" {
             cell.userGames.text = user?.games
             cell.userGames.isScrollEnabled = false
-        } else {
-            cell.userGames.text = unknownString
         }
         
 
