@@ -35,6 +35,11 @@ class UserProfileTVC: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
+        dataService.loadEducation(userIds: user!.id)
+            .done(on: DispatchQueue.main) { (education) in
+                print("EDUCATION:\(education.universities)")
+        }
+        
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "UserProfileCell", for: indexPath) as? UserProfileCell else {
             preconditionFailure("Can't deque FriendCell")
         }

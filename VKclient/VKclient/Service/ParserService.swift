@@ -11,7 +11,8 @@ import Alamofire
 import SwiftyJSON
 
 protocol ParserServiceProtocol {
-    func usersParser(data: Data) -> [User]
+    func friendsParser(data: Data) -> [User]
+    func educationParser(data: Data) -> Education
     func groupsParser(data: Data) -> [Group]
     func photosParser(data: Data) -> [Photo]
     func newsParser(data: Data) -> [News]
@@ -22,9 +23,10 @@ protocol ParserServiceProtocol {
 class ParserService: ParserServiceProtocol {
     
     private let firebaseService: FirebaseServiceProtocol = FirebaseService()
+    private let realmService: RealmService = .init()
     
     
-    func usersParser(data: Data) -> [User] {
+    func friendsParser(data: Data) -> [User] {
 
         do {
             let json = try JSON(data: data)
@@ -64,6 +66,67 @@ class ParserService: ParserServiceProtocol {
         } catch {
             print(error.localizedDescription)
             return []
+        }
+    }
+    
+    
+    func educationParser(data: Data) -> Education {
+        
+        do {
+            let json = try JSON(data: data)
+            let array = json["response"].arrayValue
+            
+            let result = array.map { item -> Education in
+                
+                let education = Education()
+                
+                let universities = item["universities"].arrayValue
+                
+                education.universities = universities.map { item -> University in
+                    
+                    let university = University()
+                    
+                    university.id = item["id"].intValue
+                    university.country = item["country"].intValue
+                    university.city = item["city"].intValue
+                    university.name = item["name"].stringValue
+                    university.faculty = item["faculty"].intValue
+                    university.facultyName = item["faculty_name"].stringValue
+                    university.chair = item["chair"].intValue
+                    university.chairName = item["chair_name"].stringValue
+                    university.graduation = item["graduation"].intValue
+                    university.educationForm = item["education_form"].stringValue
+                    university.educationStatus = item["education_status"].stringValue
+                    
+                    return university
+                }
+                
+                let schools = item["schools"].arrayValue
+                
+                education.schools = schools.map { item -> School in
+                    
+                    let school = School()
+                    
+                    school.id = item["id"].intValue
+                    school.country = item["country"].intValue
+                    school.city = item["city"].intValue
+                    school.name = item["name"].stringValue
+                    school.yearFrom = item["year_from"].intValue
+                    school.yearTo = item["year_to"].intValue
+                    school.yearGraduated = item["year_graduated"].intValue
+                    school.classLetter = item["class"].stringValue
+                    
+                    return school
+                }
+                
+                return education
+            }
+            
+            return result.first!
+            
+        } catch {
+            print(error.localizedDescription)
+            return Education()
         }
     }
 
@@ -141,10 +204,9 @@ class ParserService: ParserServiceProtocol {
                 news.text = item["text"].stringValue
                 
                 let photoSet = item["attachments"].arrayValue.first?["photo"]["sizes"].arrayValue
-                if let first = photoSet?.first (where: { $0["type"].stringValue == "z" } ) {
+                if let first = photoSet?.first (where: { $0["type"].stringValue == "p" } ) {
                     news.imageURL = first["url"].stringValue
                 }
-                
                 
                 news.views = item["views"]["count"].intValue
                 news.likes = item["likes"]["count"].intValue

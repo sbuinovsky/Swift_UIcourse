@@ -13,7 +13,8 @@ import RealmSwift
 import PromiseKit
 
 protocol DataServiceProtocol {
-    func loadUsers() -> Promise<User>
+    func loadFriends() -> Promise<User>
+    func loadEducation(userIds: Int) -> Promise<Education>
     func loadGroups(completion: @escaping () -> Void)
     func loadUserPhotos(targetId: Int) -> Promise<Photo>
     func loadNews(completion: @escaping () -> Void)
@@ -37,12 +38,13 @@ class DataService: DataServiceProtocol {
     private let queue = DispatchQueue(label: "dataService_queue", qos: .userInteractive, attributes: [.concurrent])
 
     private enum apiMethods: String {
-        case friends = "friends.get"
-        case groups = "groups.get"
-        case photos = "photos.get"
+        case friendsGet = "friends.get"
+        case groupsGet = "groups.get"
+        case photosGet = "photos.get"
         case groupsSearch = "groups.search"
-        case groupsById = "groups.getById"
-        case news = "newsfeed.get"
+        case groupsGetById = "groups.getById"
+        case newsfeedGet = "newsfeed.get"
+        case usersGet = "users.get"
     }
     
     enum DataServiceError: Error {
@@ -50,7 +52,7 @@ class DataService: DataServiceProtocol {
     }
     
     
-    func loadUsers() -> Promise<User> {
+    func loadFriends() -> Promise<User> {
         return Promise { (resolver) in
             
             let apiParameters: [String : Any] = [
@@ -61,7 +63,7 @@ class DataService: DataServiceProtocol {
             
             apiParameters.forEach { (k,v) in parameters[k] = v }
             
-            let url = baseUrl + apiMethods.friends.rawValue
+            let url = baseUrl + apiMethods.friendsGet.rawValue
             
             
             Alamofire.request(url, parameters: self.parameters).responseJSON(queue: queue) { (response) in
@@ -70,13 +72,43 @@ class DataService: DataServiceProtocol {
                 } else {
                     guard let data = response.data else { resolver.reject(DataServiceError.noData); return }
                     
-                    let users: [User] = self.parser.usersParser(data: data)
+                    let users: [User] = self.parser.friendsParser(data: data)
                     
                     self.realmService.saveObjects(objects: users)
                     
                     guard let user = users.first else {resolver.reject(DataServiceError.noData); return}
                     
                     resolver.fulfill(user)
+                }
+                
+            }
+        }
+    }
+    
+    
+    func loadEducation(userIds: Int) -> Promise<Education> {
+        
+        return Promise { (resolver) in
+            
+            let apiParameters: [String : Any] = [
+                "user_ids" : userIds,
+                "fields" : "universities, schools",
+            ]
+            
+            apiParameters.forEach { (k,v) in parameters[k] = v }
+            
+            let url = baseUrl + apiMethods.usersGet.rawValue
+            
+            
+            Alamofire.request(url, parameters: self.parameters).responseJSON(queue: queue) { (response) in
+                if let error = response.error {
+                    print(error)
+                } else {
+                    guard let data = response.data else { resolver.reject(DataServiceError.noData); return }
+                    
+                    let education: Education = self.parser.educationParser(data: data)
+                    
+                    resolver.fulfill(education)
                 }
                 
             }
@@ -92,7 +124,7 @@ class DataService: DataServiceProtocol {
         
         apiParameters.forEach { (k,v) in parameters[k] = v }
         
-        let url = baseUrl + apiMethods.groups.rawValue
+        let url = baseUrl + apiMethods.groupsGet.rawValue
         
         
         Alamofire.request(url, parameters: self.parameters).responseJSON(queue: queue) { (response) in
@@ -125,7 +157,7 @@ class DataService: DataServiceProtocol {
             
             apiParameters.forEach { (k,v) in parameters[k] = v }
             
-            let url = baseUrl + apiMethods.photos.rawValue
+            let url = baseUrl + apiMethods.photosGet.rawValue
             
             
             Alamofire.request(url, parameters: self.parameters).responseJSON(queue: queue) { (response) in
@@ -157,7 +189,7 @@ class DataService: DataServiceProtocol {
         
         apiParameters.forEach { (k,v) in parameters[k] = v }
         
-        let url = baseUrl + apiMethods.news.rawValue
+        let url = baseUrl + apiMethods.newsfeedGet.rawValue
         
         
         Alamofire.request(url, parameters: self.parameters).responseJSON(queue: queue) { (response) in

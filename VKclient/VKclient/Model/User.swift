@@ -23,8 +23,6 @@ class User: Object, Comparable {
     @objc dynamic var homeTown: String = ""
     @objc dynamic var online: Int = 0
     @objc dynamic var domain: String = ""
-//    @objc dynamic var universities: [University] = .init()
-//    @objc dynamic var schools: [School] = .init()
     @objc dynamic var status: String = ""
     @objc dynamic var nickname: String = ""
     @objc dynamic var activities: String = ""
@@ -33,7 +31,9 @@ class User: Object, Comparable {
     @objc dynamic var movies: String = ""
     @objc dynamic var books: String = ""
     @objc dynamic var games: String = ""
-//    @objc dynamic var career: [Career] = ""
+    @objc dynamic var universities: String = ""
+    @objc dynamic var schools: String = ""
+    @objc dynamic var career: String = ""
     
     
     override class func primaryKey() -> String? {

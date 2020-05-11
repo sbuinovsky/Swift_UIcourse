@@ -75,7 +75,7 @@ class FriendsTVC: UITableViewController {
         refreshControl = UIRefreshControl()
         refreshControl?.addTarget(self, action: #selector(updateFriends), for: .valueChanged)
         
-        dataService.loadUsers()
+        dataService.loadFriends()
             .done(on: DispatchQueue.main) { (user) in
                 self.prepareSections()
         }
@@ -171,7 +171,7 @@ class FriendsTVC: UITableViewController {
     
     @objc func updateFriends() {
         
-        dataService.loadUsers()
+        dataService.loadFriends()
             .done(on: DispatchQueue.main) { (user) in
                 self.prepareSections()
                 self.refreshControl?.endRefreshing()

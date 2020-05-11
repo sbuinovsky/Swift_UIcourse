@@ -21,6 +21,8 @@
 		C22E087B240070A600354324 /* CustomCellHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C22E087A240070A600354324 /* CustomCellHeader.swift */; };
 		C230B0AA23F6943A0041FD0A /* Like.swift in Sources */ = {isa = PBXBuildFile; fileRef = C230B0A923F6943A0041FD0A /* Like.swift */; };
 		C240E33D2468922400237003 /* UserProfilePhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C240E33C2468922400237003 /* UserProfilePhotoCell.swift */; };
+		C240E33F24692EBB00237003 /* University.swift in Sources */ = {isa = PBXBuildFile; fileRef = C240E33E24692EBB00237003 /* University.swift */; };
+		C240E34124692ECF00237003 /* School.swift in Sources */ = {isa = PBXBuildFile; fileRef = C240E34024692ECF00237003 /* School.swift */; };
 		C25A0F7523EC8CDE00CAD84B /* FriendsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C25A0F7423EC8CDE00CAD84B /* FriendsTVC.swift */; };
 		C25A0F7823EC8D3A00CAD84B /* GroupsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C25A0F7723EC8D3A00CAD84B /* GroupsTVC.swift */; };
 		C260709F243BC2E500598082 /* StartVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C260709E243BC2E500598082 /* StartVC.swift */; };
@@ -36,6 +38,7 @@
 		C28A2C68245816CD0091906E /* GetDataOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C28A2C67245816CD0091906E /* GetDataOperation.swift */; };
 		C28A2C6A245818690091906E /* ParseGroupsOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C28A2C69245818690091906E /* ParseGroupsOperation.swift */; };
 		C28B0B8D243C6F7300DDD8BD /* FirebaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C28B0B8C243C6F7300DDD8BD /* FirebaseService.swift */; };
+		C297A61D24698331004592E5 /* Education.swift in Sources */ = {isa = PBXBuildFile; fileRef = C297A61C24698331004592E5 /* Education.swift */; };
 		C299CA4B2425EEE400376545 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C299CA4A2425EEE400376545 /* Photo.swift */; };
 		C2B5D6AE24656D1D00C91788 /* UserProfilePhotosCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B5D6AD24656D1D00C91788 /* UserProfilePhotosCVC.swift */; };
 		C2B5D6B224668D3900C91788 /* UserProfileTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B5D6B124668D3900C91788 /* UserProfileTVC.swift */; };
@@ -69,6 +72,8 @@
 		C22E087A240070A600354324 /* CustomCellHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCellHeader.swift; sourceTree = "<group>"; };
 		C230B0A923F6943A0041FD0A /* Like.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Like.swift; sourceTree = "<group>"; };
 		C240E33C2468922400237003 /* UserProfilePhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfilePhotoCell.swift; sourceTree = "<group>"; };
+		C240E33E24692EBB00237003 /* University.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = University.swift; sourceTree = "<group>"; };
+		C240E34024692ECF00237003 /* School.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = School.swift; sourceTree = "<group>"; };
 		C25A0F7423EC8CDE00CAD84B /* FriendsTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsTVC.swift; sourceTree = "<group>"; };
 		C25A0F7723EC8D3A00CAD84B /* GroupsTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsTVC.swift; sourceTree = "<group>"; };
 		C260709E243BC2E500598082 /* StartVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartVC.swift; sourceTree = "<group>"; };
@@ -84,6 +89,7 @@
 		C28A2C67245816CD0091906E /* GetDataOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetDataOperation.swift; sourceTree = "<group>"; };
 		C28A2C69245818690091906E /* ParseGroupsOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParseGroupsOperation.swift; sourceTree = "<group>"; };
 		C28B0B8C243C6F7300DDD8BD /* FirebaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseService.swift; sourceTree = "<group>"; };
+		C297A61C24698331004592E5 /* Education.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Education.swift; path = VKclient/Model/Education.swift; sourceTree = SOURCE_ROOT; };
 		C299CA4A2425EEE400376545 /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
 		C2B5D6AD24656D1D00C91788 /* UserProfilePhotosCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfilePhotosCVC.swift; sourceTree = "<group>"; };
 		C2B5D6B124668D3900C91788 /* UserProfileTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileTVC.swift; sourceTree = "<group>"; };
@@ -213,6 +219,9 @@
 				C299CA4A2425EEE400376545 /* Photo.swift */,
 				C2BB8CB62436691F0058C62D /* News.swift */,
 				C22B0FE024536CD2002C0795 /* NewsSource.swift */,
+				C297A61C24698331004592E5 /* Education.swift */,
+				C240E33E24692EBB00237003 /* University.swift */,
+				C240E34024692ECF00237003 /* School.swift */,
 				C230B0A923F6943A0041FD0A /* Like.swift */,
 				C2EE21FA24052C3600F9979D /* LoaderCirclesView.swift */,
 				C2BEBC7C240928B10073C498 /* LoaderCloudView.swift */,
@@ -415,8 +424,10 @@
 				C2B5D6B424668E5600C91788 /* UserProfileCell.swift in Sources */,
 				C2CD5EA7242A0BB900CB2285 /* RealmService.swift in Sources */,
 				C28B0B8D243C6F7300DDD8BD /* FirebaseService.swift in Sources */,
+				C240E34124692ECF00237003 /* School.swift in Sources */,
 				C27CEC1B23F1534A0011115C /* FriendCell.swift in Sources */,
 				C2BCEDEC23FB2609009D981F /* NewsTVC.swift in Sources */,
+				C297A61D24698331004592E5 /* Education.swift in Sources */,
 				C22B0FE124536CD2002C0795 /* NewsSource.swift in Sources */,
 				C2654891241EAF6300D2681A /* LoginWVC.swift in Sources */,
 				C2BEBC7D240928B20073C498 /* LoaderCloudView.swift in Sources */,
@@ -429,6 +440,7 @@
 				C2BB8CB72436691F0058C62D /* News.swift in Sources */,
 				C28A2C6A245818690091906E /* ParseGroupsOperation.swift in Sources */,
 				C270648E2418DDEC00A17245 /* SessionData.swift in Sources */,
+				C240E33F24692EBB00237003 /* University.swift in Sources */,
 				C2119BCB23E0081500EC528E /* AppDelegate.swift in Sources */,
 				C28A2C68245816CD0091906E /* GetDataOperation.swift in Sources */,
 				C2119BCD23E0081500EC528E /* SceneDelegate.swift in Sources */,
