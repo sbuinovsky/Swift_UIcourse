@@ -18,7 +18,7 @@ class UserProfileTVC: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
     }
 
 
@@ -29,25 +29,27 @@ class UserProfileTVC: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 1
+        return 2
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        if let userId = user?.id {
-            dataService.loadEducation(userIds: userId)
-                .done(on: DispatchQueue.main) { (education) in
-                    self.user?.education = education
-            }
+        switch indexPath.row {
+        case 1:
+            let cell = fillEducation(user: user, indexPath: indexPath)
+            return cell
+        default:
+            let cell = fillMainProfile(user: user, indexPath: indexPath)
+            return cell
         }
+  
+    }
+    
+    
+    func fillMainProfile(user: User?, indexPath: IndexPath) -> UserProfileCell{
         
-        
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "UserProfileCell", for: indexPath) as? UserProfileCell else {
-            preconditionFailure("Can't deque FriendCell")
-        }
-        
-        let unknownString: String = "unknown"
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "UserProfileCell", for: indexPath) as? UserProfileCell else { preconditionFailure("Can't deque FriendCell") }
         
         switch user?.online {
         case 1:
@@ -58,21 +60,14 @@ class UserProfileTVC: UITableViewController {
             cell.userOnline.textColor = .red
         }
         
-    
+        
         if let imageURL = user?.avatar {
             cell.userAvatarPromise = dataService.loadImage(imageURL: imageURL)
         }
         
         
         cell.userName.text = user?.name
-        
-        
-        if user?.bdate != "" {
-            cell.userBdate.text = user?.bdate
-        } else {
-            cell.userBdate.isHidden = true
-        }
-       
+        cell.userBdate.text = user?.bdate
         
         switch user?.sex {
         case 1:
@@ -80,89 +75,89 @@ class UserProfileTVC: UITableViewController {
         case 2:
             cell.userSex.text = "Male"
         default:
-            cell.userSex.text = unknownString
+            cell.userSex.text = "unknown"
         }
         
+        cell.userCity.text = user?.city
+        cell.userCountry.text = user?.country
+        cell.userHomeTown.text = user?.homeTown
+        cell.userDomain.text = user?.domain
+        cell.userStatus.text = user?.status
+        cell.userNickname.text = user?.nickname
         
-        if user?.city != "" {
-            cell.userCity.text = user?.city
-        } else {
-            cell.userCity.text = unknownString
-        }
+        cell.userActivities.text = user?.activities
+        cell.userActivities.isScrollEnabled = false
         
+        cell.userInterests.text = user?.interests
+        cell.userInterests.isScrollEnabled = false
         
-        if user?.country != "" {
-            cell.userCountry.text = user?.country
-        } else {
-            cell.userCountry.text = unknownString
-        }
+        cell.userMusic.text = user?.music
+        cell.userMusic.isScrollEnabled = false
         
+        cell.userMovies.text = user?.movies
+        cell.userMovies.isScrollEnabled = false
         
-        if user?.homeTown != "" {
-            cell.userHomeTown.text = user?.homeTown
-        } else {
-            cell.userHomeTown.text = unknownString
-        }
+        cell.userBooks.text = user?.books
+        cell.userBooks.isScrollEnabled = false
         
+        cell.userGames.text = user?.games
+        cell.userGames.isScrollEnabled = false
         
-        if user?.domain != "" {
-            cell.userDomain.text = user?.domain
-        } else {
-            cell.userDomain.text = unknownString
-        }
-        
-        
-        if user?.status != "" {
-            cell.userStatus.text = user?.status
-        } else {
-            cell.userStatus.text = unknownString
-        }
-        
-        
-        if user?.nickname != "" {
-            cell.userNickname.text = user?.nickname
-        } else {
-            cell.userNickname.text = unknownString
-        }
-        
-        
-        if user?.activities != "" {
-            cell.userActivities.text = user?.activities
-            cell.userActivities.isScrollEnabled = false
-        }
-        
-        
-        if user?.interests != "" {
-            cell.userInterests.text = user?.interests
-            cell.userInterests.isScrollEnabled = false
-        }
-        
-        
-        if user?.music != "" {
-            cell.userMusic.text = user?.music
-            cell.userMusic.isScrollEnabled = false
-        }
-        
-        
-        if user?.movies != "" {
-            cell.userMovies.text = user?.movies
-            cell.userMovies.isScrollEnabled = false
-        }
-        
-        
-        if user?.books != "" {
-            cell.userBooks.text = user?.books
-            cell.userBooks.isScrollEnabled = false
-        }
-        
-        
-        if user?.games != "" {
-            cell.userGames.text = user?.games
-            cell.userGames.isScrollEnabled = false
-        }
-        
-
         return cell
+    }
+    
+    
+    func fillEducation(user: User?, indexPath: IndexPath) -> UserProfileEducationCell {
+        
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "UserProfileEducationCell", for: indexPath) as? UserProfileEducationCell else { preconditionFailure("Can't deque FriendCell") }
+        
+        if let userId = user?.id {
+            dataService.loadEducation(userIds: userId)
+                .done(on: DispatchQueue.main) { (education) in
+                    self.user?.education = education
+                    
+                    var schoolsTextBlock = ""
+                    var universitiesTextBlock = ""
+                    
+                    if let schools = user?.education.schools {
+                        for school in schools {
+                            schoolsTextBlock += "\(school.name)\n\(school.yearGraduated)\n"
+                            if school != schools.last {
+                                schoolsTextBlock += "\n"
+                            }
+                        }
+                    }
+                    
+                    if let universities = user?.education.universities {
+                        for university in universities {
+                            universitiesTextBlock += "\(university.name)\n\(university.facultyName)\n\(university.graduation)\n"
+                            if university != universities.last {
+                                universitiesTextBlock += "\n"
+                            }
+                        }
+                    }
+                    
+                    cell.userSchools.text = schoolsTextBlock
+                    cell.userSchoolsHeight.constant = self.calcHeight(textView: cell.userSchools)
+                    
+                    cell.userUniversities.text = universitiesTextBlock
+                    cell.userUniversitiesHeight.constant = self.calcHeight(textView: cell.userUniversities)
+            }
+        }
+        
+       
+        
+        print(cell.userUniversities.text)
+        print(cell.userSchools.text)
+        
+        return cell
+    }
+    
+    
+    func calcHeight(textView: UITextView) -> CGFloat {
+        let size = CGSize(width: self.tableView.frame.width, height: .infinity)
+        let estimateSize = textView.sizeThatFits(size)
+        return estimateSize.height
     }
     
     

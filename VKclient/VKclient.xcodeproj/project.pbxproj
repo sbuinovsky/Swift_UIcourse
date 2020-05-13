@@ -20,6 +20,7 @@
 		C22E087924006ECE00354324 /* CustomCellHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = C22E087824006ECE00354324 /* CustomCellHeader.xib */; };
 		C22E087B240070A600354324 /* CustomCellHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C22E087A240070A600354324 /* CustomCellHeader.swift */; };
 		C230B0AA23F6943A0041FD0A /* Like.swift in Sources */ = {isa = PBXBuildFile; fileRef = C230B0A923F6943A0041FD0A /* Like.swift */; };
+		C23D9C4D246BED2C00991707 /* UserProfileEducationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C23D9C4C246BED2C00991707 /* UserProfileEducationCell.swift */; };
 		C240E33D2468922400237003 /* UserProfilePhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C240E33C2468922400237003 /* UserProfilePhotoCell.swift */; };
 		C240E33F24692EBB00237003 /* University.swift in Sources */ = {isa = PBXBuildFile; fileRef = C240E33E24692EBB00237003 /* University.swift */; };
 		C240E34124692ECF00237003 /* School.swift in Sources */ = {isa = PBXBuildFile; fileRef = C240E34024692ECF00237003 /* School.swift */; };
@@ -71,6 +72,7 @@
 		C22E087824006ECE00354324 /* CustomCellHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomCellHeader.xib; sourceTree = "<group>"; };
 		C22E087A240070A600354324 /* CustomCellHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCellHeader.swift; sourceTree = "<group>"; };
 		C230B0A923F6943A0041FD0A /* Like.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Like.swift; sourceTree = "<group>"; };
+		C23D9C4C246BED2C00991707 /* UserProfileEducationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileEducationCell.swift; sourceTree = "<group>"; };
 		C240E33C2468922400237003 /* UserProfilePhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfilePhotoCell.swift; sourceTree = "<group>"; };
 		C240E33E24692EBB00237003 /* University.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = University.swift; sourceTree = "<group>"; };
 		C240E34024692ECF00237003 /* School.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = School.swift; sourceTree = "<group>"; };
@@ -203,6 +205,7 @@
 			children = (
 				C27CEC1A23F1534A0011115C /* FriendCell.swift */,
 				C2B5D6B324668E5600C91788 /* UserProfileCell.swift */,
+				C23D9C4C246BED2C00991707 /* UserProfileEducationCell.swift */,
 				C240E33C2468922400237003 /* UserProfilePhotoCell.swift */,
 				C27CEC1E23F1538A0011115C /* GroupCell.swift */,
 				C2BCEDED23FB2639009D981F /* NewsCell.swift */,
@@ -440,6 +443,7 @@
 				C2BB8CB72436691F0058C62D /* News.swift in Sources */,
 				C28A2C6A245818690091906E /* ParseGroupsOperation.swift in Sources */,
 				C270648E2418DDEC00A17245 /* SessionData.swift in Sources */,
+				C23D9C4D246BED2C00991707 /* UserProfileEducationCell.swift in Sources */,
 				C240E33F24692EBB00237003 /* University.swift in Sources */,
 				C2119BCB23E0081500EC528E /* AppDelegate.swift in Sources */,
 				C28A2C68245816CD0091906E /* GetDataOperation.swift in Sources */,

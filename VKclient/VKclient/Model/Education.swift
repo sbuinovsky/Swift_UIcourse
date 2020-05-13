@@ -11,4 +11,6 @@ import UIKit
 class Education {
     var schools: [School] = []
     var universities: [University] = []
+    
+    
 }

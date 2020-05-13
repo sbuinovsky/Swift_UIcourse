@@ -866,73 +866,73 @@
                                             <color key="textColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" text="User Activities" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Fcl-Nj-gPh">
-                                            <rect key="frame" x="10" y="729" width="394" height="47"/>
+                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" editable="NO" text="User Activities" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fcl-Nj-gPh">
+                                            <rect key="frame" x="10" y="728.5" width="394" height="47"/>
                                             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                             <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                         </textView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Interests:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xhr-su-fgb">
-                                            <rect key="frame" x="10" y="784" width="394" height="21"/>
+                                            <rect key="frame" x="10" y="785.5" width="394" height="17"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <color key="textColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" text="User Interests" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="d13-IR-F2Q">
-                                            <rect key="frame" x="10" y="813" width="394" height="51"/>
+                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" editable="NO" text="User Interests" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d13-IR-F2Q">
+                                            <rect key="frame" x="10" y="807.5" width="394" height="51"/>
                                             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                             <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                         </textView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Music:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VHq-qn-bkE">
-                                            <rect key="frame" x="10" y="863" width="394" height="21"/>
+                                            <rect key="frame" x="10" y="868.5" width="394" height="17"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <color key="textColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" text="User Music" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="KUE-vI-TUp">
-                                            <rect key="frame" x="10" y="892" width="394" height="42"/>
+                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" editable="NO" text="User Music" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KUE-vI-TUp">
+                                            <rect key="frame" x="10" y="890.5" width="394" height="42"/>
                                             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                             <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                         </textView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Movies:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dpn-dS-xJl">
-                                            <rect key="frame" x="10" y="942" width="394" height="21"/>
+                                            <rect key="frame" x="10" y="942.5" width="394" height="17"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <color key="textColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" text="User Movies" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="cHH-gX-vVY">
-                                            <rect key="frame" x="10" y="971" width="394" height="40"/>
+                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" editable="NO" text="User Movies" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cHH-gX-vVY">
+                                            <rect key="frame" x="10" y="964.5" width="394" height="40"/>
                                             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                             <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                         </textView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Books:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LGM-FX-A99">
-                                            <rect key="frame" x="10" y="1019" width="394" height="17"/>
+                                            <rect key="frame" x="10" y="1014.5" width="394" height="17"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <color key="textColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" text="User Books" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="nlV-ZZ-2Vp">
-                                            <rect key="frame" x="10" y="1048" width="394" height="41"/>
+                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" editable="NO" text="User Books" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nlV-ZZ-2Vp">
+                                            <rect key="frame" x="10" y="1036.5" width="394" height="41"/>
                                             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                             <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                         </textView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Games:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U0Y-rs-Z0R">
-                                            <rect key="frame" x="10" y="1104" width="394" height="17"/>
+                                            <rect key="frame" x="10" y="1087.5" width="394" height="17"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <color key="textColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" text="User Games" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="KWq-eM-nha">
-                                            <rect key="frame" x="10" y="1142" width="394" height="57"/>
+                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" editable="NO" text="User Games" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KWq-eM-nha">
+                                            <rect key="frame" x="10" y="1109.5" width="394" height="134.5"/>
                                             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                             <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
@@ -998,7 +998,6 @@
                                         <constraint firstAttribute="trailing" secondItem="glS-op-eEi" secondAttribute="trailing" constant="10" id="YN9-Xs-enK"/>
                                         <constraint firstItem="2zO-ok-qxO" firstAttribute="leading" secondItem="qJZ-Pc-Qwv" secondAttribute="leading" constant="10" id="aak-oa-pzk"/>
                                         <constraint firstAttribute="trailing" secondItem="ZhF-hS-oi6" secondAttribute="trailing" constant="10" id="aq5-Xv-4lX"/>
-                                        <constraint firstAttribute="bottom" secondItem="KWq-eM-nha" secondAttribute="bottom" constant="45" id="bLT-oe-V4z"/>
                                         <constraint firstItem="KWq-eM-nha" firstAttribute="leading" secondItem="qJZ-Pc-Qwv" secondAttribute="leading" constant="10" id="bW8-Vj-p9E"/>
                                         <constraint firstAttribute="trailing" secondItem="yv0-y6-Fpn" secondAttribute="trailing" constant="10" id="cgb-zg-MxT"/>
                                         <constraint firstItem="Fcl-Nj-gPh" firstAttribute="leading" secondItem="qJZ-Pc-Qwv" secondAttribute="leading" constant="10" id="dPg-YI-AOV"/>
@@ -1018,6 +1017,7 @@
                                         <constraint firstAttribute="trailing" secondItem="2zO-ok-qxO" secondAttribute="trailing" constant="10" id="oDA-Mp-1EA"/>
                                         <constraint firstAttribute="trailing" secondItem="d83-Tn-QEZ" secondAttribute="trailing" constant="10" id="oI4-eU-e34"/>
                                         <constraint firstItem="ZhF-hS-oi6" firstAttribute="leading" secondItem="qJZ-Pc-Qwv" secondAttribute="leading" constant="10" id="oh1-i9-jQQ"/>
+                                        <constraint firstAttribute="bottom" secondItem="KWq-eM-nha" secondAttribute="bottom" constant="10" id="oi3-W1-Jph"/>
                                         <constraint firstItem="fH5-Pp-ijQ" firstAttribute="leading" secondItem="qJZ-Pc-Qwv" secondAttribute="leading" constant="10" id="p3z-g0-ug3"/>
                                         <constraint firstItem="xhr-su-fgb" firstAttribute="leading" secondItem="qJZ-Pc-Qwv" secondAttribute="leading" constant="10" id="puV-CV-Ws2"/>
                                         <constraint firstItem="Ssv-iw-yra" firstAttribute="top" secondItem="qhL-0P-wrg" secondAttribute="bottom" constant="10" id="r21-QN-vv4"/>
@@ -1053,6 +1053,75 @@
                                     <outlet property="userOnline" destination="glS-op-eEi" id="vxz-LJ-jnU"/>
                                     <outlet property="userSex" destination="yv0-y6-Fpn" id="ckL-lV-xj8"/>
                                     <outlet property="userStatus" destination="2zO-ok-qxO" id="awL-Dw-Oxe"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="UserProfileEducationCell" id="Ul1-YT-056" customClass="UserProfileEducationCell" customModule="simple_VK" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="1282" width="414" height="148"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Ul1-YT-056" id="D6H-ty-Cf1">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="148"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Universities:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AWr-23-kSJ">
+                                            <rect key="frame" x="10" y="10" width="394" height="17"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="17" id="lMX-VE-Nco"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <color key="textColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="User Universities" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t9i-8h-3Y3">
+                                            <rect key="frame" x="10" y="32" width="394" height="20"/>
+                                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="20" id="7bU-Tb-N3O"/>
+                                            </constraints>
+                                            <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                        </textView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Schools:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xkz-x4-X4c">
+                                            <rect key="frame" x="10" y="62" width="394" height="17.5"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="17.5" id="3CK-fY-5K1"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <color key="textColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="User schools" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1wi-T6-fUC">
+                                            <rect key="frame" x="10" y="84.5" width="394" height="20.5"/>
+                                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="20" id="rTj-z1-L95"/>
+                                            </constraints>
+                                            <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                        </textView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="trailing" secondItem="AWr-23-kSJ" secondAttribute="trailing" constant="10" id="05O-rv-iUv"/>
+                                        <constraint firstItem="AWr-23-kSJ" firstAttribute="leading" secondItem="D6H-ty-Cf1" secondAttribute="leading" constant="10" id="1XK-tc-Tkz"/>
+                                        <constraint firstItem="xkz-x4-X4c" firstAttribute="top" secondItem="t9i-8h-3Y3" secondAttribute="bottom" constant="10" id="4eB-Oz-4fA"/>
+                                        <constraint firstAttribute="trailing" secondItem="t9i-8h-3Y3" secondAttribute="trailing" constant="10" id="Jam-I4-YGF"/>
+                                        <constraint firstItem="AWr-23-kSJ" firstAttribute="top" secondItem="D6H-ty-Cf1" secondAttribute="top" constant="10" id="Lrb-JV-MqF"/>
+                                        <constraint firstAttribute="trailing" secondItem="1wi-T6-fUC" secondAttribute="trailing" constant="10" id="T6v-ty-8PI"/>
+                                        <constraint firstItem="1wi-T6-fUC" firstAttribute="leading" secondItem="D6H-ty-Cf1" secondAttribute="leading" constant="10" id="Teq-OZ-CO5"/>
+                                        <constraint firstItem="xkz-x4-X4c" firstAttribute="leading" secondItem="D6H-ty-Cf1" secondAttribute="leading" constant="10" id="cP0-95-r1m"/>
+                                        <constraint firstAttribute="bottom" secondItem="1wi-T6-fUC" secondAttribute="bottom" constant="43" id="cjU-c8-M2m"/>
+                                        <constraint firstItem="1wi-T6-fUC" firstAttribute="top" secondItem="xkz-x4-X4c" secondAttribute="bottom" constant="5" id="gYk-ZE-ypa"/>
+                                        <constraint firstAttribute="trailing" secondItem="xkz-x4-X4c" secondAttribute="trailing" constant="10" id="gdC-o2-zSU"/>
+                                        <constraint firstItem="t9i-8h-3Y3" firstAttribute="top" secondItem="AWr-23-kSJ" secondAttribute="bottom" constant="5" id="nmK-gN-18H"/>
+                                        <constraint firstItem="t9i-8h-3Y3" firstAttribute="leading" secondItem="D6H-ty-Cf1" secondAttribute="leading" constant="10" id="wAy-Z4-oSE"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="userSchools" destination="1wi-T6-fUC" id="Dzk-f2-Deq"/>
+                                    <outlet property="userSchoolsHeight" destination="rTj-z1-L95" id="7Tr-N8-Avw"/>
+                                    <outlet property="userUniversities" destination="t9i-8h-3Y3" id="3GT-iq-ofo"/>
+                                    <outlet property="userUniversitiesHeight" destination="7bU-Tb-N3O" id="VXQ-o0-uSs"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>

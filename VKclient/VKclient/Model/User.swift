@@ -8,6 +8,7 @@
 
 import UIKit
 import RealmSwift
+import PromiseKit
 
 class User: Object, Comparable {
     
@@ -33,7 +34,6 @@ class User: Object, Comparable {
     @objc dynamic var games: String = ""
     var education: Education = .init()
     var career: String = ""
-    
     
     override class func primaryKey() -> String? {
         return "id"
