@@ -86,22 +86,22 @@ class UserProfileTVC: UITableViewController {
         cell.userNickname.text = user?.nickname
         
         cell.userActivities.text = user?.activities
-        cell.userActivities.isScrollEnabled = false
+        setupTextView(textView: cell.userActivities)
         
         cell.userInterests.text = user?.interests
-        cell.userInterests.isScrollEnabled = false
+        setupTextView(textView: cell.userInterests)
         
         cell.userMusic.text = user?.music
-        cell.userMusic.isScrollEnabled = false
+        setupTextView(textView: cell.userMusic)
         
         cell.userMovies.text = user?.movies
-        cell.userMovies.isScrollEnabled = false
+        setupTextView(textView: cell.userMovies)
         
         cell.userBooks.text = user?.books
-        cell.userBooks.isScrollEnabled = false
+        setupTextView(textView: cell.userBooks)
         
         cell.userGames.text = user?.games
-        cell.userGames.isScrollEnabled = false
+        setupTextView(textView: cell.userGames)
         
         return cell
     }
@@ -110,6 +110,50 @@ class UserProfileTVC: UITableViewController {
     func fillEducation(user: User?, indexPath: IndexPath) -> UserProfileEducationCell {
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "UserProfileEducationCell", for: indexPath) as? UserProfileEducationCell else { preconditionFailure("Can't deque FriendCell") }
+        
+        // create views
+        let userSchoolsLabel = UILabel()
+        let userSchools = UITextView()
+        
+        let userUniversitiesLabel = UILabel()
+        let userUniversities = UITextView()
+        
+        cell.contentView.addSubview(userSchoolsLabel)
+        cell.contentView.addSubview(userSchools)
+        cell.contentView.addSubview(userUniversitiesLabel)
+        cell.contentView.addSubview(userUniversities)
+        
+        userSchoolsLabel.translatesAutoresizingMaskIntoConstraints = false
+        userSchools.translatesAutoresizingMaskIntoConstraints = false
+        userUniversitiesLabel.translatesAutoresizingMaskIntoConstraints = false
+        userUniversities.translatesAutoresizingMaskIntoConstraints = false
+        
+        [
+            userSchoolsLabel.topAnchor.constraint(equalTo: cell.contentView.safeAreaLayoutGuide.topAnchor, constant: 10) ,
+            userSchoolsLabel.leadingAnchor.constraint(equalTo: cell.contentView.safeAreaLayoutGuide.leadingAnchor, constant: 10),
+            userSchoolsLabel.trailingAnchor.constraint(equalTo: cell.contentView.safeAreaLayoutGuide.trailingAnchor, constant: 10),
+            userSchoolsLabel.heightAnchor.constraint(equalToConstant: 20),
+            userSchools.topAnchor.constraint(equalTo: userSchoolsLabel.bottomAnchor, constant: 5),
+            userSchools.leftAnchor.constraint(equalTo: cell.contentView.leftAnchor, constant: 10),
+            userSchools.rightAnchor.constraint(equalTo: cell.contentView.rightAnchor, constant: 10),
+            userSchools.heightAnchor.constraint(equalToConstant: 50),
+            userUniversitiesLabel.topAnchor.constraint(equalTo: userSchools.bottomAnchor, constant: 10),
+            userUniversitiesLabel.leftAnchor.constraint(equalTo: cell.contentView.leftAnchor, constant: 10),
+            userUniversitiesLabel.rightAnchor.constraint(equalTo: cell.contentView.rightAnchor, constant: 10),
+            userUniversitiesLabel.heightAnchor.constraint(equalToConstant: 20),
+            userUniversities.topAnchor.constraint(equalTo: userUniversitiesLabel.bottomAnchor, constant: 5),
+            userUniversities.leftAnchor.constraint(equalTo: cell.contentView.leftAnchor, constant: 10),
+            userUniversities.rightAnchor.constraint(equalTo: cell.contentView.rightAnchor, constant: 10),
+            userUniversities.heightAnchor.constraint(equalToConstant: 50),
+            userUniversities.bottomAnchor.constraint(equalTo: cell.contentView.bottomAnchor, constant: 10),
+            ].forEach { $0.isActive = true }
+        
+        userSchoolsLabel.text = "Schools:"
+        setupLabel(label: userSchoolsLabel)
+        
+        userUniversitiesLabel.text = "Universities:"
+        setupLabel(label: userUniversitiesLabel)
+        
         
         if let userId = user?.id {
             dataService.loadEducation(userIds: userId)
@@ -121,7 +165,7 @@ class UserProfileTVC: UITableViewController {
                     
                     if let schools = user?.education.schools {
                         for school in schools {
-                            schoolsTextBlock += "\(school.name)\n\(school.yearGraduated)\n"
+                            schoolsTextBlock += "Name: \(school.name)\nGraduation: \(school.yearGraduated)\n"
                             if school != schools.last {
                                 schoolsTextBlock += "\n"
                             }
@@ -130,36 +174,23 @@ class UserProfileTVC: UITableViewController {
                     
                     if let universities = user?.education.universities {
                         for university in universities {
-                            universitiesTextBlock += "\(university.name)\n\(university.facultyName)\n\(university.graduation)\n"
+                            universitiesTextBlock += "Name: \(university.name)\nFaculty:\(university.facultyName)\nGraduation: \(university.graduation)\n"
                             if university != universities.last {
                                 universitiesTextBlock += "\n"
                             }
                         }
                     }
                     
-                    cell.userSchools.text = schoolsTextBlock
-                    cell.userSchoolsHeight.constant = self.calcHeight(textView: cell.userSchools)
+                    userSchools.text = schoolsTextBlock
+                    self.setupTextView(textView: userSchools)
                     
-                    cell.userUniversities.text = universitiesTextBlock
-                    cell.userUniversitiesHeight.constant = self.calcHeight(textView: cell.userUniversities)
+                    userUniversities.text = universitiesTextBlock
+                    self.setupTextView(textView: userUniversities)
             }
         }
         
-       
-        
-        print(cell.userUniversities.text)
-        print(cell.userSchools.text)
-        
         return cell
     }
-    
-    
-    func calcHeight(textView: UITextView) -> CGFloat {
-        let size = CGSize(width: self.tableView.frame.width, height: .infinity)
-        let estimateSize = textView.sizeThatFits(size)
-        return estimateSize.height
-    }
-    
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
@@ -168,6 +199,32 @@ class UserProfileTVC: UITableViewController {
             userProfilePhotoCVC.user = user
             
         }
+    }
+    
+    
+    func setupLabel(label: UILabel) {
+       
+        label.font = .systemFont(ofSize: 14)
+        label.textColor = .systemBlue
+        
+    }
+    
+    
+    func setupTextView(textView: UITextView) {
+        
+        textView.font = .systemFont(ofSize: 16)
+        textView.isScrollEnabled = false
+        textView.isEditable = false
+        
+        let size = CGSize(width: textView.frame.width, height: .infinity)
+        let estimatedSize = textView.sizeThatFits(size)
+        
+        textView.constraints.forEach { (constraint) in
+            if constraint.firstAttribute == .height {
+                constraint.constant = estimatedSize.height
+            }
+        }
+        
     }
 
 }
