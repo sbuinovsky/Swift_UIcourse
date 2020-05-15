@@ -11,7 +11,8 @@ import Alamofire
 import SwiftyJSON
 
 protocol ParserServiceProtocol {
-    func usersParser(data: Data) -> [User]
+    func friendsParser(data: Data) -> [User]
+    func educationParser(data: Data) -> Education
     func groupsParser(data: Data) -> [Group]
     func photosParser(data: Data) -> [Photo]
     func newsParser(data: Data) -> [News]
@@ -22,9 +23,10 @@ protocol ParserServiceProtocol {
 class ParserService: ParserServiceProtocol {
     
     private let firebaseService: FirebaseServiceProtocol = FirebaseService()
+    private let realmService: RealmService = .init()
     
     
-    func usersParser(data: Data) -> [User] {
+    func friendsParser(data: Data) -> [User] {
 
         do {
             let json = try JSON(data: data)
@@ -34,7 +36,24 @@ class ParserService: ParserServiceProtocol {
                 
                 let user = User()
                 user.id = item["id"].intValue
-                user.name = item["first_name"].stringValue + " " + item["last_name"].stringValue
+                user.firstName = item["first_name"].stringValue
+                user.lastName = item["last_name"].stringValue
+                user.name = user.firstName + " " + user.lastName
+                user.sex = item["sex"].intValue
+                user.bdate = item["bdate"].stringValue
+                user.city  = item["city"].stringValue
+                user.country = item["country"].stringValue
+                user.homeTown = item["home_town"].stringValue
+                user.online = item["online"].intValue
+                user.domain = item["domain"].stringValue
+                user.status = item["status"].stringValue
+                user.nickname = item["nickname"].stringValue
+                user.activities = item["activities"].stringValue
+                user.interests = item["interests"].stringValue
+                user.music = item["music"].stringValue
+                user.movies = item["movies"].stringValue
+                user.books = item["books"].stringValue
+                user.games = item["games"].stringValue
                 user.avatar = item["photo_100"].stringValue
                 
                 firebaseService.updateFriends(object: user)
@@ -47,6 +66,69 @@ class ParserService: ParserServiceProtocol {
         } catch {
             print(error.localizedDescription)
             return []
+        }
+    }
+    
+    
+    func educationParser(data: Data) -> Education {
+        
+        do {
+            let json = try JSON(data: data)
+            let array = json["response"].arrayValue
+            
+            let result = array.map { item -> Education in
+                
+                let education = Education()
+                
+                let universities = item["universities"].arrayValue
+                
+                education.universities = universities.map { item -> University in
+                    
+                    let university = University()
+                    
+                    university.id = item["id"].intValue
+                    university.country = item["country"].intValue
+                    university.city = item["city"].intValue
+                    university.name = item["name"].stringValue
+                    university.faculty = item["faculty"].intValue
+                    university.facultyName = item["faculty_name"].stringValue
+                    university.chair = item["chair"].intValue
+                    university.chairName = item["chair_name"].stringValue
+                    university.graduation = item["graduation"].intValue
+                    university.educationForm = item["education_form"].stringValue
+                    university.educationStatus = item["education_status"].stringValue
+                    
+                    return university
+                }
+                
+                let schools = item["schools"].arrayValue
+                
+                education.schools = schools.map { item -> School in
+                    
+                    let school = School()
+                    
+                    school.id = item["id"].intValue
+                    school.country = item["country"].intValue
+                    school.city = item["city"].intValue
+                    school.name = item["name"].stringValue
+                    school.yearFrom = item["year_from"].intValue
+                    school.yearTo = item["year_to"].intValue
+                    school.yearGraduated = item["year_graduated"].intValue
+                    school.classLetter = item["class"].stringValue
+                    
+                    return school
+                }
+                
+                return education
+            }
+            
+            guard let resultEducation = result.first else { return Education() }
+            
+            return resultEducation
+            
+        } catch {
+            print(error.localizedDescription)
+            return Education()
         }
     }
 
@@ -124,10 +206,9 @@ class ParserService: ParserServiceProtocol {
                 news.text = item["text"].stringValue
                 
                 let photoSet = item["attachments"].arrayValue.first?["photo"]["sizes"].arrayValue
-                if let first = photoSet?.first (where: { $0["type"].stringValue == "z" } ) {
+                if let first = photoSet?.first (where: { $0["type"].stringValue == "p" } ) {
                     news.imageURL = first["url"].stringValue
                 }
-                
                 
                 news.views = item["views"]["count"].intValue
                 news.likes = item["likes"]["count"].intValue

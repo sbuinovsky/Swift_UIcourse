@@ -53,17 +53,23 @@ class NewsCell: UITableViewCell {
     
     @objc func onTap(_ sender: UIGestureRecognizer) {
         print(#function)
-        if likeBox.active == false {
-            likeBox.active = true
-            likeBox.counter += 1
-            likeCounter.text = "\(likeBox.counter)"
-            likeImage.image = UIImage(imageLiteralResourceName: "likeImageActive")
-        } else {
-            likeBox.active = false
-            likeBox.counter -= 1
-            likeCounter.text = "\(likeBox.counter)"
-            likeImage.image = UIImage(imageLiteralResourceName: "likeImageDefault")
+        
+        if let string = likeCounter.text, let counter = Int(string) {
+            
+            if likeBox.active == false {
+                likeBox.active = true
+                likeBox.counter = counter + 1
+                likeCounter.text = "\(likeBox.counter)"
+                likeImage.image = UIImage(imageLiteralResourceName: "likeImageActive")
+            } else {
+                likeBox.active = false
+                likeBox.counter = counter - 1
+                likeCounter.text = "\(likeBox.counter)"
+                likeImage.image = UIImage(imageLiteralResourceName: "likeImageDefault")
+            }
         }
+            
+        
         
         UIView.animate(withDuration: 1,
                        delay: 0,
@@ -72,7 +78,6 @@ class NewsCell: UITableViewCell {
                        options: .curveEaseInOut,
                        animations: {
                         self.likeImage.center.y += 4
-                        self.likeCounter.center.y += 4
         })
         
     }

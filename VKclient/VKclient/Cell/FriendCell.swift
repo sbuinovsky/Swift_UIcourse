@@ -7,12 +7,20 @@
 //
 
 import UIKit
+import PromiseKit
 
 class FriendCell: UITableViewCell {
     
     @IBOutlet weak var friendAvatarImage: UIImageView!
     @IBOutlet weak var friendNameLabel: UILabel!
     
+    var friendAvatarImagePromise: Promise<UIImage>? {
+        didSet {
+            friendAvatarImagePromise?.done(on: DispatchQueue.main, { (image) in
+                self.friendAvatarImage.image = image
+            })
+        }
+    }
     
     override func prepareForReuse() {
         super.prepareForReuse()

@@ -11,32 +11,28 @@ import RealmSwift
 
 private let reuseIdentifier = "Cell"
 
-class FriendProfileCVC: UICollectionViewController {
-   
+class UserProfilePhotosCVC: UICollectionViewController {
+    
     private let dataService: DataServiceProtocol = DataService()
     private let realmService: RealmServiceProtocol = RealmService()
-    private let queue: DispatchQueue = DispatchQueue(label: "FriendsProfileCVC_queue", qos: .userInteractive, attributes: [.concurrent])
-    
-    //словарь для кэшированных аватаров
-    var cachedPhotos = [String: UIImage]()
     
     var photos: [Photo] = []
-    var friend: User?
+    var user: User?
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         
-        guard let friendId = friend?.id else { return }
+        guard let userId = user?.id else { return }
         
-        dataService.loadPhotos(targetId: friendId) {
-            DispatchQueue.main.async {
-                self.photos = self.realmService.getUserPhotos(ownerId: friendId)
+        dataService.loadUserPhotos(targetId: userId)
+            .done(on: DispatchQueue.main) { (photo) in
+                self.photos = self.realmService.getUserPhotos(ownerId: userId)
                 self.collectionView.reloadData()
-            }
         }
+
     }
     
     
@@ -44,30 +40,20 @@ class FriendProfileCVC: UICollectionViewController {
         //количество секций
         return 1
     }
-
-
+    
+    
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         //количество ячеек в секции
         return photos.count
     }
-
+    
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FriendProfileCell", for: indexPath) as! FriendProfileCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "UserProfilePhotoCell", for: indexPath) as! UserProfilePhotoCell
         
-        let url = photos[indexPath.row].imageUrl
+        let imageURL = photos[indexPath.row].imageUrl
         
-        //задаем имя пользователя
-        cell.friendNameLabel.text = " \(photos[indexPath.row].id)"
-
-        queue.async {
-            if let image = self.dataService.getImageByURL(imageURL: url) {
-                
-                DispatchQueue.main.async {
-                   cell.friendProfileImage.image = image
-                }
-            }
-        }
+        cell.userProfilePhotoPromise = dataService.loadImage(imageURL: imageURL)
         
         return cell
     }

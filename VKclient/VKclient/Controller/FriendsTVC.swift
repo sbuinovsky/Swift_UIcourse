@@ -9,17 +9,16 @@
 
 import UIKit
 import RealmSwift
+import PromiseKit
 
 class FriendsTVC: UITableViewController {
     
     private let dataService: DataServiceProtocol = DataService()
     private let realmService: RealmServiceProtocol = RealmService()
-    private let queue: DispatchQueue = DispatchQueue(label: "FriendsTVC_queue", qos: .userInteractive)
     
     private var sections: [Results<User>] = []
     private var tokens: [NotificationToken] = []
     private var filteredSections: [Results<User>] = []
-    private var cachedAvatars: [String: UIImage] = .init()
     private var activeSections: [Results<User>] {
         searchController.isActive ? filteredSections : sections
     }
@@ -66,26 +65,6 @@ class FriendsTVC: UITableViewController {
     }
     
     
-    private func downloadImage( for url: String, indexPath: IndexPath ) {
-        queue.async {
-            if self.cachedAvatars[url] == nil {
-                if let image = self.dataService.getImageByURL(imageURL: url) {
-                    self.cachedAvatars[url] = image
-
-                    DispatchQueue.main.async {
-                        self.tableView.reloadRows(at: [indexPath], with: .automatic)
-                    }
-                }
-            }
-            else {
-                DispatchQueue.main.async {
-                    self.tableView.reloadRows(at: [indexPath], with: .automatic)
-                }
-            }
-        }
-    }
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -96,12 +75,9 @@ class FriendsTVC: UITableViewController {
         refreshControl = UIRefreshControl()
         refreshControl?.addTarget(self, action: #selector(updateFriends), for: .valueChanged)
         
-        dataService.loadUsers() {
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
+        dataService.loadFriends()
+            .done(on: DispatchQueue.main) { (user) in
                 self.prepareSections()
-            }
-            
         }
         
         
@@ -156,12 +132,7 @@ class FriendsTVC: UITableViewController {
         
         let imageURL = friend.avatar
         
-        if let avatar = cachedAvatars[imageURL] {
-            cell.friendAvatarImage.image = avatar
-        }
-        else {
-            downloadImage(for: imageURL, indexPath: indexPath)
-        }
+        cell.friendAvatarImagePromise = dataService.loadImage(imageURL: imageURL)
         
         return cell
     }
@@ -188,26 +159,22 @@ class FriendsTVC: UITableViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        if segue.identifier == "friendProfileSegue" {
-            guard let friendProfileController = segue.destination as? FriendProfileCVC else { return }
+        if segue.identifier == "UserProfileSeague" {
+            guard let userProfileTVC = segue.destination as? UserProfileTVC else { return }
             
             if let indexPath = tableView.indexPathForSelectedRow {
-                friendProfileController.friend = activeSections[indexPath.section][indexPath.row]
+                userProfileTVC.user = activeSections[indexPath.section][indexPath.row]
             }
-            
             
         }
     }
     
     @objc func updateFriends() {
         
-        dataService.loadUsers() {
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
+        dataService.loadFriends()
+            .done(on: DispatchQueue.main) { (user) in
                 self.prepareSections()
                 self.refreshControl?.endRefreshing()
-            }
-            
         }
         
     }

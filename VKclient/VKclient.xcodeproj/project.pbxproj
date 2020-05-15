@@ -20,14 +20,16 @@
 		C22E087924006ECE00354324 /* CustomCellHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = C22E087824006ECE00354324 /* CustomCellHeader.xib */; };
 		C22E087B240070A600354324 /* CustomCellHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C22E087A240070A600354324 /* CustomCellHeader.swift */; };
 		C230B0AA23F6943A0041FD0A /* Like.swift in Sources */ = {isa = PBXBuildFile; fileRef = C230B0A923F6943A0041FD0A /* Like.swift */; };
+		C23D9C4D246BED2C00991707 /* UserProfileEducationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C23D9C4C246BED2C00991707 /* UserProfileEducationCell.swift */; };
+		C240E33D2468922400237003 /* UserProfilePhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C240E33C2468922400237003 /* UserProfilePhotoCell.swift */; };
+		C240E33F24692EBB00237003 /* University.swift in Sources */ = {isa = PBXBuildFile; fileRef = C240E33E24692EBB00237003 /* University.swift */; };
+		C240E34124692ECF00237003 /* School.swift in Sources */ = {isa = PBXBuildFile; fileRef = C240E34024692ECF00237003 /* School.swift */; };
 		C25A0F7523EC8CDE00CAD84B /* FriendsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C25A0F7423EC8CDE00CAD84B /* FriendsTVC.swift */; };
 		C25A0F7823EC8D3A00CAD84B /* GroupsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C25A0F7723EC8D3A00CAD84B /* GroupsTVC.swift */; };
-		C25A0F7A23EC8D8B00CAD84B /* FriendProfileCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C25A0F7923EC8D8B00CAD84B /* FriendProfileCVC.swift */; };
 		C260709F243BC2E500598082 /* StartVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C260709E243BC2E500598082 /* StartVC.swift */; };
 		C2654891241EAF6300D2681A /* LoginWVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2654890241EAF6300D2681A /* LoginWVC.swift */; };
 		C270648E2418DDEC00A17245 /* SessionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C270648D2418DDEC00A17245 /* SessionData.swift */; };
 		C27CEC1B23F1534A0011115C /* FriendCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C27CEC1A23F1534A0011115C /* FriendCell.swift */; };
-		C27CEC1D23F153690011115C /* FriendProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C27CEC1C23F153690011115C /* FriendProfileCell.swift */; };
 		C27CEC1F23F1538A0011115C /* GroupCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C27CEC1E23F1538A0011115C /* GroupCell.swift */; };
 		C27CEC2523F158F50011115C /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C27CEC2423F158F50011115C /* User.swift */; };
 		C27CEC2723F169080011115C /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = C27CEC2623F169080011115C /* Group.swift */; };
@@ -37,7 +39,11 @@
 		C28A2C68245816CD0091906E /* GetDataOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C28A2C67245816CD0091906E /* GetDataOperation.swift */; };
 		C28A2C6A245818690091906E /* ParseGroupsOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C28A2C69245818690091906E /* ParseGroupsOperation.swift */; };
 		C28B0B8D243C6F7300DDD8BD /* FirebaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C28B0B8C243C6F7300DDD8BD /* FirebaseService.swift */; };
+		C297A61D24698331004592E5 /* Education.swift in Sources */ = {isa = PBXBuildFile; fileRef = C297A61C24698331004592E5 /* Education.swift */; };
 		C299CA4B2425EEE400376545 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C299CA4A2425EEE400376545 /* Photo.swift */; };
+		C2B5D6AE24656D1D00C91788 /* UserProfilePhotosCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B5D6AD24656D1D00C91788 /* UserProfilePhotosCVC.swift */; };
+		C2B5D6B224668D3900C91788 /* UserProfileTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B5D6B124668D3900C91788 /* UserProfileTVC.swift */; };
+		C2B5D6B424668E5600C91788 /* UserProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B5D6B324668E5600C91788 /* UserProfileCell.swift */; };
 		C2BB8CB72436691F0058C62D /* News.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2BB8CB62436691F0058C62D /* News.swift */; };
 		C2BCEDEC23FB2609009D981F /* NewsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2BCEDEB23FB2609009D981F /* NewsTVC.swift */; };
 		C2BCEDEE23FB2639009D981F /* NewsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2BCEDED23FB2639009D981F /* NewsCell.swift */; };
@@ -66,14 +72,16 @@
 		C22E087824006ECE00354324 /* CustomCellHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomCellHeader.xib; sourceTree = "<group>"; };
 		C22E087A240070A600354324 /* CustomCellHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCellHeader.swift; sourceTree = "<group>"; };
 		C230B0A923F6943A0041FD0A /* Like.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Like.swift; sourceTree = "<group>"; };
+		C23D9C4C246BED2C00991707 /* UserProfileEducationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileEducationCell.swift; sourceTree = "<group>"; };
+		C240E33C2468922400237003 /* UserProfilePhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfilePhotoCell.swift; sourceTree = "<group>"; };
+		C240E33E24692EBB00237003 /* University.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = University.swift; sourceTree = "<group>"; };
+		C240E34024692ECF00237003 /* School.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = School.swift; sourceTree = "<group>"; };
 		C25A0F7423EC8CDE00CAD84B /* FriendsTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsTVC.swift; sourceTree = "<group>"; };
 		C25A0F7723EC8D3A00CAD84B /* GroupsTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsTVC.swift; sourceTree = "<group>"; };
-		C25A0F7923EC8D8B00CAD84B /* FriendProfileCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendProfileCVC.swift; sourceTree = "<group>"; };
 		C260709E243BC2E500598082 /* StartVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartVC.swift; sourceTree = "<group>"; };
 		C2654890241EAF6300D2681A /* LoginWVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginWVC.swift; sourceTree = "<group>"; };
 		C270648D2418DDEC00A17245 /* SessionData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionData.swift; sourceTree = "<group>"; };
 		C27CEC1A23F1534A0011115C /* FriendCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendCell.swift; sourceTree = "<group>"; };
-		C27CEC1C23F153690011115C /* FriendProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendProfileCell.swift; sourceTree = "<group>"; };
 		C27CEC1E23F1538A0011115C /* GroupCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupCell.swift; sourceTree = "<group>"; };
 		C27CEC2423F158F50011115C /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		C27CEC2623F169080011115C /* Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
@@ -83,7 +91,11 @@
 		C28A2C67245816CD0091906E /* GetDataOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetDataOperation.swift; sourceTree = "<group>"; };
 		C28A2C69245818690091906E /* ParseGroupsOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParseGroupsOperation.swift; sourceTree = "<group>"; };
 		C28B0B8C243C6F7300DDD8BD /* FirebaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseService.swift; sourceTree = "<group>"; };
+		C297A61C24698331004592E5 /* Education.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Education.swift; path = VKclient/Model/Education.swift; sourceTree = SOURCE_ROOT; };
 		C299CA4A2425EEE400376545 /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
+		C2B5D6AD24656D1D00C91788 /* UserProfilePhotosCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfilePhotosCVC.swift; sourceTree = "<group>"; };
+		C2B5D6B124668D3900C91788 /* UserProfileTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileTVC.swift; sourceTree = "<group>"; };
+		C2B5D6B324668E5600C91788 /* UserProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UserProfileCell.swift; path = VKclient/Cell/UserProfileCell.swift; sourceTree = SOURCE_ROOT; };
 		C2BB8CB62436691F0058C62D /* News.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = News.swift; sourceTree = "<group>"; };
 		C2BCEDEB23FB2609009D981F /* NewsTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsTVC.swift; sourceTree = "<group>"; };
 		C2BCEDED23FB2639009D981F /* NewsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NewsCell.swift; path = VKclient/Cell/NewsCell.swift; sourceTree = SOURCE_ROOT; };
@@ -162,7 +174,8 @@
 				C260709E243BC2E500598082 /* StartVC.swift */,
 				C2654890241EAF6300D2681A /* LoginWVC.swift */,
 				C25A0F7423EC8CDE00CAD84B /* FriendsTVC.swift */,
-				C25A0F7923EC8D8B00CAD84B /* FriendProfileCVC.swift */,
+				C2B5D6B124668D3900C91788 /* UserProfileTVC.swift */,
+				C2B5D6AD24656D1D00C91788 /* UserProfilePhotosCVC.swift */,
 				C25A0F7723EC8D3A00CAD84B /* GroupsTVC.swift */,
 				C2BCEDEB23FB2609009D981F /* NewsTVC.swift */,
 			);
@@ -191,7 +204,9 @@
 			isa = PBXGroup;
 			children = (
 				C27CEC1A23F1534A0011115C /* FriendCell.swift */,
-				C27CEC1C23F153690011115C /* FriendProfileCell.swift */,
+				C2B5D6B324668E5600C91788 /* UserProfileCell.swift */,
+				C23D9C4C246BED2C00991707 /* UserProfileEducationCell.swift */,
+				C240E33C2468922400237003 /* UserProfilePhotoCell.swift */,
 				C27CEC1E23F1538A0011115C /* GroupCell.swift */,
 				C2BCEDED23FB2639009D981F /* NewsCell.swift */,
 				C22E087A240070A600354324 /* CustomCellHeader.swift */,
@@ -207,6 +222,9 @@
 				C299CA4A2425EEE400376545 /* Photo.swift */,
 				C2BB8CB62436691F0058C62D /* News.swift */,
 				C22B0FE024536CD2002C0795 /* NewsSource.swift */,
+				C297A61C24698331004592E5 /* Education.swift */,
+				C240E33E24692EBB00237003 /* University.swift */,
+				C240E34024692ECF00237003 /* School.swift */,
 				C230B0A923F6943A0041FD0A /* Like.swift */,
 				C2EE21FA24052C3600F9979D /* LoaderCirclesView.swift */,
 				C2BEBC7C240928B10073C498 /* LoaderCloudView.swift */,
@@ -392,7 +410,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C27CEC1D23F153690011115C /* FriendProfileCell.swift in Sources */,
 				C208CBF22420EC7400EF0A10 /* DataService.swift in Sources */,
 				C228EC332442F9490094D847 /* ParserService.swift in Sources */,
 				C28A2C66245813160091906E /* AsyncOperation.swift in Sources */,
@@ -404,26 +421,33 @@
 				C27CEC2723F169080011115C /* Group.swift in Sources */,
 				C230B0AA23F6943A0041FD0A /* Like.swift in Sources */,
 				C25A0F7823EC8D3A00CAD84B /* GroupsTVC.swift in Sources */,
+				C2B5D6B224668D3900C91788 /* UserProfileTVC.swift in Sources */,
 				C260709F243BC2E500598082 /* StartVC.swift in Sources */,
 				C216A57B2407E11A00679FC5 /* ImageShadow.swift in Sources */,
+				C2B5D6B424668E5600C91788 /* UserProfileCell.swift in Sources */,
 				C2CD5EA7242A0BB900CB2285 /* RealmService.swift in Sources */,
 				C28B0B8D243C6F7300DDD8BD /* FirebaseService.swift in Sources */,
+				C240E34124692ECF00237003 /* School.swift in Sources */,
 				C27CEC1B23F1534A0011115C /* FriendCell.swift in Sources */,
 				C2BCEDEC23FB2609009D981F /* NewsTVC.swift in Sources */,
+				C297A61D24698331004592E5 /* Education.swift in Sources */,
 				C22B0FE124536CD2002C0795 /* NewsSource.swift in Sources */,
 				C2654891241EAF6300D2681A /* LoginWVC.swift in Sources */,
 				C2BEBC7D240928B20073C498 /* LoaderCloudView.swift in Sources */,
 				C2DCDEAC240C3D5900DF7780 /* CustomPopPushTransitioning.swift in Sources */,
 				C27CEC1F23F1538A0011115C /* GroupCell.swift in Sources */,
 				C2805CBE240E2C15000CD87B /* CustomInteractiveTransition.swift in Sources */,
+				C240E33D2468922400237003 /* UserProfilePhotoCell.swift in Sources */,
+				C2B5D6AE24656D1D00C91788 /* UserProfilePhotosCVC.swift in Sources */,
 				C25A0F7523EC8CDE00CAD84B /* FriendsTVC.swift in Sources */,
 				C2BB8CB72436691F0058C62D /* News.swift in Sources */,
 				C28A2C6A245818690091906E /* ParseGroupsOperation.swift in Sources */,
 				C270648E2418DDEC00A17245 /* SessionData.swift in Sources */,
+				C23D9C4D246BED2C00991707 /* UserProfileEducationCell.swift in Sources */,
+				C240E33F24692EBB00237003 /* University.swift in Sources */,
 				C2119BCB23E0081500EC528E /* AppDelegate.swift in Sources */,
 				C28A2C68245816CD0091906E /* GetDataOperation.swift in Sources */,
 				C2119BCD23E0081500EC528E /* SceneDelegate.swift in Sources */,
-				C25A0F7A23EC8D8B00CAD84B /* FriendProfileCVC.swift in Sources */,
 				C27CEC2523F158F50011115C /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

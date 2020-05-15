@@ -77,7 +77,7 @@ class GroupsTVC: UITableViewController {
     private func downloadImage( for url: String, indexPath: IndexPath ) {
         queue.async {
             if self.cachedAvatars[url] == nil {
-                if let image = self.dataService.getImageByURL(imageURL: url) {
+                if let image = self.dataService.loadImageByURL(imageURL: url) {
                     self.cachedAvatars[url] = image
 
                     DispatchQueue.main.async {
@@ -102,7 +102,7 @@ class GroupsTVC: UITableViewController {
         
         opq.qualityOfService = .userInteractive
         
-        let request = AF.request(requestUrl, parameters: parameters)
+        let request = Alamofire.request(requestUrl, parameters: parameters)
         
         let getDataOperation = GetDataOperation(request: request)
         opq.addOperation(getDataOperation)
