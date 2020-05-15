@@ -13,6 +13,8 @@ class NewsTVC: UITableViewController {
     
     private let dataService: DataServiceProtocol = DataService()
     private let realmService: RealmServiceProtocol = RealmService()
+    private lazy var imageCache = ImageCache(table: self.tableView)
+    
     private let queue: DispatchQueue = DispatchQueue(label: "NewsTVC_queue", qos: .userInteractive)
     
     private var sections: [Results<News>] = []
@@ -98,14 +100,8 @@ class NewsTVC: UITableViewController {
             
             let imageURL = source.avatar
             
-            queue.async {
-                if let image = self.dataService.loadImageByURL(imageURL: imageURL) {
-                    
-                    DispatchQueue.main.async {
-                        cell.sourceImage.image = image
-                    }
-                }
-            }
+            cell.sourceImage.image = imageCache.image(indexPath: indexPath, url: imageURL)
+            
         }
         
         
@@ -158,14 +154,7 @@ class NewsTVC: UITableViewController {
             
             cell = tableView.dequeueReusableCell(withIdentifier: "NewsCellImageOnly", for: indexPath) as! NewsCell
             
-            queue.async {
-                if let image = self.dataService.loadImageByURL(imageURL: imageURL) {
-                    
-                    DispatchQueue.main.async {
-                        cell.newsImage.image = image
-                    }
-                }
-            }
+            cell.newsImage.image = imageCache.image(indexPath: indexPath, url: imageURL)
             
         } else {
             
@@ -174,14 +163,7 @@ class NewsTVC: UITableViewController {
             cell.newsText.text = news.text
             cell.newsText.isScrollEnabled = false
             
-            queue.async {
-                if let image = self.dataService.loadImageByURL(imageURL: imageURL) {
-                    
-                    DispatchQueue.main.async {
-                        cell.newsImage.image = image
-                    }
-                }
-            }
+            cell.newsImage.image = imageCache.image(indexPath: indexPath, url: imageURL)
             
         }
         

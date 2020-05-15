@@ -15,6 +15,7 @@ class FriendsTVC: UITableViewController {
     
     private let dataService: DataServiceProtocol = DataService()
     private let realmService: RealmServiceProtocol = RealmService()
+    private lazy var imageCache = ImageCache(table: self.tableView)
     
     private var sections: [Results<User>] = []
     private var tokens: [NotificationToken] = []
@@ -132,7 +133,7 @@ class FriendsTVC: UITableViewController {
         
         let imageURL = friend.avatar
         
-        cell.friendAvatarImagePromise = dataService.loadImage(imageURL: imageURL)
+        cell.friendAvatarImage.image = imageCache.image(indexPath: indexPath, url: imageURL)
         
         return cell
     }

@@ -16,12 +16,13 @@ class GroupsTVC: UITableViewController {
     
     private let dataService: DataServiceProtocol = DataService()
     private let realmService: RealmServiceProtocol = RealmService()
+    private lazy var imageCache = ImageCache(table: self.tableView)
+    
     private let queue: DispatchQueue = DispatchQueue(label: "GroupsTVC_queue", qos: .userInteractive)
     
     private var tokens: [NotificationToken] = []
     
     private var groups: [Results<Group>] = []
-    private var cachedAvatars: [String: UIImage] = .init()
 
 
     private let requestUrl = "https://api.vk.com/method/groups.get"
@@ -71,26 +72,6 @@ class GroupsTVC: UITableViewController {
                 }
             }
         )
-    }
-    
-    
-    private func downloadImage( for url: String, indexPath: IndexPath ) {
-        queue.async {
-            if self.cachedAvatars[url] == nil {
-                if let image = self.dataService.loadImageByURL(imageURL: url) {
-                    self.cachedAvatars[url] = image
-
-                    DispatchQueue.main.async {
-                        self.tableView.reloadRows(at: [indexPath], with: .automatic)
-                    }
-                }
-            }
-            else {
-                DispatchQueue.main.async {
-                    self.tableView.reloadRows(at: [indexPath], with: .automatic)
-                }
-            }
-        }
     }
     
     
@@ -152,13 +133,8 @@ class GroupsTVC: UITableViewController {
         let imageURL = group.avatar
         
         cell.favoriteGroupNameLabel.text = group.name
+        cell.favoriteGroupAvatarImage.image = imageCache.image(indexPath: indexPath, url: imageURL)
         
-        if let avatar = cachedAvatars[imageURL] {
-            cell.favoriteGroupAvatarImage.image = avatar
-        }
-        else {
-            downloadImage(for: imageURL, indexPath: indexPath)
-        }
         
         return cell
     }
