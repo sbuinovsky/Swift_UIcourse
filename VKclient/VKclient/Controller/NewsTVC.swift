@@ -22,6 +22,15 @@ class NewsTVC: UITableViewController {
     
     private var likeBox = Like()
     
+    private let dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd.MM.yyyy"
+        return formatter
+    }()
+    
+    private var cachedDates = [IndexPath: String]()
+    
+    
     func prepareSections() {
         
         do {
@@ -106,7 +115,7 @@ class NewsTVC: UITableViewController {
         
         
         // Date
-        cell.date.text = dateFormatter(inputDate: news.date)
+        cell.date.text = dateFormat(inputDate: news.date)
         
         // Actions
         cell.viewsImage.image = UIImage(imageLiteralResourceName: "viewsImage")
@@ -171,10 +180,8 @@ class NewsTVC: UITableViewController {
     }
     
     
-    private func dateFormatter(inputDate: Double) -> String {
-        let dateFormatter = DateFormatter()
-        let date = NSDate(timeIntervalSince1970: inputDate)
-        dateFormatter.dateFormat = "dd.MM.yyyy" // тут может быть любой нужный вам формат, гуглите как писать форматы
+    private func dateFormat(inputDate: Double) -> String {
+        let date = Date(timeIntervalSince1970: inputDate)
         let convertedDate = dateFormatter.string(from: date as Date)
         return convertedDate
     }

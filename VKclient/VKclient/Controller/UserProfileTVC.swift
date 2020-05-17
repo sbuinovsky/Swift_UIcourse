@@ -206,6 +206,7 @@ class UserProfileTVC: UITableViewController {
        
         label.font = .systemFont(ofSize: 14)
         label.textColor = .systemBlue
+        label.backgroundColor = UIColor(named: "main_background")
         
     }
     
@@ -213,6 +214,7 @@ class UserProfileTVC: UITableViewController {
     func setupTextView(textView: UITextView) {
         
         textView.font = .systemFont(ofSize: 16)
+        textView.backgroundColor = UIColor(named: "main_background")
         textView.isScrollEnabled = false
         textView.isEditable = false
         

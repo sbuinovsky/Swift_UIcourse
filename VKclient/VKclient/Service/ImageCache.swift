@@ -20,7 +20,7 @@ class ImageCache {
     private var images = [String: UIImage]() //RAM imageCache
     private let container: Reloadable // conatiner for Table or Collection
     
-    private let syncQueue = DispatchQueue(label: "ImageCache.queue")
+    private let syncQueue = DispatchQueue(label: "ImageCache.queue", qos: .userInteractive)
     
     private static let cachePath: String = {
         let pathName = "images"
