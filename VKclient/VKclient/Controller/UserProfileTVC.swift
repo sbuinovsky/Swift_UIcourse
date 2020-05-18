@@ -174,7 +174,7 @@ class UserProfileTVC: UITableViewController {
                     
                     if let universities = user?.education.universities {
                         for university in universities {
-                            universitiesTextBlock += "Name: \(university.name)\nFaculty:\(university.facultyName)\nGraduation: \(university.graduation)\n"
+                            universitiesTextBlock += "Name: \(university.name)\nFaculty: \(university.facultyName)\nGraduation: \(university.graduation)\n"
                             if university != universities.last {
                                 universitiesTextBlock += "\n"
                             }
