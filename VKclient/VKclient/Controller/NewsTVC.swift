@@ -148,7 +148,7 @@ class NewsTVC: UITableViewController {
     
     func getCellPrototype(news: News, indexPath: IndexPath) -> NewsCell {
         
-        var cell: NewsCell = .init()
+        var cell: NewsCell
         
         let imageURL = news.imageURL
         
