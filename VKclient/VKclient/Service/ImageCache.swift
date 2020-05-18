@@ -23,10 +23,12 @@ class ImageCache {
     private let syncQueue = DispatchQueue(label: "ImageCache.queue", qos: .userInteractive)
     
     private static let cachePath: String = {
-        let pathName = "images"
+        let pathName = "images/"
         guard let cacheDirectory = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first else { return pathName}
         
         let url = cacheDirectory.appendingPathComponent(pathName)
+        
+        print("URL PATH: \(url.path)")
         
         if !FileManager.default.fileExists(atPath: url.path) {
             
@@ -91,7 +93,8 @@ class ImageCache {
         
         guard let cacheDirectory = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first else { return nil}
         
-        let fileName = url.split(separator: "/").last ?? "default"
+        let fileNameURL = url.split(separator: "/").last ?? "default"
+        let fileName = fileNameURL.split(separator: "?").first ?? "default"
         
         return cacheDirectory.appendingPathComponent(ImageCache.cachePath + fileName).path
     }
