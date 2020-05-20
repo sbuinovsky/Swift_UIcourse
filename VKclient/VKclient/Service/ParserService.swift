@@ -15,9 +15,7 @@ protocol ParserServiceProtocol {
     func educationParser(data: Data) -> Education
     func groupsParser(data: Data) -> [Group]
     func photosParser(data: Data) -> [Photo]
-    func newsParser(data: Data) -> [News]
-    func sourceGroupsParser(data: Data) -> [NewsSource]
-    func sourceUsersParser(data: Data) -> [NewsSource]
+    func newsParser(data: Data) -> ([News], [NewsSource])
 }
 
 class ParserService: ParserServiceProtocol {
@@ -190,13 +188,15 @@ class ParserService: ParserServiceProtocol {
     }
     
     
-    func newsParser(data: Data) -> [News] {
+    func newsParser(data: Data) -> ([News], [NewsSource]) {
 
         do {
             let json = try JSON(data: data)
             let array = json["response"]["items"].arrayValue
+            let sourceGroups = json["response"]["groups"].arrayValue
+            let sourceProfiles = json["response"]["profiles"].arrayValue
             
-            let result = array.map { item -> News in
+            let newsArray = array.map { item -> News in
                 
                 let news = News()
                 
@@ -208,6 +208,8 @@ class ParserService: ParserServiceProtocol {
                 let photoSet = item["attachments"].arrayValue.first?["photo"]["sizes"].arrayValue
                 if let first = photoSet?.first (where: { $0["type"].stringValue == "p" } ) {
                     news.imageURL = first["url"].stringValue
+                    news.imageWidth = first["width"].doubleValue
+                    news.imageHeight = first["height"].doubleValue
                 }
                 
                 news.views = item["views"]["count"].intValue
@@ -218,22 +220,9 @@ class ParserService: ParserServiceProtocol {
                 return news
             }
             
-            return result
             
-        } catch {
-            print(error.localizedDescription)
-            return []
-        }
-    }
-    
-    func sourceGroupsParser(data: Data) -> [NewsSource] {
-
-        do {
-            let json = try JSON(data: data)
-            let array = json["response"]["groups"].arrayValue
-            
-            let result = array.map { item -> NewsSource in
-            
+            let sourceGroupsArray = sourceGroups.map { item -> NewsSource in
+               
                 let sourceGroup = NewsSource()
                 
                 sourceGroup.id = item["id"].intValue
@@ -245,21 +234,8 @@ class ParserService: ParserServiceProtocol {
                 return sourceGroup
             }
             
-            return result
             
-        } catch {
-            print(error.localizedDescription)
-            return []
-        }
-    }
-    
-    func sourceUsersParser(data: Data) -> [NewsSource] {
-
-        do {
-            let json = try JSON(data: data)
-            let array = json["response"]["profiles"].arrayValue
-            
-            let result = array.map { item -> NewsSource in
+            let sourceProfilesArray = sourceProfiles.map { item -> NewsSource in
                 
                 let sourceUser = NewsSource()
                 sourceUser.id = item["id"].intValue
@@ -269,13 +245,16 @@ class ParserService: ParserServiceProtocol {
                 firebaseService.updateNewsSource(object: sourceUser)
                 
                 return sourceUser
+                
             }
             
-            return result
+            let newsSources = sourceGroupsArray + sourceProfilesArray
+            
+            return ( newsArray, newsSources )
             
         } catch {
             print(error.localizedDescription)
-            return []
+            return ( [],[] )
         }
     }
 

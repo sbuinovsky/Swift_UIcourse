@@ -17,7 +17,7 @@ protocol DataServiceProtocol {
     func loadEducation(userIds: Int) -> Promise<Education>
     func loadGroups(completion: @escaping () -> Void)
     func loadUserPhotos(targetId: Int) -> Promise<Photo>
-    func loadNews(completion: @escaping () -> Void)
+    func loadNews(startFrom: String, completion: @escaping (String) -> Void)
     func loadImage(imageURL: String) -> Promise<UIImage>
     func loadImageByURL(imageURL: String) -> UIImage?
 }
@@ -181,10 +181,12 @@ class DataService: DataServiceProtocol {
     }
     
     
-    func loadNews(completion: @escaping () -> Void) {
+    func loadNews(startFrom: String, completion: @escaping (String) -> Void) {
         
         let apiParameters: [String : Any] = [
-            "filters" : "post"
+            "filters" : "post",
+            "count" : 20,
+            "start_from" : startFrom
         ]
         
         apiParameters.forEach { (k,v) in parameters[k] = v }
@@ -198,17 +200,20 @@ class DataService: DataServiceProtocol {
             } else {
                 guard let data = response.data else { return }
                 
-                let news: [News] = self.parser.newsParser(data: data)
-                let sourceGroups: [NewsSource] = self.parser.sourceGroupsParser(data: data)
-                let sourceProfiles: [NewsSource] = self.parser.sourceUsersParser(data: data)
-                
-                
-                self.realmService.saveObjects(objects: news)
-                self.realmService.saveObjects(objects: sourceGroups)
-                self.realmService.saveObjects(objects: sourceProfiles)
-                
-                
-                completion()
+                do {
+                    let json = try JSON(data: data)
+                    let nextFrom = json["response"]["next_from"].stringValue
+                    let news: [News] = self.parser.newsParser(data: data).0
+                    let newsSources: [NewsSource] = self.parser.newsParser(data: data).1
+                    
+                    self.realmService.saveObjects(objects: news)
+                    self.realmService.saveObjects(objects: newsSources)
+                    completion(nextFrom)
+                    
+                } catch {
+                    print(error.localizedDescription)
+                    completion("")
+                }
                 
             }
             
