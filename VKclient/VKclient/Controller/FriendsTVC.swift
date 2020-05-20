@@ -81,6 +81,7 @@ class FriendsTVC: UITableViewController {
                 self.prepareSections()
         }
         
+        tableView.backgroundColor = UIColor(named: "main_background")
         
         //регистрируем xib для кастомного отображения header ячеек
         tableView.register(UINib(nibName: "CustomCellHeader", bundle: nil), forHeaderFooterViewReuseIdentifier: "cellHeaderView")

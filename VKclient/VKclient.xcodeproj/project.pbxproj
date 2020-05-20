@@ -175,11 +175,11 @@
 				C2DCDEA8240C3B8A00DF7780 /* Custom */,
 				C260709E243BC2E500598082 /* StartVC.swift */,
 				C2654890241EAF6300D2681A /* LoginWVC.swift */,
+				C2BCEDEB23FB2609009D981F /* NewsTVC.swift */,
 				C25A0F7423EC8CDE00CAD84B /* FriendsTVC.swift */,
 				C2B5D6B124668D3900C91788 /* UserProfileTVC.swift */,
 				C2B5D6AD24656D1D00C91788 /* UserProfilePhotosCVC.swift */,
 				C25A0F7723EC8D3A00CAD84B /* GroupsTVC.swift */,
-				C2BCEDEB23FB2609009D981F /* NewsTVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
