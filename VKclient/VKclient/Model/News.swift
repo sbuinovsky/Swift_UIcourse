@@ -31,6 +31,10 @@ class News: Object {
        return CGFloat( imageHeight / imageWidth )
     }
     
+    var shortText: String {
+        return String(text.prefix(200))
+    }
+    
     
     override class func primaryKey() -> String? {
         return "postId"

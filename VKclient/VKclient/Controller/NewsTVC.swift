@@ -20,6 +20,8 @@ class NewsTVC: UITableViewController {
     private var sections: Results<News>?
     private var token: NotificationToken?
     
+    weak var delegate: NewsTopCellDelegate?
+    
     private var likeBox = Like()
     
     private let dateFormatter: DateFormatter = {
@@ -30,8 +32,11 @@ class NewsTVC: UITableViewController {
     
     private var cachedDates = [IndexPath: String]()
     
+    private var fullTextCells = Set<IndexPath>()
+    
     private var startFrom: String = ""
     private var loading: Bool = false
+    
     
     
     func prepareSections() {
@@ -100,9 +105,15 @@ class NewsTVC: UITableViewController {
 
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        guard indexPath.row == 1, let news = sections?[indexPath.section], news.hasImage else { return UITableView.automaticDimension}
+        guard let news = sections?[indexPath.section] else { return UITableView.automaticDimension}
         
-        return tableView.bounds.width * news.aspectRatio
+        if indexPath.row == 1, news.hasImage {
+            return tableView.bounds.width * news.aspectRatio
+        }
+        else {
+            return UITableView.automaticDimension
+        }
+        
     }
     
     
@@ -151,9 +162,17 @@ class NewsTVC: UITableViewController {
         
         let imageURL = news.imageURL
         
+        var activeText: String {
+            fullTextCells.contains(indexPath) ? news.text : news.shortText
+        }
+        
         if indexPath.row == 0 {
             
             let cell = tableView.dequeueReusableCell(withIdentifier: "NewsTopCell", for: indexPath) as! NewsTopCell
+            
+            cell.indexPath = indexPath
+            
+            cell.delegate = self
             
             if let source = self.realmService.getNewsSourceById(id: news.sourceId) {
                 
@@ -167,7 +186,14 @@ class NewsTVC: UITableViewController {
             
             cell.date.text = dateFormat(inputDate: news.date)
             
-            cell.newsText.text = news.text
+            if fullTextCells.contains(indexPath) {
+                cell.showMoreButton.setTitle("Show less", for: .normal)
+            } else {
+                cell.showMoreButton.setTitle("Show more", for: .normal)
+            }
+            
+            cell.newsText.text = activeText
+            cell.newsTextHeight.constant = cell.getRowHeightFromText(text: activeText)
             
             return cell
             
@@ -205,7 +231,7 @@ class NewsTVC: UITableViewController {
         let convertedDate = dateFormatter.string(from: date as Date)
         return convertedDate
     }
-
+    
 }
 
 extension NewsTVC: UITableViewDataSourcePrefetching {
@@ -223,4 +249,24 @@ extension NewsTVC: UITableViewDataSourcePrefetching {
         }
     }
     
+}
+
+extension NewsTVC: NewsTopCellDelegate {
+    func showMoreTapped(indexPath: IndexPath) {
+        
+//        let cell = tableView.cellForRow(at: indexPath) as! NewsTopCell
+        
+        if fullTextCells.contains(indexPath) {
+            fullTextCells.remove(indexPath)
+            
+        }
+        else {
+            fullTextCells.insert(indexPath)
+
+        }
+        
+        tableView.reloadRows(at: [indexPath], with: .automatic)
+        
+    }
+
 }
