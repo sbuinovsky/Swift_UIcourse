@@ -39,10 +39,14 @@ class NewsTopCell: UITableViewCell {
     
     
     func setupCell() {
-        if newsText.text == "" || newsText.text.count < 200 {
+        if newsText.text == "" {
             newsTextHeight.constant = 0
             showMoreButton.isHidden = true
-        } else {
+        }
+        else if newsText.text.count < 200 {
+            showMoreButton.isHidden = true
+        }
+        else {
             showMoreButton.isHidden = false
         }
     }
