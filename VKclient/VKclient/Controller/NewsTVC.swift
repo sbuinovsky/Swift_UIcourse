@@ -194,6 +194,7 @@ class NewsTVC: UITableViewController {
             
             cell.newsText.text = activeText
             cell.newsTextHeight.constant = cell.getRowHeightFromText(text: activeText)
+            cell.setupCell()
             
             return cell
             

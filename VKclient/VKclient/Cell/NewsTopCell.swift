@@ -35,13 +35,16 @@ class NewsTopCell: UITableViewCell {
         
         sourceImage.layer.mask = maskLayer
         
+    }
+    
+    
+    func setupCell() {
         if newsText.text == "" || newsText.text.count < 200 {
             newsTextHeight.constant = 0
             showMoreButton.isHidden = true
         } else {
             showMoreButton.isHidden = false
         }
-        
     }
     
     
