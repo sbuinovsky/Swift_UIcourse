@@ -10,6 +10,7 @@ import UIKit
 import FirebaseAuth
 import FirebaseDatabase
 
+
 class StartVC: UIViewController {
 
     override func viewDidLoad() {
@@ -19,6 +20,10 @@ class StartVC: UIViewController {
         
         firebaseService.anonymousAuth()
         
+        if SessionData.shared.token != "" {
+            performSegue(withIdentifier: "ToTabBarController", sender: AnyObject.self)
+        }
+    
     }
     
 }

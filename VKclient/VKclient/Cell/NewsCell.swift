@@ -10,93 +10,19 @@ import UIKit
 
 class NewsCell: UITableViewCell {
     
-    @IBOutlet weak var sourceImage: UIImageView!
-    @IBOutlet weak var sourceName: UILabel!
-    @IBOutlet weak var date: UILabel!
-    @IBOutlet weak var newsText: UITextView!
-    @IBOutlet weak var likeImage: UIImageView!
-    @IBOutlet weak var likeCounter: UILabel!
     @IBOutlet weak var newsImage: UIImageView!
-    @IBOutlet weak var shareButton: UIImageView!
-    @IBOutlet weak var commentsButton: UIImageView!
-    @IBOutlet weak var commentsCounter: UILabel!
-    @IBOutlet weak var viewsImage: UIImageView!
-    @IBOutlet weak var viewsCounter: UILabel!
-    @IBOutlet weak var repostImage: UIImageView!
-    @IBOutlet weak var repostCounter: UILabel!
-    
-    
-    //инициализируем базовый объект Like
-    let likeBox: Like = .init()
     
     
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        //скругление аватара пользователя
-        let path = UIBezierPath()
-        path.addArc(withCenter: CGPoint(x: sourceImage.bounds.width/2, y: sourceImage.bounds.height/2), radius: sourceImage.bounds.width/2, startAngle: 0, endAngle: 360, clockwise: true)
-        let maskLayer = CAShapeLayer()
-        maskLayer.path = path.cgPath
-        
-       sourceImage.layer.mask = maskLayer
-        
-        
-        //добавляем обработку нажатия на элемент
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(onTap(_:)))
-        
-        likeImage.addGestureRecognizer(tapGesture)
-        likeImage.isUserInteractionEnabled = true
-        
+       
     }
     
     
-    @objc func onTap(_ sender: UIGestureRecognizer) {
-        print(#function)
-        
-        if let string = likeCounter.text, let counter = Int(string) {
-            
-            if likeBox.active == false {
-                likeBox.active = true
-                likeBox.counter = counter + 1
-                likeCounter.text = "\(likeBox.counter)"
-                likeImage.image = UIImage(imageLiteralResourceName: "likeImageActive")
-            } else {
-                likeBox.active = false
-                likeBox.counter = counter - 1
-                likeCounter.text = "\(likeBox.counter)"
-                likeImage.image = UIImage(imageLiteralResourceName: "likeImageDefault")
-            }
-        }
-            
-        
-        
-        UIView.animate(withDuration: 1,
-                       delay: 0,
-                       usingSpringWithDamping: 0.2,
-                       initialSpringVelocity: 20,
-                       options: .curveEaseInOut,
-                       animations: {
-                        self.likeImage.center.y += 4
-        })
-        
+    func setImage( image: UIImage? ) {
+        guard let image = image else { return }
+        newsImage.image = image
     }
-    
-    
-//    override func prepareForReuse() {
-//        super.prepareForReuse()
-//        sourceImage.image = nil
-//        sourceName.text = ""
-//        date.text = ""
-//        newsText.text = ""
-//        likeImage.image = nil
-//        likeCounter.text = ""
-//        newsImage.image = nil
-//        shareButton.image = nil
-//        commentsButton.image = nil
-//        viewsImage.image = nil
-//        viewsCounter.text = ""
-//        
-//    }
 
 }

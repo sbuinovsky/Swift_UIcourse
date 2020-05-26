@@ -60,7 +60,10 @@ class ImageCache {
             guard let data = response.data,
                 let image = UIImage(data: data) else { return }
             
-            self?.images[url] = image
+            DispatchQueue.main.async { [weak self] in
+                self?.images[url] = image
+            }
+            
             self?.saveImageToCache(url: url, image: image)
             
             DispatchQueue.main.async { [weak self] in
