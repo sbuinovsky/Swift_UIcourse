@@ -3,16 +3,29 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C25C8C6624881A0000CFA75D /* GameTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C25C8C6524881A0000CFA75D /* GameTVC.swift */; };
+		C25C8C6824881A2A00CFA75D /* HeaderGameTVCCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C25C8C6724881A2A00CFA75D /* HeaderGameTVCCell.swift */; };
+		C25C8C6A24881A4F00CFA75D /* QuestionGameTVCCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C25C8C6924881A4F00CFA75D /* QuestionGameTVCCell.swift */; };
+		C25C8C6C24881A6600CFA75D /* AnswerGameTVCCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C25C8C6B24881A6600CFA75D /* AnswerGameTVCCell.swift */; };
+		C25C8C6E24881A7A00CFA75D /* FooterGameTVCCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C25C8C6D24881A7A00CFA75D /* FooterGameTVCCell.swift */; };
+		C25C8C712488765900CFA75D /* RealmService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C25C8C702488765900CFA75D /* RealmService.swift */; };
+		C25C8C7324887BC200CFA75D /* ResultsTVCCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C25C8C7224887BC200CFA75D /* ResultsTVCCell.swift */; };
 		C2D5BDDB24863668000D3BCF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2D5BDDA24863668000D3BCF /* AppDelegate.swift */; };
 		C2D5BDDD24863668000D3BCF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2D5BDDC24863668000D3BCF /* SceneDelegate.swift */; };
-		C2D5BDDF24863668000D3BCF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2D5BDDE24863668000D3BCF /* ViewController.swift */; };
+		C2D5BDDF24863668000D3BCF /* StartVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2D5BDDE24863668000D3BCF /* StartVC.swift */; };
 		C2D5BDE224863668000D3BCF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C2D5BDE024863668000D3BCF /* Main.storyboard */; };
 		C2D5BDE424863669000D3BCF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C2D5BDE324863669000D3BCF /* Assets.xcassets */; };
 		C2D5BDE724863669000D3BCF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C2D5BDE524863669000D3BCF /* LaunchScreen.storyboard */; };
+		C2D5BE0E2487A694000D3BCF /* ResultsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2D5BE0D2487A694000D3BCF /* ResultsTVC.swift */; };
+		C2D5BE142487A858000D3BCF /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2D5BE132487A858000D3BCF /* Game.swift */; };
+		C2D5BE162487A867000D3BCF /* GameSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2D5BE152487A867000D3BCF /* GameSession.swift */; };
+		C2D5BE182487A873000D3BCF /* Question.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2D5BE172487A873000D3BCF /* Question.swift */; };
+		C2D5BE1D2487A942000D3BCF /* Answer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2D5BE1C2487A942000D3BCF /* Answer.swift */; };
+		C2D5BE212487B342000D3BCF /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2D5BE202487B342000D3BCF /* Result.swift */; };
 		D985B79FA59342DC7875A1EC /* Pods_Millioner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B3D1BDFDC2EED8892AEF27E /* Pods_Millioner.framework */; };
 /* End PBXBuildFile section */
 
@@ -20,14 +33,27 @@
 		5C44684D5C7EA0666E0451C3 /* Pods-Millioner.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Millioner.release.xcconfig"; path = "Target Support Files/Pods-Millioner/Pods-Millioner.release.xcconfig"; sourceTree = "<group>"; };
 		6B3D1BDFDC2EED8892AEF27E /* Pods_Millioner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Millioner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9C0D50AE073D52DBC3ED3FD5 /* Pods-Millioner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Millioner.debug.xcconfig"; path = "Target Support Files/Pods-Millioner/Pods-Millioner.debug.xcconfig"; sourceTree = "<group>"; };
+		C25C8C6524881A0000CFA75D /* GameTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameTVC.swift; sourceTree = "<group>"; };
+		C25C8C6724881A2A00CFA75D /* HeaderGameTVCCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderGameTVCCell.swift; sourceTree = "<group>"; };
+		C25C8C6924881A4F00CFA75D /* QuestionGameTVCCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionGameTVCCell.swift; sourceTree = "<group>"; };
+		C25C8C6B24881A6600CFA75D /* AnswerGameTVCCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerGameTVCCell.swift; sourceTree = "<group>"; };
+		C25C8C6D24881A7A00CFA75D /* FooterGameTVCCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterGameTVCCell.swift; sourceTree = "<group>"; };
+		C25C8C702488765900CFA75D /* RealmService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmService.swift; sourceTree = "<group>"; };
+		C25C8C7224887BC200CFA75D /* ResultsTVCCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsTVCCell.swift; sourceTree = "<group>"; };
 		C2D5BDD724863668000D3BCF /* Millioner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Millioner.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C2D5BDDA24863668000D3BCF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C2D5BDDC24863668000D3BCF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		C2D5BDDE24863668000D3BCF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		C2D5BDDE24863668000D3BCF /* StartVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartVC.swift; sourceTree = "<group>"; };
 		C2D5BDE124863668000D3BCF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C2D5BDE324863669000D3BCF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C2D5BDE624863669000D3BCF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C2D5BDE824863669000D3BCF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C2D5BE0D2487A694000D3BCF /* ResultsTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsTVC.swift; sourceTree = "<group>"; };
+		C2D5BE132487A858000D3BCF /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
+		C2D5BE152487A867000D3BCF /* GameSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSession.swift; sourceTree = "<group>"; };
+		C2D5BE172487A873000D3BCF /* Question.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Question.swift; sourceTree = "<group>"; };
+		C2D5BE1C2487A942000D3BCF /* Answer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Answer.swift; sourceTree = "<group>"; };
+		C2D5BE202487B342000D3BCF /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -48,6 +74,14 @@
 				6B3D1BDFDC2EED8892AEF27E /* Pods_Millioner.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C25C8C6F2488763B00CFA75D /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				C25C8C702488765900CFA75D /* RealmService.swift */,
+			);
+			path = Service;
 			sourceTree = "<group>";
 		};
 		C2D5BDCE24863668000D3BCF = {
@@ -71,15 +105,60 @@
 		C2D5BDD924863668000D3BCF /* Millioner */ = {
 			isa = PBXGroup;
 			children = (
+				C2D5BDE024863668000D3BCF /* Main.storyboard */,
+				C2D5BE0824879EDD000D3BCF /* Controller */,
+				C2D5BE0924879EE5000D3BCF /* Cell */,
+				C2D5BE0A24879EEB000D3BCF /* Model */,
+				C2D5BE192487A87D000D3BCF /* Singletone */,
+				C25C8C6F2488763B00CFA75D /* Service */,
 				C2D5BDDA24863668000D3BCF /* AppDelegate.swift */,
 				C2D5BDDC24863668000D3BCF /* SceneDelegate.swift */,
-				C2D5BDDE24863668000D3BCF /* ViewController.swift */,
-				C2D5BDE024863668000D3BCF /* Main.storyboard */,
 				C2D5BDE324863669000D3BCF /* Assets.xcassets */,
 				C2D5BDE524863669000D3BCF /* LaunchScreen.storyboard */,
 				C2D5BDE824863669000D3BCF /* Info.plist */,
 			);
 			path = Millioner;
+			sourceTree = "<group>";
+		};
+		C2D5BE0824879EDD000D3BCF /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				C2D5BDDE24863668000D3BCF /* StartVC.swift */,
+				C2D5BE0D2487A694000D3BCF /* ResultsTVC.swift */,
+				C25C8C6524881A0000CFA75D /* GameTVC.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		C2D5BE0924879EE5000D3BCF /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				C25C8C6724881A2A00CFA75D /* HeaderGameTVCCell.swift */,
+				C25C8C6924881A4F00CFA75D /* QuestionGameTVCCell.swift */,
+				C25C8C6B24881A6600CFA75D /* AnswerGameTVCCell.swift */,
+				C25C8C6D24881A7A00CFA75D /* FooterGameTVCCell.swift */,
+				C25C8C7224887BC200CFA75D /* ResultsTVCCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		C2D5BE0A24879EEB000D3BCF /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				C2D5BE152487A867000D3BCF /* GameSession.swift */,
+				C2D5BE172487A873000D3BCF /* Question.swift */,
+				C2D5BE1C2487A942000D3BCF /* Answer.swift */,
+				C2D5BE202487B342000D3BCF /* Result.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		C2D5BE192487A87D000D3BCF /* Singletone */ = {
+			isa = PBXGroup;
+			children = (
+				C2D5BE132487A858000D3BCF /* Game.swift */,
+			);
+			path = Singletone;
 			sourceTree = "<group>";
 		};
 		F56A140A68675C4A883BC350 /* Pods */ = {
@@ -88,7 +167,6 @@
 				9C0D50AE073D52DBC3ED3FD5 /* Pods-Millioner.debug.xcconfig */,
 				5C44684D5C7EA0666E0451C3 /* Pods-Millioner.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -207,9 +285,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C2D5BDDF24863668000D3BCF /* ViewController.swift in Sources */,
+				C2D5BE212487B342000D3BCF /* Result.swift in Sources */,
+				C25C8C6A24881A4F00CFA75D /* QuestionGameTVCCell.swift in Sources */,
+				C2D5BDDF24863668000D3BCF /* StartVC.swift in Sources */,
 				C2D5BDDB24863668000D3BCF /* AppDelegate.swift in Sources */,
+				C25C8C712488765900CFA75D /* RealmService.swift in Sources */,
+				C25C8C6624881A0000CFA75D /* GameTVC.swift in Sources */,
+				C25C8C6824881A2A00CFA75D /* HeaderGameTVCCell.swift in Sources */,
+				C2D5BE1D2487A942000D3BCF /* Answer.swift in Sources */,
+				C25C8C6E24881A7A00CFA75D /* FooterGameTVCCell.swift in Sources */,
+				C2D5BE182487A873000D3BCF /* Question.swift in Sources */,
 				C2D5BDDD24863668000D3BCF /* SceneDelegate.swift in Sources */,
+				C2D5BE0E2487A694000D3BCF /* ResultsTVC.swift in Sources */,
+				C2D5BE162487A867000D3BCF /* GameSession.swift in Sources */,
+				C25C8C6C24881A6600CFA75D /* AnswerGameTVCCell.swift in Sources */,
+				C25C8C7324887BC200CFA75D /* ResultsTVCCell.swift in Sources */,
+				C2D5BE142487A858000D3BCF /* Game.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
