@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C2351D9C248D6D3B006C43DB /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2351D9B248D6D3B006C43DB /* SettingsVC.swift */; };
 		C25C8C6624881A0000CFA75D /* GameTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C25C8C6524881A0000CFA75D /* GameTVC.swift */; };
 		C25C8C6824881A2A00CFA75D /* HeaderGameTVCCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C25C8C6724881A2A00CFA75D /* HeaderGameTVCCell.swift */; };
 		C25C8C6A24881A4F00CFA75D /* QuestionGameTVCCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C25C8C6924881A4F00CFA75D /* QuestionGameTVCCell.swift */; };
@@ -33,6 +34,7 @@
 		5C44684D5C7EA0666E0451C3 /* Pods-Millioner.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Millioner.release.xcconfig"; path = "Target Support Files/Pods-Millioner/Pods-Millioner.release.xcconfig"; sourceTree = "<group>"; };
 		6B3D1BDFDC2EED8892AEF27E /* Pods_Millioner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Millioner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9C0D50AE073D52DBC3ED3FD5 /* Pods-Millioner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Millioner.debug.xcconfig"; path = "Target Support Files/Pods-Millioner/Pods-Millioner.debug.xcconfig"; sourceTree = "<group>"; };
+		C2351D9B248D6D3B006C43DB /* SettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
 		C25C8C6524881A0000CFA75D /* GameTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameTVC.swift; sourceTree = "<group>"; };
 		C25C8C6724881A2A00CFA75D /* HeaderGameTVCCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderGameTVCCell.swift; sourceTree = "<group>"; };
 		C25C8C6924881A4F00CFA75D /* QuestionGameTVCCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionGameTVCCell.swift; sourceTree = "<group>"; };
@@ -76,6 +78,13 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		C2351D9A248D6BF2006C43DB /* Strategy */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Strategy;
+			sourceTree = "<group>";
+		};
 		C25C8C6F2488763B00CFA75D /* Service */ = {
 			isa = PBXGroup;
 			children = (
@@ -110,6 +119,7 @@
 				C2D5BE0924879EE5000D3BCF /* Cell */,
 				C2D5BE0A24879EEB000D3BCF /* Model */,
 				C2D5BE192487A87D000D3BCF /* Singletone */,
+				C2351D9A248D6BF2006C43DB /* Strategy */,
 				C25C8C6F2488763B00CFA75D /* Service */,
 				C2D5BDDA24863668000D3BCF /* AppDelegate.swift */,
 				C2D5BDDC24863668000D3BCF /* SceneDelegate.swift */,
@@ -126,6 +136,7 @@
 				C2D5BDDE24863668000D3BCF /* StartVC.swift */,
 				C2D5BE0D2487A694000D3BCF /* ResultsTVC.swift */,
 				C25C8C6524881A0000CFA75D /* GameTVC.swift */,
+				C2351D9B248D6D3B006C43DB /* SettingsVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -285,6 +296,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C2351D9C248D6D3B006C43DB /* SettingsVC.swift in Sources */,
 				C2D5BE212487B342000D3BCF /* Result.swift in Sources */,
 				C25C8C6A24881A4F00CFA75D /* QuestionGameTVCCell.swift in Sources */,
 				C2D5BDDF24863668000D3BCF /* StartVC.swift in Sources */,
