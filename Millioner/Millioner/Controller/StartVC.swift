@@ -17,12 +17,13 @@ class StartVC: UIViewController {
         super.viewDidLoad()
 
         Game.shared.loadResults()
-        Game.shared.prepareQuestions()
         
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "NewGameSeague" {
+            
+            Game.shared.prepareQuestions()
             
             guard let gameTVC = segue.destination as? GameTVC else { return }
             gameTVC.delegate = self

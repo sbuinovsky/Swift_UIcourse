@@ -21,6 +21,8 @@ final class Game {
     private var questions = [Question]()
     private var gameQuestions = [Question]()
     
+    var difficulty: Difficulty = .easy
+    
     private init() { }
     
     private func createQuestions() {
@@ -51,9 +53,22 @@ final class Game {
     }
     
     
+    func saveDifficulty(value: Difficulty) {
+        difficulty = value
+        print("Saved difficulty: \(difficulty)")
+    }
+    
+    
     func prepareQuestions() {
         createQuestions()
-        gameQuestions = questions
+        
+        switch difficulty {
+        case .hard:
+            gameQuestions = questions.shuffled()
+        default:
+            gameQuestions = questions
+        }
+        
     }
     
     

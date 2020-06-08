@@ -25,6 +25,7 @@ class GameTVC: UITableViewController {
     var rightAnswers: Int = 0
     var balance: Int = 0
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
