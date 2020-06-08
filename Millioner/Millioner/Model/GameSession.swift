@@ -11,8 +11,12 @@ import UIKit
 class GameSession {
 
     var questions: Int = 0
-    var answers: Int = 0
+    var answers = Observable<Int>(0)
     var balance: Int = 0
+    
+    var persentage: Double {
+        return Double(answers.value)/Double(questions)*100
+    }
     
 }
 

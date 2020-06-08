@@ -10,12 +10,27 @@ import UIKit
 import RealmSwift
 
 protocol RealmServiceProtocol {
-    
+    func saveObject(object: Object) throws
     func saveResults(results: [Result]) throws
     func getResults() -> [Result]
 }
 
 class RealmService: RealmServiceProtocol {
+    
+    
+    func saveObject(object: Object) {
+        do {
+            Realm.Configuration.defaultConfiguration = Realm.Configuration(deleteRealmIfMigrationNeeded: true)
+            let realm = try Realm()
+            realm.beginWrite()
+            realm.add(object, update: .modified)
+            try realm.commitWrite()
+        }
+        catch {
+            print(error.localizedDescription)
+        }
+    }
+    
     
     func saveResults(results: [Result]) {
         do {
@@ -30,6 +45,7 @@ class RealmService: RealmServiceProtocol {
             print(error.localizedDescription)
         }
     }
+    
     
     func getResults() -> [Result] {
         do {

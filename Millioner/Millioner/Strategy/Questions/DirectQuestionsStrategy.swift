@@ -9,10 +9,8 @@
 import Foundation
 
 final class DirectQuestionsStrategy: QuestionsStrategy {
-    func prepareQuestions(difficulty: Difficulty) {
-        
+    func getQuestion() -> Question? {
+        return Game.shared.getQuestion()
     }
-    
-    
-    
+
 }

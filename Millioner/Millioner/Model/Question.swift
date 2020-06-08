@@ -8,7 +8,7 @@
 
 import UIKit
 
-class Question {
+class Question: Encodable, Decodable {
     
     var id: Int = 0
     var questionText: String = ""

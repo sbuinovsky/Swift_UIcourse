@@ -9,10 +9,8 @@
 import Foundation
 
 final class ShuffleQuestionsStrategy: QuestionsStrategy {
-    func prepareQuestions(difficulty: Difficulty) {
-        
+    func getQuestion() -> Question? {
+        return Game.shared.getShuffleQuestion()
     }
-    
-    
     
 }

@@ -36,9 +36,7 @@ class StartVC: UIViewController {
 }
 
 extension StartVC: GameTVCDelegate {
-    func updateSession(totalQuestions: Int, rightAnswers: Int, totalBalance: Int) {
-        Game.shared.gameSession?.questions = totalQuestions
-        Game.shared.gameSession?.answers = rightAnswers
+    func updateSession(totalBalance: Int) {
         Game.shared.gameSession?.balance = totalBalance
         Game.shared.addResult()
 

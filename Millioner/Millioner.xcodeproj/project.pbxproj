@@ -12,6 +12,9 @@
 		C2351DA1248DE453006C43DB /* QuestionsStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2351DA0248DE453006C43DB /* QuestionsStrategy.swift */; };
 		C2351DA3248DE4BF006C43DB /* DirectQuestionsStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2351DA2248DE4BF006C43DB /* DirectQuestionsStrategy.swift */; };
 		C2351DA5248DE4D3006C43DB /* ShuffleQuestionsStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2351DA4248DE4D3006C43DB /* ShuffleQuestionsStrategy.swift */; };
+		C2351DA7248E3594006C43DB /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2351DA6248E3594006C43DB /* Observable.swift */; };
+		C2351DA9248E53BC006C43DB /* AddQuestionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2351DA8248E53BC006C43DB /* AddQuestionVC.swift */; };
+		C2351DAB248E6013006C43DB /* QuestionsCaretaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2351DAA248E6013006C43DB /* QuestionsCaretaker.swift */; };
 		C25C8C6624881A0000CFA75D /* GameTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C25C8C6524881A0000CFA75D /* GameTVC.swift */; };
 		C25C8C6824881A2A00CFA75D /* HeaderGameTVCCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C25C8C6724881A2A00CFA75D /* HeaderGameTVCCell.swift */; };
 		C25C8C6A24881A4F00CFA75D /* QuestionGameTVCCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C25C8C6924881A4F00CFA75D /* QuestionGameTVCCell.swift */; };
@@ -43,6 +46,9 @@
 		C2351DA0248DE453006C43DB /* QuestionsStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionsStrategy.swift; sourceTree = "<group>"; };
 		C2351DA2248DE4BF006C43DB /* DirectQuestionsStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectQuestionsStrategy.swift; sourceTree = "<group>"; };
 		C2351DA4248DE4D3006C43DB /* ShuffleQuestionsStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShuffleQuestionsStrategy.swift; sourceTree = "<group>"; };
+		C2351DA6248E3594006C43DB /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
+		C2351DA8248E53BC006C43DB /* AddQuestionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddQuestionVC.swift; sourceTree = "<group>"; };
+		C2351DAA248E6013006C43DB /* QuestionsCaretaker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionsCaretaker.swift; sourceTree = "<group>"; };
 		C25C8C6524881A0000CFA75D /* GameTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameTVC.swift; sourceTree = "<group>"; };
 		C25C8C6724881A2A00CFA75D /* HeaderGameTVCCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderGameTVCCell.swift; sourceTree = "<group>"; };
 		C25C8C6924881A4F00CFA75D /* QuestionGameTVCCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionGameTVCCell.swift; sourceTree = "<group>"; };
@@ -108,6 +114,7 @@
 			isa = PBXGroup;
 			children = (
 				C25C8C702488765900CFA75D /* RealmService.swift */,
+				C2351DAA248E6013006C43DB /* QuestionsCaretaker.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -153,9 +160,10 @@
 			isa = PBXGroup;
 			children = (
 				C2D5BDDE24863668000D3BCF /* StartVC.swift */,
-				C2D5BE0D2487A694000D3BCF /* ResultsTVC.swift */,
 				C25C8C6524881A0000CFA75D /* GameTVC.swift */,
+				C2D5BE0D2487A694000D3BCF /* ResultsTVC.swift */,
 				C2351D9B248D6D3B006C43DB /* SettingsVC.swift */,
+				C2351DA8248E53BC006C43DB /* AddQuestionVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -180,6 +188,7 @@
 				C2D5BE1C2487A942000D3BCF /* Answer.swift */,
 				C2D5BE202487B342000D3BCF /* Result.swift */,
 				C2351D9D248D6EE4006C43DB /* Difficulty.swift */,
+				C2351DA6248E3594006C43DB /* Observable.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -316,12 +325,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C2351DA7248E3594006C43DB /* Observable.swift in Sources */,
 				C2351D9C248D6D3B006C43DB /* SettingsVC.swift in Sources */,
 				C2D5BE212487B342000D3BCF /* Result.swift in Sources */,
 				C25C8C6A24881A4F00CFA75D /* QuestionGameTVCCell.swift in Sources */,
 				C2351DA1248DE453006C43DB /* QuestionsStrategy.swift in Sources */,
 				C2D5BDDF24863668000D3BCF /* StartVC.swift in Sources */,
+				C2351DA9248E53BC006C43DB /* AddQuestionVC.swift in Sources */,
 				C2D5BDDB24863668000D3BCF /* AppDelegate.swift in Sources */,
+				C2351DAB248E6013006C43DB /* QuestionsCaretaker.swift in Sources */,
 				C25C8C712488765900CFA75D /* RealmService.swift in Sources */,
 				C25C8C6624881A0000CFA75D /* GameTVC.swift in Sources */,
 				C25C8C6824881A2A00CFA75D /* HeaderGameTVCCell.swift in Sources */,

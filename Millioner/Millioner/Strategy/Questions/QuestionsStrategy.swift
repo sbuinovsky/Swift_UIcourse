@@ -9,5 +9,5 @@
 import Foundation
 
 protocol QuestionsStrategy {
-    func prepareQuestions(difficulty: Difficulty)
+    func getQuestion() -> Question?
 }

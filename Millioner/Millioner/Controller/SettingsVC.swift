@@ -15,7 +15,7 @@ class SettingsVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        if Game.shared.difficulty == .hard {
+        if Game.shared.getDifficulty() == .hard {
             difficulty.selectedSegmentIndex = 1
         } else {
             difficulty.selectedSegmentIndex = 0
