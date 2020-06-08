@@ -24,9 +24,8 @@ class AddQuestionVC: UIViewController {
     
     private let questionsCaretacker: QuestionsCaretaker = .init()
     
-    private let question: Question = .init()
-    private var answer: Answer = .init()
-    
+    private var questions: [Question] = []
+   
     private var alertText: String = ""
     
     override func viewDidLoad() {
@@ -38,6 +37,9 @@ class AddQuestionVC: UIViewController {
 
     @IBAction func addQuestionButtonTaped(_ sender: Any) {
         
+        let question: Question = .init()
+        var answer: Answer = .init()
+        
         if !questionTextField.text!.isEmpty {
             question.questionText = questionTextField.text!
         } else {
@@ -46,6 +48,8 @@ class AddQuestionVC: UIViewController {
         
         
         if !answer1TextField.text!.isEmpty {
+            answer = Answer()
+            
             answer.answerText = answer1TextField.text!
             
             if answer1Switch.isOn {
@@ -60,6 +64,8 @@ class AddQuestionVC: UIViewController {
         
         
         if !answer2TextField.text!.isEmpty {
+            answer = Answer()
+            
             answer.answerText = answer2TextField.text!
             
             if answer2Switch.isOn {
@@ -74,6 +80,8 @@ class AddQuestionVC: UIViewController {
         
         
         if !answer3TextField.text!.isEmpty {
+            answer = Answer()
+            
             answer.answerText = answer3TextField.text!
             
             if answer3Switch.isOn {
@@ -88,6 +96,8 @@ class AddQuestionVC: UIViewController {
         
         
         if !answer4TextField.text!.isEmpty {
+            answer = Answer()
+            
             answer.answerText = answer4TextField.text!
             
             if answer4Switch.isOn {
@@ -109,7 +119,8 @@ class AddQuestionVC: UIViewController {
             self.present(alert, animated: true, completion: nil)
             alertText = ""
         } else {
-            questionsCaretacker.save(questions: [question])
+            questions.append(question)
+            questionsCaretacker.save(questions: questions)
             topMessageTextLabel.text = "Your question added to base!"
             topMessageTextLabel.textColor = .systemGreen
         }
