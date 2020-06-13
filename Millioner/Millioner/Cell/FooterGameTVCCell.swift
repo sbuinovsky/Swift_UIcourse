@@ -13,6 +13,7 @@ class FooterGameTVCCell: UITableViewCell {
     @IBOutlet weak var costLabel: UILabel!
     @IBOutlet weak var balanceLabel: UILabel!
     @IBOutlet weak var resultMessageLabel: UILabel!
+    @IBOutlet weak var gameProgress: UILabel!
     
     
     override func awakeFromNib() {

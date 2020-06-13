@@ -8,9 +8,11 @@
 
 import UIKit
 
+
 final class Game {
     
     private let realmService: RealmServiceProtocol = RealmService()
+    private let questionsCaretacker: QuestionsCaretaker = .init()
     
     static let shared = Game()
     
@@ -20,6 +22,11 @@ final class Game {
     
     private var questions = [Question]()
     private var gameQuestions = [Question]()
+    private var gameQuestionsShuffled = [Question]()
+    
+    private var difficulty: Difficulty = .easy
+    
+    private var questionsStrategy: QuestionsStrategy = DirectQuestionsStrategy()
     
     private init() { }
     
@@ -48,14 +55,46 @@ final class Game {
             
         }
         
+        let userQuestions = questionsCaretacker.retrieveRecords()
+        questions.append(contentsOf: userQuestions)
+    }
+    
+    
+    func saveDifficulty(value: Difficulty) {
+       
+        difficulty = value
+        
+        switch value {
+        case .hard:
+            questionsStrategy = ShuffleQuestionsStrategy()
+        default:
+            questionsStrategy = DirectQuestionsStrategy()
+        }
+        
+        print("Saved difficulty: \(difficulty)")
+    }
+    
+    
+    func getDifficulty() -> Difficulty {
+        return difficulty
+    }
+
+    func getStrategy() -> QuestionsStrategy {
+        return questionsStrategy
     }
     
     
     func prepareQuestions() {
         createQuestions()
         gameQuestions = questions
+        gameQuestionsShuffled = questions.shuffled()
+        
     }
     
+    
+    func getTotalQuestionsCount() -> Int {
+        return questions.count
+    }
     
     func getQuestion() -> Question? {
         
@@ -63,6 +102,23 @@ final class Game {
             
             let question = gameQuestions.first
             gameQuestions.removeFirst()
+            
+            return question
+            
+        } else {
+            print("Empty questions array")
+            
+            return nil
+        }
+    }
+    
+    
+    func getShuffleQuestion() -> Question? {
+        
+        if !gameQuestionsShuffled.isEmpty {
+            
+            let question = gameQuestionsShuffled.first
+            gameQuestionsShuffled.removeFirst()
             
             return question
             
@@ -84,7 +140,7 @@ final class Game {
         if gameSession != nil {
             result.balance = gameSession!.balance
             let questions = Double(gameSession!.questions)
-            let answers = Double(gameSession!.answers)
+            let answers = Double(gameSession!.answers.value)
             result.percentage = answers/questions * 100
         }
         

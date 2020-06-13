@@ -9,7 +9,7 @@
 import UIKit
 
 protocol GameTVCDelegate: class {
-    func updateSession(totalQuestions: Int, rightAnswers: Int, totalBalance: Int)
+    func updateSession(totalBalance: Int)
 }
 
 class GameTVC: UITableViewController {
@@ -17,18 +17,21 @@ class GameTVC: UITableViewController {
     private var question: Question?
     
     private var indexPathArray: [IndexPath] = []
-    private var rightAnswerTrigger: Bool = false
     
     weak var delegate: GameTVCDelegate?
     
-    var totalQuestions: Int = 10
-    var rightAnswers: Int = 0
+    private var rightAnswerTrigger: Bool = false
     var balance: Int = 0
+    
+    var questionsStrategy: QuestionsStrategy = Game.shared.getStrategy()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        question = Game.shared.getQuestion()
+        Game.shared.gameSession?.questions = Game.shared.getTotalQuestionsCount()
+        
+        question = questionsStrategy.getQuestion()
         
         self.tableView.separatorStyle = .none
     }
@@ -80,6 +83,12 @@ class GameTVC: UITableViewController {
         case 6:
             let cell = tableView.dequeueReusableCell(withIdentifier: "FooterGameTVCCell", for: indexPath) as! FooterGameTVCCell
             
+            Game.shared.gameSession?.answers.addObserver(self, options:[.new, .initial], closure: { (answers, _) in
+                let progressTextLabel = "Answers: \(answers)   Progress: \(Game.shared.gameSession!.persentage.rounded())%"
+                cell.gameProgress.text = progressTextLabel
+            }
+            )
+            
             cell.costLabel.text = "Cost: \(question!.cost)"
             cell.balanceLabel.text = "Balance: \(balance)"
             
@@ -123,7 +132,8 @@ class GameTVC: UITableViewController {
             let answerCell = self.tableView.cellForRow(at: tapIndexPath) as! AnswerGameTVCCell
             
             if answerCell.rightAnswer {
-                rightAnswers += 1
+                
+                Game.shared.gameSession?.answers.value += 1
                 balance += question!.cost
                 
                 answerCell.answerLabel.textColor = .systemGreen
@@ -140,7 +150,7 @@ class GameTVC: UITableViewController {
     }
     
     @IBAction func nextQuestionButton(_ sender: Any) {
-        question = Game.shared.getQuestion()
+        question = questionsStrategy.getQuestion()
         
         if question != nil {
             rightAnswerTrigger = false
@@ -157,7 +167,7 @@ class GameTVC: UITableViewController {
     
     private func didEndGame() {
         Game.shared.prepareQuestions()
-        self.delegate?.updateSession(totalQuestions: totalQuestions, rightAnswers: rightAnswers, totalBalance: balance)
+        self.delegate?.updateSession(totalBalance: balance)
         self.dismiss(animated: true, completion: nil)
     }
 

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class Answer {
+class Answer: Encodable, Decodable {
     var answerText: String = ""
     var isRightAnswer: Bool = false
 }

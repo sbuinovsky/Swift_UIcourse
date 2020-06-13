@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C2351D9C248D6D3B006C43DB /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2351D9B248D6D3B006C43DB /* SettingsVC.swift */; };
+		C2351D9E248D6EE4006C43DB /* Difficulty.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2351D9D248D6EE4006C43DB /* Difficulty.swift */; };
+		C2351DA1248DE453006C43DB /* QuestionsStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2351DA0248DE453006C43DB /* QuestionsStrategy.swift */; };
+		C2351DA3248DE4BF006C43DB /* DirectQuestionsStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2351DA2248DE4BF006C43DB /* DirectQuestionsStrategy.swift */; };
+		C2351DA5248DE4D3006C43DB /* ShuffleQuestionsStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2351DA4248DE4D3006C43DB /* ShuffleQuestionsStrategy.swift */; };
+		C2351DA7248E3594006C43DB /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2351DA6248E3594006C43DB /* Observable.swift */; };
+		C2351DA9248E53BC006C43DB /* AddQuestionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2351DA8248E53BC006C43DB /* AddQuestionVC.swift */; };
+		C2351DAB248E6013006C43DB /* QuestionsCaretaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2351DAA248E6013006C43DB /* QuestionsCaretaker.swift */; };
 		C25C8C6624881A0000CFA75D /* GameTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C25C8C6524881A0000CFA75D /* GameTVC.swift */; };
 		C25C8C6824881A2A00CFA75D /* HeaderGameTVCCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C25C8C6724881A2A00CFA75D /* HeaderGameTVCCell.swift */; };
 		C25C8C6A24881A4F00CFA75D /* QuestionGameTVCCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C25C8C6924881A4F00CFA75D /* QuestionGameTVCCell.swift */; };
@@ -33,6 +41,14 @@
 		5C44684D5C7EA0666E0451C3 /* Pods-Millioner.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Millioner.release.xcconfig"; path = "Target Support Files/Pods-Millioner/Pods-Millioner.release.xcconfig"; sourceTree = "<group>"; };
 		6B3D1BDFDC2EED8892AEF27E /* Pods_Millioner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Millioner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9C0D50AE073D52DBC3ED3FD5 /* Pods-Millioner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Millioner.debug.xcconfig"; path = "Target Support Files/Pods-Millioner/Pods-Millioner.debug.xcconfig"; sourceTree = "<group>"; };
+		C2351D9B248D6D3B006C43DB /* SettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
+		C2351D9D248D6EE4006C43DB /* Difficulty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Difficulty.swift; sourceTree = "<group>"; };
+		C2351DA0248DE453006C43DB /* QuestionsStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionsStrategy.swift; sourceTree = "<group>"; };
+		C2351DA2248DE4BF006C43DB /* DirectQuestionsStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectQuestionsStrategy.swift; sourceTree = "<group>"; };
+		C2351DA4248DE4D3006C43DB /* ShuffleQuestionsStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShuffleQuestionsStrategy.swift; sourceTree = "<group>"; };
+		C2351DA6248E3594006C43DB /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
+		C2351DA8248E53BC006C43DB /* AddQuestionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddQuestionVC.swift; sourceTree = "<group>"; };
+		C2351DAA248E6013006C43DB /* QuestionsCaretaker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionsCaretaker.swift; sourceTree = "<group>"; };
 		C25C8C6524881A0000CFA75D /* GameTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameTVC.swift; sourceTree = "<group>"; };
 		C25C8C6724881A2A00CFA75D /* HeaderGameTVCCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderGameTVCCell.swift; sourceTree = "<group>"; };
 		C25C8C6924881A4F00CFA75D /* QuestionGameTVCCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionGameTVCCell.swift; sourceTree = "<group>"; };
@@ -76,10 +92,29 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		C2351D9A248D6BF2006C43DB /* Strategy */ = {
+			isa = PBXGroup;
+			children = (
+				C2351D9F248DE425006C43DB /* Questions */,
+			);
+			path = Strategy;
+			sourceTree = "<group>";
+		};
+		C2351D9F248DE425006C43DB /* Questions */ = {
+			isa = PBXGroup;
+			children = (
+				C2351DA0248DE453006C43DB /* QuestionsStrategy.swift */,
+				C2351DA2248DE4BF006C43DB /* DirectQuestionsStrategy.swift */,
+				C2351DA4248DE4D3006C43DB /* ShuffleQuestionsStrategy.swift */,
+			);
+			path = Questions;
+			sourceTree = "<group>";
+		};
 		C25C8C6F2488763B00CFA75D /* Service */ = {
 			isa = PBXGroup;
 			children = (
 				C25C8C702488765900CFA75D /* RealmService.swift */,
+				C2351DAA248E6013006C43DB /* QuestionsCaretaker.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -110,6 +145,7 @@
 				C2D5BE0924879EE5000D3BCF /* Cell */,
 				C2D5BE0A24879EEB000D3BCF /* Model */,
 				C2D5BE192487A87D000D3BCF /* Singletone */,
+				C2351D9A248D6BF2006C43DB /* Strategy */,
 				C25C8C6F2488763B00CFA75D /* Service */,
 				C2D5BDDA24863668000D3BCF /* AppDelegate.swift */,
 				C2D5BDDC24863668000D3BCF /* SceneDelegate.swift */,
@@ -124,8 +160,10 @@
 			isa = PBXGroup;
 			children = (
 				C2D5BDDE24863668000D3BCF /* StartVC.swift */,
-				C2D5BE0D2487A694000D3BCF /* ResultsTVC.swift */,
 				C25C8C6524881A0000CFA75D /* GameTVC.swift */,
+				C2D5BE0D2487A694000D3BCF /* ResultsTVC.swift */,
+				C2351D9B248D6D3B006C43DB /* SettingsVC.swift */,
+				C2351DA8248E53BC006C43DB /* AddQuestionVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -149,6 +187,8 @@
 				C2D5BE172487A873000D3BCF /* Question.swift */,
 				C2D5BE1C2487A942000D3BCF /* Answer.swift */,
 				C2D5BE202487B342000D3BCF /* Result.swift */,
+				C2351D9D248D6EE4006C43DB /* Difficulty.swift */,
+				C2351DA6248E3594006C43DB /* Observable.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -285,20 +325,28 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C2351DA7248E3594006C43DB /* Observable.swift in Sources */,
+				C2351D9C248D6D3B006C43DB /* SettingsVC.swift in Sources */,
 				C2D5BE212487B342000D3BCF /* Result.swift in Sources */,
 				C25C8C6A24881A4F00CFA75D /* QuestionGameTVCCell.swift in Sources */,
+				C2351DA1248DE453006C43DB /* QuestionsStrategy.swift in Sources */,
 				C2D5BDDF24863668000D3BCF /* StartVC.swift in Sources */,
+				C2351DA9248E53BC006C43DB /* AddQuestionVC.swift in Sources */,
 				C2D5BDDB24863668000D3BCF /* AppDelegate.swift in Sources */,
+				C2351DAB248E6013006C43DB /* QuestionsCaretaker.swift in Sources */,
 				C25C8C712488765900CFA75D /* RealmService.swift in Sources */,
 				C25C8C6624881A0000CFA75D /* GameTVC.swift in Sources */,
 				C25C8C6824881A2A00CFA75D /* HeaderGameTVCCell.swift in Sources */,
 				C2D5BE1D2487A942000D3BCF /* Answer.swift in Sources */,
+				C2351DA5248DE4D3006C43DB /* ShuffleQuestionsStrategy.swift in Sources */,
 				C25C8C6E24881A7A00CFA75D /* FooterGameTVCCell.swift in Sources */,
 				C2D5BE182487A873000D3BCF /* Question.swift in Sources */,
 				C2D5BDDD24863668000D3BCF /* SceneDelegate.swift in Sources */,
 				C2D5BE0E2487A694000D3BCF /* ResultsTVC.swift in Sources */,
 				C2D5BE162487A867000D3BCF /* GameSession.swift in Sources */,
+				C2351D9E248D6EE4006C43DB /* Difficulty.swift in Sources */,
 				C25C8C6C24881A6600CFA75D /* AnswerGameTVCCell.swift in Sources */,
+				C2351DA3248DE4BF006C43DB /* DirectQuestionsStrategy.swift in Sources */,
 				C25C8C7324887BC200CFA75D /* ResultsTVCCell.swift in Sources */,
 				C2D5BE142487A858000D3BCF /* Game.swift in Sources */,
 			);
