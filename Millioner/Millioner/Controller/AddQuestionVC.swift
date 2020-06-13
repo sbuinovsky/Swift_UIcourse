@@ -43,7 +43,7 @@ class AddQuestionVC: UIViewController {
         if !questionTextField.text!.isEmpty {
             question.questionText = questionTextField.text!
         } else {
-            alertText += "Question text is empty\n"
+            alertText += "Question text is empty!\n"
         }
         
         
@@ -59,7 +59,7 @@ class AddQuestionVC: UIViewController {
             question.answers.append(answer)
             
         } else {
-            alertText += "Answer 1 text is empty\n"
+            alertText += "Answer 1 text is empty!\n"
         }
         
         
@@ -75,7 +75,7 @@ class AddQuestionVC: UIViewController {
             question.answers.append(answer)
             
         } else {
-            alertText += "Answer 2 text is empty\n"
+            alertText += "Answer 2 text is empty!\n"
         }
         
         
@@ -91,7 +91,7 @@ class AddQuestionVC: UIViewController {
             question.answers.append(answer)
             
         } else {
-            alertText += "Answer 3 text is empty\n"
+            alertText += "Answer 3 text is empty!\n"
         }
         
         
@@ -107,7 +107,7 @@ class AddQuestionVC: UIViewController {
             question.answers.append(answer)
             
         } else {
-            alertText += "Answer 4 text is empty\n"
+            alertText += "Answer 4 text is empty!\n"
         }
         
         
