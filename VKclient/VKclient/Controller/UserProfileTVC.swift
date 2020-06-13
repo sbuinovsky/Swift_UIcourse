@@ -54,10 +54,10 @@ class UserProfileTVC: UITableViewController {
         switch user?.online {
         case 1:
             cell.userOnline.text = "Online"
-            cell.userOnline.textColor = .green
+            cell.userOnline.textColor = UIColor.vkGreen
         default:
             cell.userOnline.text = "Offline"
-            cell.userOnline.textColor = .red
+            cell.userOnline.textColor = UIColor.vkRed
         }
         
         
@@ -205,7 +205,7 @@ class UserProfileTVC: UITableViewController {
     func setupLabel(label: UILabel) {
        
         label.font = .systemFont(ofSize: 14)
-        label.textColor = .systemBlue
+        label.textColor = UIColor.vkBlue
         label.backgroundColor = UIColor(named: "main_background")
         
     }

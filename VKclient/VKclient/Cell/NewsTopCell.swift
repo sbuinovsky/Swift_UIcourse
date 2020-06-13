@@ -34,7 +34,7 @@ class NewsTopCell: UITableViewCell {
         maskLayer.path = path.cgPath
         
         sourceImage.layer.mask = maskLayer
-        
+        showMoreButton.setTitleColor(UIColor.vkBlue, for: .normal)
     }
     
     

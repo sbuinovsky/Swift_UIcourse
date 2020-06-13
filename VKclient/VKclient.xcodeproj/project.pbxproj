@@ -26,6 +26,7 @@
 		C240E34124692ECF00237003 /* School.swift in Sources */ = {isa = PBXBuildFile; fileRef = C240E34024692ECF00237003 /* School.swift */; };
 		C25A0F7523EC8CDE00CAD84B /* FriendsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C25A0F7423EC8CDE00CAD84B /* FriendsTVC.swift */; };
 		C25A0F7823EC8D3A00CAD84B /* GroupsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C25A0F7723EC8D3A00CAD84B /* GroupsTVC.swift */; };
+		C25B79322494D6340072577A /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C25B79312494D6340072577A /* UIColor.swift */; };
 		C260709F243BC2E500598082 /* StartVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C260709E243BC2E500598082 /* StartVC.swift */; };
 		C2654891241EAF6300D2681A /* LoginWVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2654890241EAF6300D2681A /* LoginWVC.swift */; };
 		C270648E2418DDEC00A17245 /* SessionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C270648D2418DDEC00A17245 /* SessionData.swift */; };
@@ -81,6 +82,7 @@
 		C240E34024692ECF00237003 /* School.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = School.swift; sourceTree = "<group>"; };
 		C25A0F7423EC8CDE00CAD84B /* FriendsTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsTVC.swift; sourceTree = "<group>"; };
 		C25A0F7723EC8D3A00CAD84B /* GroupsTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsTVC.swift; sourceTree = "<group>"; };
+		C25B79312494D6340072577A /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		C260709E243BC2E500598082 /* StartVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartVC.swift; sourceTree = "<group>"; };
 		C2654890241EAF6300D2681A /* LoginWVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginWVC.swift; sourceTree = "<group>"; };
 		C270648D2418DDEC00A17245 /* SessionData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionData.swift; sourceTree = "<group>"; };
@@ -157,6 +159,7 @@
 		C2119BC923E0081500EC528E /* VKclient */ = {
 			isa = PBXGroup;
 			children = (
+				C25B79302494D60F0072577A /* Extension */,
 				C2119BCA23E0081500EC528E /* AppDelegate.swift */,
 				C2119BCC23E0081500EC528E /* SceneDelegate.swift */,
 				C25A0F7323EC8C4000CAD84B /* Storyboards */,
@@ -196,6 +199,14 @@
 				C22E087824006ECE00354324 /* CustomCellHeader.xib */,
 			);
 			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		C25B79302494D60F0072577A /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				C25B79312494D6340072577A /* UIColor.swift */,
+			);
+			path = Extension;
 			sourceTree = "<group>";
 		};
 		C270648C2418DD5700A17245 /* Singletones */ = {
@@ -444,6 +455,7 @@
 				C297A61D24698331004592E5 /* Education.swift in Sources */,
 				C22B0FE124536CD2002C0795 /* NewsSource.swift in Sources */,
 				C2654891241EAF6300D2681A /* LoginWVC.swift in Sources */,
+				C25B79322494D6340072577A /* UIColor.swift in Sources */,
 				C28FE6AA24751D68002CBE06 /* NewsTopCell.swift in Sources */,
 				C2BEBC7D240928B20073C498 /* LoaderCloudView.swift in Sources */,
 				C2DCDEAC240C3D5900DF7780 /* CustomPopPushTransitioning.swift in Sources */,
