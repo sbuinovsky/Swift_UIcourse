@@ -11,8 +11,10 @@ import RealmSwift
 import Alamofire
 
 
-
 class GroupsTVC: UITableViewController {
+    
+    private let viewModelFactory = GroupsViewModelFactory()
+    private var viewModels: [GroupViewModel] = []
     
     private let dataService: DataServiceProtocol = DataService()
     private let realmService: RealmServiceProtocol = RealmService()
@@ -22,7 +24,7 @@ class GroupsTVC: UITableViewController {
     
     private var tokens: [NotificationToken] = []
     
-    private var groups: [Results<Group>] = []
+    private var groups: [Group] = []
 
 
     private let requestUrl = "https://api.vk.com/method/groups.get"
@@ -34,67 +36,17 @@ class GroupsTVC: UITableViewController {
     
     private let opq = OperationQueue()
     
-    func prepareGroups() {
-        
-        do {
-            tokens.removeAll()
-            let realm = try Realm()
-            realm.refresh()
-            let groupsAlphabet = Array( Set( realm.objects(Group.self).compactMap{ $0.name.first?.uppercased() } ) ).sorted()
-            groups = groupsAlphabet.map { realm.objects(Group.self).filter("name BEGINSWITH[c] %@", $0) }
-            groups.enumerated().forEach{ observeChanges(section: $0.offset, results: $0.element) }
-            tableView.reloadData()
-            
-        } catch {
-            print(error.localizedDescription)
-        }
-    }
-    
-    
-    func observeChanges(section: Int, results: Results<Group>) {
-        tokens.append(
-            results.observe { (changes) in
-                switch changes {
-                case .initial:
-                    self.tableView.reloadSections(IndexSet(integer: section), with: .automatic)
-                    
-                case .update(_, let deletions, let insertions, let modifications):
-                    self.tableView.beginUpdates()
-                    self.tableView.deleteRows(at: deletions.map{ IndexPath(row: $0, section: section) }, with: .automatic)
-                    self.tableView.insertRows(at: insertions.map{ IndexPath(row: $0, section: section) }, with: .automatic)
-                    self.tableView.reloadRows(at: modifications.map{ IndexPath(row: $0, section: section) }, with: .automatic)
-                    self.tableView.endUpdates()
-
-                
-                case .error(let error):
-                    print(error.localizedDescription)
-                
-                }
-            }
-        )
-    }
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         refreshControl = UIRefreshControl()
         refreshControl?.addTarget(self, action: #selector(updateGroups), for: .valueChanged)
         
-        opq.qualityOfService = .userInteractive
-        
-        let request = Alamofire.request(requestUrl, parameters: parameters)
-        
-        let getDataOperation = GetDataOperation(request: request)
-        opq.addOperation(getDataOperation)
-        
-        let parseGroups = ParseGroupsOperation()
-        parseGroups.addDependency(getDataOperation)
-        opq.addOperation(parseGroups)
-        
-        parseGroups.completionBlock = {
-            OperationQueue.main.addOperation {
-                self.prepareGroups()
+        dataService.loadGroups {
+            self.groups = self.realmService.getGroups()
+            self.viewModels = self.viewModelFactory.constructGroupsViewModel(groups: self.groups)
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
             }
         }
         
@@ -104,23 +56,12 @@ class GroupsTVC: UITableViewController {
 
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return groups.count
-    }
-
-    
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return groups[section].first?.name.first?.uppercased()
+        return 1
     }
     
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return groups[section].count
-    }
-    
-    
-    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        // настраиваем отображение кастомного title для header ячеек
-        return tableView.dequeueReusableHeaderFooterView(withIdentifier: "cellHeaderView")
+        return viewModels.count
     }
     
     
@@ -129,41 +70,22 @@ class GroupsTVC: UITableViewController {
             preconditionFailure("Can't create GroupCell")
         }
         
-        let group = groups[indexPath.section][indexPath.row]
-        let imageURL = group.avatar
+        let viewModel = viewModels[indexPath.row]
         
-        cell.favoriteGroupNameLabel.text = group.name
-        cell.favoriteGroupAvatarImage.image = imageCache.image(indexPath: indexPath, url: imageURL)
+        cell.favoriteGroupNameLabel.text = viewModel.name
+        cell.favoriteGroupAvatarImage.image = viewModel.avatar
         
         
         return cell
     }
     
     
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        
-        let group = groups[indexPath.section][indexPath.row]
-        
-        // долбавление возможности удаления ячейки
-        
-        if editingStyle == .delete {
-            
-            do {
-                try realmService.deleteObject(object: group)
-            } catch {
-                print(error.localizedDescription)
-            }
-            
-            prepareGroups()
-        }
-    }
-    
     @objc func updateGroups() {
         
-        dataService.loadGroups() {
+        dataService.loadGroups {
+            self.groups = self.realmService.getGroups()
+            self.viewModels = self.viewModelFactory.constructGroupsViewModel(groups: self.groups)
             DispatchQueue.main.async {
-                self.tableView.reloadData()
-                self.prepareGroups()
                 self.refreshControl?.endRefreshing()
             }
             
