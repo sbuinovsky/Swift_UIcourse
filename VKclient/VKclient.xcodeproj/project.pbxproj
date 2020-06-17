@@ -55,6 +55,9 @@
 		C2DCDEAA240C3BB400DF7780 /* CustomFriendsNC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2DCDEA9240C3BB400DF7780 /* CustomFriendsNC.swift */; };
 		C2DCDEAC240C3D5900DF7780 /* CustomPopPushTransitioning.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2DCDEAB240C3D5900DF7780 /* CustomPopPushTransitioning.swift */; };
 		C2E61EC9242E85710091947F /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2E61EC8242E85710091947F /* WebKit.framework */; };
+		C2EAD5FD2495F705004A46E7 /* UIcolor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2EAD5FC2495F705004A46E7 /* UIcolor.swift */; };
+		C2EAD6002495F9B9004A46E7 /* GroupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2EAD5FF2495F9B9004A46E7 /* GroupViewModel.swift */; };
+		C2EAD6022495F9D3004A46E7 /* GroupsViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2EAD6012495F9D3004A46E7 /* GroupsViewModelFactory.swift */; };
 		C2EE21FB24052C3600F9979D /* LoaderCirclesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2EE21FA24052C3600F9979D /* LoaderCirclesView.swift */; };
 /* End PBXBuildFile section */
 
@@ -110,6 +113,9 @@
 		C2DCDEA9240C3BB400DF7780 /* CustomFriendsNC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFriendsNC.swift; sourceTree = "<group>"; };
 		C2DCDEAB240C3D5900DF7780 /* CustomPopPushTransitioning.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPopPushTransitioning.swift; sourceTree = "<group>"; };
 		C2E61EC8242E85710091947F /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		C2EAD5FC2495F705004A46E7 /* UIcolor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIcolor.swift; sourceTree = "<group>"; };
+		C2EAD5FF2495F9B9004A46E7 /* GroupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupViewModel.swift; sourceTree = "<group>"; };
+		C2EAD6012495F9D3004A46E7 /* GroupsViewModelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsViewModelFactory.swift; sourceTree = "<group>"; };
 		C2EE21FA24052C3600F9979D /* LoaderCirclesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoaderCirclesView.swift; sourceTree = "<group>"; };
 		CC15456E852C80DD81540537 /* Pods_VKclient.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VKclient.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -166,6 +172,8 @@
 				C28A2C63245811CE0091906E /* Service */,
 				C28A2C64245812CE0091906E /* Operation */,
 				C270648C2418DD5700A17245 /* Singletones */,
+				C2EAD5FE2495F982004A46E7 /* Factory */,
+				C2EAD5FB2495F680004A46E7 /* Extension */,
 				C2119BD323E0081500EC528E /* Assets.xcassets */,
 				C289728D243BB27400476E40 /* GoogleService-Info.plist */,
 				C2119BD823E0081500EC528E /* Info.plist */,
@@ -271,6 +279,23 @@
 				C2DCDEAB240C3D5900DF7780 /* CustomPopPushTransitioning.swift */,
 			);
 			path = Custom;
+			sourceTree = "<group>";
+		};
+		C2EAD5FB2495F680004A46E7 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				C2EAD5FC2495F705004A46E7 /* UIcolor.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		C2EAD5FE2495F982004A46E7 /* Factory */ = {
+			isa = PBXGroup;
+			children = (
+				C2EAD5FF2495F9B9004A46E7 /* GroupViewModel.swift */,
+				C2EAD6012495F9D3004A46E7 /* GroupsViewModelFactory.swift */,
+			);
+			path = Factory;
 			sourceTree = "<group>";
 		};
 		E309D5EF3B1092DBACC84A27 /* Pods */ = {
@@ -432,9 +457,11 @@
 				C230B0AA23F6943A0041FD0A /* Like.swift in Sources */,
 				C27E183A246EB56900049469 /* ImageCache.swift in Sources */,
 				C25A0F7823EC8D3A00CAD84B /* GroupsTVC.swift in Sources */,
+				C2EAD6002495F9B9004A46E7 /* GroupViewModel.swift in Sources */,
 				C2B5D6B224668D3900C91788 /* UserProfileTVC.swift in Sources */,
 				C260709F243BC2E500598082 /* StartVC.swift in Sources */,
 				C216A57B2407E11A00679FC5 /* ImageShadow.swift in Sources */,
+				C2EAD6022495F9D3004A46E7 /* GroupsViewModelFactory.swift in Sources */,
 				C2B5D6B424668E5600C91788 /* UserProfileCell.swift in Sources */,
 				C2CD5EA7242A0BB900CB2285 /* RealmService.swift in Sources */,
 				C28B0B8D243C6F7300DDD8BD /* FirebaseService.swift in Sources */,
@@ -455,6 +482,7 @@
 				C25A0F7523EC8CDE00CAD84B /* FriendsTVC.swift in Sources */,
 				C2BB8CB72436691F0058C62D /* News.swift in Sources */,
 				C28A2C6A245818690091906E /* ParseGroupsOperation.swift in Sources */,
+				C2EAD5FD2495F705004A46E7 /* UIcolor.swift in Sources */,
 				C270648E2418DDEC00A17245 /* SessionData.swift in Sources */,
 				C23D9C4D246BED2C00991707 /* UserProfileEducationCell.swift in Sources */,
 				C240E33F24692EBB00237003 /* University.swift in Sources */,

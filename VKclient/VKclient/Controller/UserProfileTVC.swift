@@ -54,10 +54,10 @@ class UserProfileTVC: UITableViewController {
         switch user?.online {
         case 1:
             cell.userOnline.text = "Online"
-            cell.userOnline.textColor = .green
+            cell.userOnline.textColor = UIColor.vkGreen
         default:
             cell.userOnline.text = "Offline"
-            cell.userOnline.textColor = .red
+            cell.userOnline.textColor = UIColor.vkRed
         }
         
         
